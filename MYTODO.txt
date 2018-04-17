@@ -1,2 +1,5 @@
 ######### 项目的TODO列表 #########
 1. 可以使用的前端模板 ： http://www.cssmoban.com/cssthemes/7039.shtml
+2. 登录页面参考样式： https://colorlib.com/wp/html5-and-css3-login-forms/
+3. 搜索框参考样式：https://colorlib.com/wp/free-css3-html5-search-form-examples/
+4. 搜索框参考样式二：https://webdesign.tutsplus.com/tutorials/css-experiments-with-a-search-form-input-and-button--cms-22069
