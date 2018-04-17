@@ -36,7 +36,7 @@
     <div class="container">
         <div class="row align-items-center justify-content-between d-flex">
             <div id="logo">
-                <a href="#home"><img src="/static/img/logo.png" alt="logo" title="logo"/></a>
+                <a><img src="/static/img/logo.png" alt="logo" title="logo"/></a>
             </div>
             <nav id="nav-menu-container">
                 <ul class="nav-menu">
@@ -67,8 +67,10 @@
     <div class="container">
         <div class="row fullscreen d-flex align-items-center justify-content-center">
             <div class="banner-content col-lg-8 col-md-12">
-                <h2 class="text-white text-uppercase">厦门大学</h2><br/>
+                <h2 class="text-white text-uppercase">厦门大学</h2><br/><br/>
                 {% include "searchbox.html" %}
+                <br/><br/><br/><br/><br/><br/><br/>
+
 
                 <!--
                 <h4 class="text-white text-uppercase">Discover the Colorful World</h4>
@@ -679,7 +681,11 @@
 
 <script>
     /* JS 代码 */
-
+    $(function () {
+          $("#logo").click(function () {
+               document.getElementById("home").scrollIntoView({behavior:"smooth"});
+          });
+      });
 </script>
 
 </body>

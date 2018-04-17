@@ -1,5 +1,7 @@
-######### 项目的TODO列表 #########
+######### 一些有用的小工具及资源 #########
 1. 可以使用的前端模板 ： http://www.cssmoban.com/cssthemes/7039.shtml
 2. 登录页面参考样式： https://colorlib.com/wp/html5-and-css3-login-forms/
 3. 搜索框参考样式：https://colorlib.com/wp/free-css3-html5-search-form-examples/
 4. 搜索框参考样式二：https://webdesign.tutsplus.com/tutorials/css-experiments-with-a-search-form-input-and-button--cms-22069
+5. 时间轴展示参看样式：http://freefrontend.com/css-timelines/
+6. 各种参考模板集合：https://colorlib.com/wp/
