@@ -5,3 +5,6 @@
 4. 搜索框参考样式二：https://webdesign.tutsplus.com/tutorials/css-experiments-with-a-search-form-input-and-button--cms-22069
 5. 时间轴展示参看样式：http://freefrontend.com/css-timelines/
 6. 各种参考模板集合：https://colorlib.com/wp/
+7. admin模板参考一：https://colorlib.com/polygon/adminator/index.html
+8. admin模板参考二：https://colorlib.com/polygon/elaadmin/email-compose.html
+9. admin模板参考三：https://colorlib.com/wp/free-admin-templates/
