@@ -84,7 +84,7 @@ a {
     font: bold 15px/40px 'lucida sans', 'trebuchet MS', 'Tahoma';
     color: #fff;
     text-transform: uppercase;
-    background: #d83c3c;
+    background: #0077BE ;
     -moz-border-radius: 0 3px 3px 0;
     -webkit-border-radius: 0 3px 3px 0;
     border-radius: 0 3px 3px 0;
@@ -92,12 +92,12 @@ a {
 }
 
 .form-wrapper button:hover {
-    background: #e54040;
+    background: #2286be;
 }
 
 .form-wrapper button:active,
 .form-wrapper button:focus {
-    background: #c42f2f;
+    background: #2286be;
 }
 
 .form-wrapper button:before {
@@ -105,17 +105,17 @@ a {
     position: absolute;
     border-width: 8px 8px 8px 0;
     border-style: solid solid solid none;
-    border-color: transparent #d83c3c transparent;
+    border-color: transparent #0077BE  transparent;
     top: 12px;
     left: -6px;
 }
 
 .form-wrapper button:hover:before {
-    border-right-color: #e54040;
+    border-right-color: #2286be;
 }
 
 .form-wrapper button:focus:before {
-    border-right-color: #c42f2f;
+    border-right-color: #2286be;
 }
 
 .form-wrapper button::-moz-focus-inner {
@@ -131,6 +131,6 @@ a {
 }
 
 .byline p a {
-    color: #d83c3c;
+    color: #0077BE;
     text-decoration: none;
 }

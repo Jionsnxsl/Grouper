@@ -21,7 +21,7 @@ section {
 /*}*/
 
 /*header {*/
-  /*background: #3F51B5;*/
+  /*background: #0077BE;*/
   /*color: #FFFFFF;*/
   /*padding: 150px 0;*/
 /*}*/
@@ -98,7 +98,7 @@ section {
 .timeline-img {
   width: 30px;
   height: 30px;
-  background: #3F51B5;
+  background: #0077BE;
   border-radius: 50%;
   position: absolute;
   left: 50%;
@@ -107,7 +107,7 @@ section {
 }
 
 a {
-  background: #3F51B5;
+  background: #0077BE;
   color: #FFFFFF;
   padding: 8px 20px;
   text-transform: uppercase;
@@ -174,12 +174,12 @@ a:hover, a:active, a:focus {
 blockquote {
   margin-top: 30px;
   color: #757575;
-  border-left-color: #3F51B5;
+  border-left-color: #0077BE;
   padding: 0 20px;
 }
 
 .date {
-  background: #FF4081;
+  background: #2a63be;
   display: inline-block;
   color: #FFFFFF;
   padding: 10px;
