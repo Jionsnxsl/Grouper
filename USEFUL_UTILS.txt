@@ -8,3 +8,16 @@
 7. admin模板参考一：https://colorlib.com/polygon/adminator/index.html
 8. admin模板参考二：https://colorlib.com/polygon/elaadmin/email-compose.html
 9. admin模板参考三：https://colorlib.com/wp/free-admin-templates/
+
+
+##### 后台风格设计 ######
+风格一：https://my.chsi.com.cn/archive/index.action
+风格二：https://colorlib.com/polygon/elaadmin/table-bootstrap.html
+风格三：https://colorlib.com/polygon/adminator/index.html
+风格四：https://medialoot.com/preview/lumino/index.html
+风格五：https://wrappixel.com/templates/ample-admin-lite/?ref=23
+风格六：https://wrappixel.com/demos/free-admin-templates/monster-admin-lite/html/index.html
+风格二三四下载地址：https://colorlib.com/wp/free-admin-templates/
+其他可选风格：https://colorlib.com/wp/free-bootstrap-admin-dashboard-templates/
+##### 后台风格设计(END) ######
+

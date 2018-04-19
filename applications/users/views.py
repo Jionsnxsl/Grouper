@@ -1,5 +1,6 @@
-from django.shortcuts import render, HttpResponse
+from django.shortcuts import render, HttpResponse, redirect
 from django.views import View
+from django.urls import reverse
 
 # Create your views here.
 
@@ -10,7 +11,7 @@ class LoginView(View):
         return render(request, "users/login.html")
 
     def post(self, request):
-        return HttpResponse("in login post method")
+        return redirect(reverse("fishes:admin_view"))
 
 
 class FindPasswordView(View):

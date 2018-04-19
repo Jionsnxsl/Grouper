@@ -12,3 +12,6 @@ def search_view(request):
     print(fish_batch)
     result = {"fish_batch": fish_batch}
     return render(request, "search_result.html", result)
+
+def adminView(request):
+    return render(request, "fishes/mian_page.html")
