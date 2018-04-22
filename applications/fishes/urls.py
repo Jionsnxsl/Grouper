@@ -15,4 +15,6 @@ urlpatterns = [
     url(r'^admin/thirdtestreport/$', views.thirdPartTestReportView, name="thirdtestreport"),
     url(r'^admin/feedbacknotreply/$', views.feedbackNOTReplyView, name="feedbacknotreply"),
     url(r'^admin/feedbackreply/$', views.feedbackReplyView, name="feedbackreply"),
+    url(r'^admin/syssethomepage/$', views.sysSetForHomepageView, name="syssethomepage"),
+    url(r'^admin/syssetsearchresult/$', views.sysSetForSearchResultView, name="syssetsearchresult"),
 ]

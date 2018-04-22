@@ -58,8 +58,20 @@ def thirdPartTestReportView(request):
     return render(request, "fishes/third_part_test_report.html")
 
 def feedbackNOTReplyView(request):
+    '''未回复反馈'''
     return render(request, "fishes/feedback_not_reply.html")
 
 
 def feedbackReplyView(request):
+    '''已回复反馈'''
     return render(request, "fishes/feedback_reply.html")
+
+
+def sysSetForHomepageView(request):
+    '''网站首页内容设置'''
+    return render(request, "fishes/sysset_for_homepage.html")
+
+
+def sysSetForSearchResultView(request):
+    '''网站首页内容设置'''
+    return render(request, "fishes/sysset_for_serach_result.html")

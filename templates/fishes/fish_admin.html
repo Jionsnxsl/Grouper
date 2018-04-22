@@ -345,13 +345,13 @@
                         <!-- 反馈管理(END) -->
 
                         <!-- 系统设置(START) -->
-                        <li> <a class="has-arrow  " href="#" aria-expanded="false">
+                        <li> <a class="has-arrow" href="javascript:void(0)" aria-expanded="false">
                             <i class="fa fa-columns"></i>
                             <span class="hide-menu">系统设置</span>
                         </a>
                             <ul aria-expanded="false" class="collapse">
-                                <li><a href="layout-blank.html">主页内容设置</a></li>
-                                <li><a href="layout-boxed.html">搜索结果内容设置</a></li>
+                                <li><a data-pjax href="{% url 'fishes:syssethomepage' %}">主页内容设置</a></li>
+                                <li><a data-pjax href="{% url 'fishes:syssetsearchresult' %}">搜索结果内容设置</a></li>
                             </ul>
                         </li>
                         <!-- 系统设置(END) -->
