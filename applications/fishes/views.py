@@ -42,3 +42,7 @@ def fishPoolInfoView(request):
 
 def addFishPoolView(request):
     return render(request, "fishes/add_fish_pool.html")
+
+
+def generateERCodeView(request):
+    return render(request, "fishes/generate_ERcode.html")
