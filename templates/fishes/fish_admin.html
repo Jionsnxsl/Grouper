@@ -128,7 +128,7 @@
                                 <input type="text" class="form-control" placeholder="搜索"> <a class="srh-btn"><i class="ti-close"></i></a> </form>
                         </li>
 
-                        <!-- Comment -->
+                        <!-- Comment(小铃铛图标相关) -->
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle text-muted text-muted  " href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="fa fa-bell"></i>
 								<div class="notify"> <span class="heartbit"></span> <span class="point"></span> </div>
@@ -136,7 +136,7 @@
                             <div class="dropdown-menu dropdown-menu-right mailbox animated zoomIn">
                                 <ul>
                                     <li>
-                                        <div class="drop-title">Notifications</div>
+                                        <div class="drop-title">提醒</div>
                                     </li>
                                     <li>
                                         <div class="message-center">
@@ -144,34 +144,34 @@
                                             <a href="#">
                                                 <div class="btn btn-danger btn-circle m-r-10"><i class="fa fa-link"></i></div>
                                                 <div class="mail-contnet">
-                                                    <h5>This is title</h5> <span class="mail-desc">Just see the my new admin!</span> <span class="time">9:30 AM</span>
+                                                    <h5>反馈提醒</h5> <span class="mail-desc">系统很好用！</span> <span class="time">9:30 AM</span>
                                                 </div>
                                             </a>
                                             <!-- Message -->
                                             <a href="#">
                                                 <div class="btn btn-success btn-circle m-r-10"><i class="ti-calendar"></i></div>
                                                 <div class="mail-contnet">
-                                                    <h5>This is another title</h5> <span class="mail-desc">Just a reminder that you have event</span> <span class="time">9:10 AM</span>
+                                                    <h5>反馈提醒</h5> <span class="mail-desc">Just a reminder that you have event</span> <span class="time">9:10 AM</span>
                                                 </div>
                                             </a>
                                             <!-- Message -->
                                             <a href="#">
                                                 <div class="btn btn-info btn-circle m-r-10"><i class="ti-settings"></i></div>
                                                 <div class="mail-contnet">
-                                                    <h5>This is title</h5> <span class="mail-desc">You can customize this template as you want</span> <span class="time">9:08 AM</span>
+                                                    <h5>生产提醒</h5> <span class="mail-desc">有需要生成二维码的产品</span> <span class="time">9:08 AM</span>
                                                 </div>
                                             </a>
                                             <!-- Message -->
                                             <a href="#">
                                                 <div class="btn btn-primary btn-circle m-r-10"><i class="ti-user"></i></div>
                                                 <div class="mail-contnet">
-                                                    <h5>This is another title</h5> <span class="mail-desc">Just see the my admin!</span> <span class="time">9:02 AM</span>
+                                                    <h5>生产提醒</h5> <span class="mail-desc">Just see the my admin!</span> <span class="time">9:02 AM</span>
                                                 </div>
                                             </a>
                                         </div>
                                     </li>
                                     <li>
-                                        <a class="nav-link text-center" href="javascript:void(0);"> <strong>Check all notifications</strong> <i class="fa fa-angle-right"></i> </a>
+                                        <a class="nav-link text-center" href="javascript:void(0);"> <strong>查看所有提醒</strong> <i class="fa fa-angle-right"></i> </a>
                                     </li>
                                 </ul>
                             </div>
@@ -268,7 +268,7 @@
                         <li class="nav-label">Home</li>
                         -->
                         <li>
-                            <a class="has-arrow  " href="#" aria-expanded="false">
+                            <a class="has-arrow" href="{% url 'fishes:homepage' %}" aria-expanded="false">
                                 <i class="fa fa-tachometer"></i>
                                 <span class="hide-menu">查看网站主页
                                     <!--
@@ -289,10 +289,11 @@
                         <!--
                         <li class="nav-label">Apps</li>
                         -->
-                        <li> <a class="has-arrow  " href="#" aria-expanded="false">
-                            <i class="fa fa-envelope"></i>
-                            <span class="hide-menu">查看产品信息</span>
-                        </a>
+                        <li>
+                            <a data-pjax class="has-arrow" href="{% url 'fishes:productinfo' %}" aria-expanded="false">
+                                <i class="fa fa-envelope"></i>
+                                <span class="hide-menu">查看产品信息</span>
+                            </a>
                             <!--
                             <ul aria-expanded="false" class="collapse">
                                 <li><a href="email-compose.html">Compose</a></li>
@@ -488,7 +489,8 @@
 
 
         <!-- Page wrapper  -->
-        <div class="page-wrapper">
+        {% block rightside-page-content %}
+        <div class="page-wrapper" id="rightside-page-wrapper">
             <!-- Bread crumb(右侧最上面的标题栏) -->
             <div class="row page-titles">
                 <div class="col-md-5 align-self-center">
@@ -505,70 +507,13 @@
             <!-- Container fluid  -->
             <div class="container-fluid">
                 <!-- Start Page Content -->
-                <!--
-                <div class="row">
-                    <div class="col-md-3">
-                        <div class="card p-30">
-                            <div class="media">
-                                <div class="media-left meida media-middle">
-                                    <span><i class="fa fa-usd f-s-40 color-primary"></i></span>
-                                </div>
-                                <div class="media-body media-text-right">
-                                    <h2>568120</h2>
-                                    <p class="m-b-0">Total Revenue</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="card p-30">
-                            <div class="media">
-                                <div class="media-left meida media-middle">
-                                    <span><i class="fa fa-shopping-cart f-s-40 color-success"></i></span>
-                                </div>
-                                <div class="media-body media-text-right">
-                                    <h2>1178</h2>
-                                    <p class="m-b-0">Sales</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="card p-30">
-                            <div class="media">
-                                <div class="media-left meida media-middle">
-                                    <span><i class="fa fa-archive f-s-40 color-warning"></i></span>
-                                </div>
-                                <div class="media-body media-text-right">
-                                    <h2>25</h2>
-                                    <p class="m-b-0">Stores</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="card p-30">
-                            <div class="media">
-                                <div class="media-left meida media-middle">
-                                    <span><i class="fa fa-user f-s-40 color-danger"></i></span>
-                                </div>
-                                <div class="media-body media-text-right">
-                                    <h2>847</h2>
-                                    <p class="m-b-0">Customer</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                -->
-
                 <div class="row bg-white m-l-0 m-r-0 box-shadow ">
 
                     <!-- column -->
                     <div class="col-lg-8">
                         <div class="card">
                             <div class="card-body">
-                                <h4 class="card-title">石斑鱼生成情况</h4>
+                                <h4 class="card-title">石斑鱼生产情况</h4>
                                 <div id="extra-area-chart"></div>
                             </div>
                         </div>
@@ -608,282 +553,6 @@
                     </div>
                     <!-- column -->
                 </div>
-
-                <!--
-                <div class="row">
-					<div class="col-lg-3">
-                        <div class="card bg-dark">
-                            <div class="testimonial-widget-one p-17">
-                                <div class="testimonial-widget-one owl-carousel owl-theme">
-                                    <div class="item">
-                                        <div class="testimonial-content">
-                                            <img class="testimonial-author-img" src="/static/polladmin/images/avatar/2.jpg" alt="" />
-                                            <div class="testimonial-author">John</div>
-                                            <div class="testimonial-author-position">Founder-Ceo. Dell Corp</div>
-
-                                            <div class="testimonial-text">
-                                                <i class="fa fa-quote-left"></i>  Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation .
-                                                <i class="fa fa-quote-right"></i>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="item">
-                                        <div class="testimonial-content">
-                                            <img class="testimonial-author-img" src="/static/polladmin/images/avatar/3.jpg" alt="" />
-                                            <div class="testimonial-author">Abraham</div>
-                                            <div class="testimonial-author-position">Founder-Ceo. Dell Corp</div>
-
-                                            <div class="testimonial-text">
-                                                <i class="fa fa-quote-left"></i>  Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation .
-                                                <i class="fa fa-quote-right"></i>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="item">
-                                        <div class="testimonial-content">
-                                            <img class="testimonial-author-img" src="/static/polladmin/images/avatar/1.jpg" alt="" />
-                                            <div class="testimonial-author">Lincoln</div>
-                                            <div class="testimonial-author-position">Founder-Ceo. Dell Corp</div>
-
-                                            <div class="testimonial-text">
-                                                <i class="fa fa-quote-left"></i>  Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation .
-                                                <i class="fa fa-quote-right"></i>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="item">
-                                        <div class="testimonial-content">
-                                            <img class="testimonial-author-img" src="/static/polladmin/images/avatar/4.jpg" alt="" />
-                                            <div class="testimonial-author">TYRION LANNISTER</div>
-                                            <div class="testimonial-author-position">Founder-Ceo. Dell Corp</div>
-
-                                           <div class="testimonial-text">
-                                                <i class="fa fa-quote-left"></i>  Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation .
-                                                <i class="fa fa-quote-right"></i>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="item">
-                                        <div class="testimonial-content">
-                                            <img class="testimonial-author-img" src="/static/polladmin/images/avatar/5.jpg" alt="" />
-                                            <div class="testimonial-author">TYRION LANNISTER</div>
-                                            <div class="testimonial-author-position">Founder-Ceo. Dell Corp</div>
-
-                                            <div class="testimonial-text">
-                                                <i class="fa fa-quote-left"></i>  Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation .
-                                                <i class="fa fa-quote-right"></i>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="item">
-                                        <div class="testimonial-content">
-                                            <img class="testimonial-author-img" src="/static/polladmin/images/avatar/6.jpg" alt="" />
-                                            <div class="testimonial-author">TYRION LANNISTER</div>
-                                            <div class="testimonial-author-position">Founder-Ceo. Dell Corp</div>
-
-                                            <div class="testimonial-text">
-                                                <i class="fa fa-quote-left"></i>  Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation .
-                                                <i class="fa fa-quote-right"></i>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-9">
-                        <div class="card">
-                            <div class="card-title">
-                                <h4>Recent Orders </h4>
-                            </div>
-                            <div class="card-body">
-                                <div class="table-responsive">
-                                    <table class="table">
-                                        <thead>
-                                            <tr>
-                                                <th>#</th>
-                                                <th>Name</th>
-                                                <th>Product</th>
-                                                <th>quantity</th>
-                                                <th>Status</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-
-                                            <tr>
-                                                <td>
-                                                    <div class="round-img">
-                                                        <a href=""><img src="/static/polladmin/images/avatar/4.jpg" alt=""></a>
-                                                    </div>
-                                                </td>
-                                                <td>John Abraham</td>
-                                                <td><span>iBook</span></td>
-                                                <td><span>456 pcs</span></td>
-                                                <td><span class="badge badge-success">Done</span></td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <div class="round-img">
-                                                        <a href=""><img src="/static/polladmin/images/avatar/2.jpg" alt=""></a>
-                                                    </div>
-                                                </td>
-                                                <td>John Abraham</td>
-                                                <td><span>iPhone</span></td>
-                                                <td><span>456 pcs</span></td>
-                                                <td><span class="badge badge-success">Done</span></td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <div class="round-img">
-                                                        <a href=""><img src="/static/polladmin/images/avatar/3.jpg" alt=""></a>
-                                                    </div>
-                                                </td>
-                                                <td>John Abraham</td>
-                                                <td><span>iMac</span></td>
-                                                <td><span>456 pcs</span></td>
-                                                <td><span class="badge badge-warning">Pending</span></td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <div class="round-img">
-                                                        <a href=""><img src="/static/polladmin/images/avatar/4.jpg" alt=""></a>
-                                                    </div>
-                                                </td>
-                                                <td>John Abraham</td>
-                                                <td><span>iBook</span></td>
-                                                <td><span>456 pcs</span></td>
-                                                <td><span class="badge badge-success">Done</span></td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                -->
-                <!--
-                <div class="row">
-					<div class="col-lg-8">
-						<div class="row">
-						<div class="col-lg-6">
-							<div class="card">
-								<div class="card-title">
-									<h4>Message </h4>
-								</div>
-								<div class="recent-comment">
-									<div class="media">
-										<div class="media-left">
-											<a href="#"><img alt="..." src="/static/polladmin/images/avatar/1.jpg" class="media-object"></a>
-										</div>
-										<div class="media-body">
-											<h4 class="media-heading">john doe</h4>
-											<p>Cras sit amet nibh libero, in gravida nulla. </p>
-											<p class="comment-date">October 21, 2018</p>
-										</div>
-									</div>
-									<div class="media">
-										<div class="media-left">
-											<a href="#"><img alt="..." src="/static/polladmin/images/avatar/1.jpg" class="media-object"></a>
-										</div>
-										<div class="media-body">
-											<h4 class="media-heading">john doe</h4>
-											<p>Cras sit amet nibh libero, in gravida nulla. </p>
-											<p class="comment-date">October 21, 2018</p>
-										</div>
-									</div>
-
-									<div class="media">
-										<div class="media-left">
-											<a href="#"><img alt="..." src="/static/polladmin/images/avatar/1.jpg" class="media-object"></a>
-										</div>
-										<div class="media-body">
-											<h4 class="media-heading">john doe</h4>
-											<p>Cras sit amet nibh libero, in gravida nulla. </p>
-											<p class="comment-date">October 21, 2018</p>
-										</div>
-									</div>
-
-									<div class="media no-border">
-										<div class="media-left">
-											<a href="#"><img alt="..." src="/static/polladmin/images/avatar/1.jpg" class="media-object"></a>
-										</div>
-										<div class="media-body">
-											<h4 class="media-heading">Mr. Michael</h4>
-											<p>Cras sit amet nibh libero, in gravida nulla. </p>
-											<div class="comment-date">October 21, 2018</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							<!-- /# card -(日期)->
-						</div>
-						<!-- /# column -(日期)->
-						<div class="col-lg-6">
-							<div class="card">
-								<div class="card-body">
-									<div class="year-calendar"></div>
-								</div>
-							</div>
-						</div>
-
-
-						</div>
-					</div>
-
-				    <div class="col-lg-4">
-                        <div class="card">
-                            <div class="card-body">
-                                <h4 class="card-title">Todo</h4>
-                                <div class="card-content">
-                                    <div class="todo-list">
-                                        <div class="tdl-holder">
-                                            <div class="tdl-content">
-                                                <ul>
-                                                    <li>
-                                                        <label>
-															<input type="checkbox"><i class="bg-primary"></i><span>Build an angular app</span>
-															<a href='#' class="ti-close"></a>
-														</label>
-                                                    </li>
-                                                    <li>
-                                                        <label>
-															<input type="checkbox" checked><i class="bg-success"></i><span>Creating component page</span>
-															<a href='#' class="ti-close"></a>
-														</label>
-                                                    </li>
-                                                    <li>
-                                                        <label>
-															<input type="checkbox" checked><i class="bg-warning"></i><span>Follow back those who follow you</span>
-															<a href='#' class="ti-close"></a>
-														</label>
-                                                    </li>
-                                                    <li>
-                                                        <label>
-															<input type="checkbox" checked><i class="bg-danger"></i><span>Design One page theme</span>
-															<a href='#' class="ti-close"></a>
-														</label>
-                                                    </li>
-
-                                                    <li>
-                                                        <label>
-															<input type="checkbox" checked><i class="bg-success"></i><span>Creating component page</span>
-															<a href='#' class="ti-close"></a>
-														</label>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                            <input type="text" class="tdl-new form-control" placeholder="Type here">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-                -->
-
                 <!-- End PAge Content -->
             </div>
             <!-- End Container fluid  -->
@@ -891,6 +560,7 @@
             <footer class="footer"> © 2018 All rights reserved.Designed by <a href="https://www.xmu.edu.cn/">XUM</a></footer>
             <!-- End footer -->
         </div>
+        {% endblock %}
         <!-- End Page wrapper  -->
     </div>
     <!-- End Wrapper -->
@@ -930,6 +600,19 @@
     <!-- scripit init-->
 
     <script src="/static/fishadmin/js/custom.min.js"></script>
+
+    <!-- my script utils(START) -->
+    <script src="/static/js/jquery.pjax.js"></script>
+    <!-- my script utils(END) -->
+
+    <!-- my script(START) -->
+    <script>
+        $(function () {
+           $(document).pjax('a[data-pjax]', '#rightside-page-wrapper', {fragment: '#rightside-page-wrapper', timeout:1*2000});
+        });
+    </script>
+    <!-- my script(END) -->
+
 
 </body>
 
