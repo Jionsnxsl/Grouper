@@ -366,6 +366,10 @@
 
 
         <!-- Page wrapper  -->
+        <div class="preloader-content" style="display: none;">
+            <svg class="circular" viewBox="25 25 50 50">
+			    <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10" /> </svg>
+        </div>
         {% block rightside-page-content %}
         <div class="page-wrapper" id="rightside-page-wrapper">
             <!-- Bread crumb(右侧最上面的标题栏) -->
@@ -485,8 +489,20 @@
     <!-- my script(START) -->
     <script>
         $(function () {
-           $(document).pjax('a[data-pjax]', '#rightside-page-wrapper', {fragment: '#rightside-page-wrapper', timeout:1*2000});
+            /* 替换右侧内容(START) */
+           $(document).pjax('a[data-pjax]', '#rightside-page-wrapper', {fragment: '#rightside-page-wrapper', timeout:3*1000});
+           /* 加载图标(START) */
+           $(document).on('pjax:send', function () {
+               $(".page-wrapper").empty();
+               $(".preloader-content").show();
+           });
+           $(document).on('pjax:complete', function () {
+               $(".preloader-content").hide();
+           });
+           /* 加载图标(END) */
+           /* 替换右侧内容(END) */
         });
+
     </script>
     <!-- my script(END) -->
 

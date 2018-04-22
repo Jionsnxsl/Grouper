@@ -78,7 +78,21 @@
   z-index: 99999;
   background: #fff;
 }
+.preloader-content {
+  width: 20%;
+  height: 20%;
+  top: 25%;
+  left:50%;
+  position: fixed;
+  z-index: 99999;
+  /*background: #fff;*/
+}
 .preloader .cssload-speeding-wheel {
+  position: absolute;
+  top: calc(46.5%);
+  left: calc(46.5%);
+}
+.preloader-content .cssload-speeding-wheel {
   position: absolute;
   top: calc(46.5%);
   left: calc(46.5%);
@@ -176,7 +190,21 @@ h6 {
   z-index: 99999;
   background: #fff;
 }
+.preloader-content {
+  width: 20%;
+  height: 20%;
+  top: 25%;
+  left:50%;
+  position: fixed;
+  z-index: 99999;
+  /*background: #fff;*/
+}
 .preloader .cssload-speeding-wheel {
+  position: absolute;
+  top: calc(46.5%);
+  left: calc(46.5%);
+}
+.preloader-content .cssload-speeding-wheel {
   position: absolute;
   top: calc(46.5%);
   left: calc(46.5%);
