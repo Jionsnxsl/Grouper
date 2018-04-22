@@ -13,4 +13,6 @@ urlpatterns = [
     url(r'^admin/addfishpool/$', views.addFishPoolView, name="addfishpool"),
     url(r'^admin/generateercode/$', views.generateERCodeView, name="generateercode"),
     url(r'^admin/thirdtestreport/$', views.thirdPartTestReportView, name="thirdtestreport"),
+    url(r'^admin/feedbacknotreply/$', views.feedbackNOTReplyView, name="feedbacknotreply"),
+    url(r'^admin/feedbackreply/$', views.feedbackReplyView, name="feedbackreply"),
 ]

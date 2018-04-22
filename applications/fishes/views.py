@@ -56,3 +56,10 @@ def generateERCodeView(request):
 def thirdPartTestReportView(request):
     '''第三方检测报告管理'''
     return render(request, "fishes/third_part_test_report.html")
+
+def feedbackNOTReplyView(request):
+    return render(request, "fishes/feedback_not_reply.html")
+
+
+def feedbackReplyView(request):
+    return render(request, "fishes/feedback_reply.html")
