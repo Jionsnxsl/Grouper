@@ -264,68 +264,33 @@
                         <li class="nav-devider"></li>
 
                         <!-- 查看网站主页(START) -->
-                        <!--
-                        <li class="nav-label">Home</li>
-                        -->
                         <li>
                             <a class="has-arrow" href="{% url 'fishes:homepage' %}" aria-expanded="false">
                                 <i class="fa fa-tachometer"></i>
-                                <span class="hide-menu">查看网站主页
-                                    <!--
-                                    <span class="label label-rouded label-primary pull-right">2</span>
-                                    -->
-                                </span>
+                                <span class="hide-menu">查看网站主页</span>
                             </a>
-                            <!--
-                            <ul aria-expanded="false" class="collapse">
-                                <li><a href="index.html">Ecommerce </a></li>
-                                <li><a href="index1.html">Analytics </a></li>
-                            </ul>
-                            -->
                         </li>
                         <!-- 查看网站主页(END) -->
 
                         <!-- 查看产品信息(START) -->
-                        <!--
-                        <li class="nav-label">Apps</li>
-                        -->
                         <li>
                             <a data-pjax class="has-arrow" href="{% url 'fishes:productinfo' %}" aria-expanded="false">
                                 <i class="fa fa-envelope"></i>
                                 <span class="hide-menu">查看产品信息</span>
                             </a>
-                            <!--
-                            <ul aria-expanded="false" class="collapse">
-                                <li><a href="email-compose.html">Compose</a></li>
-                                <li><a href="email-read.html">Read</a></li>
-                                <li><a href="email-inbox.html">Inbox</a></li>
-                            </ul>
-                            -->
                         </li>
                          <!-- 查看产品信息(END) -->
 
                         <!-- 用户管理(START) -->
                         <li>
-                            <a class="has-arrow  " href="#" aria-expanded="false">
+                            <a class="has-arrow" href="javascript:void(0)" aria-expanded="false">
                                 <i class="fa fa-bar-chart"></i>
                                 <span class="hide-menu">用户管理</span>
                             </a>
                             <ul aria-expanded="false" class="collapse">
-                                <li><a href="chart-flot.html">用户信息查看</a></li>
-                                <li><a href="chart-morris.html">添加用户</a></li>
+                                <li><a data-pjax href="{% url 'fishes:userinfo' %}">用户信息查看</a></li>
+                                <li><a data-pjax href="{% url 'fishes:adduser' %}">添加用户</a></li>
                             </ul>
-                            <!--
-                            <ul aria-expanded="false" class="collapse">
-                                <li><a href="chart-flot.html">Flot</a></li>
-                                <li><a href="chart-morris.html">Morris</a></li>
-                                <li><a href="chart-chartjs.html">ChartJs</a></li>
-                                <li><a href="chart-chartist.html">Chartist </a></li>
-                                <li><a href="chart-amchart.html">AmChart</a></li>
-                                <li><a href="chart-echart.html">EChart</a></li>
-                                <li><a href="chart-sparkline.html">Sparkline</a></li>
-                                <li><a href="chart-peity.html">Peity</a></li>
-                            </ul>
-                            -->
                         </li>
                         <!-- 用户管理(START) -->
 
@@ -494,7 +459,7 @@
             <!-- Bread crumb(右侧最上面的标题栏) -->
             <div class="row page-titles">
                 <div class="col-md-5 align-self-center">
-                    <h3 class="text-primary">产品信息</h3> </div>
+                    <h3 class="text-primary">产品信息(默认展示内容)</h3> </div>
                 <div class="col-md-7 align-self-center">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="javascript:void(0)">主页</a></li>
