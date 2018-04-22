@@ -25,11 +25,20 @@ def productInfoView(request):
     print("call product info view ", request.META.get("HTTP_X_PJAX", None))
     # import time
     # time.sleep(3)
-    return render(request, "fishes/productinfo.html")
+    return render(request, "fishes/product_info.html")
 
 
 def userInfoView(request):
-    return render(request, "fishes/userinfo.html")
+    return render(request, "fishes/user_info.html")
+
 
 def addUserView(request):
-    return render(request, "fishes/adduser.html")
+    return render(request, "fishes/add_user.html")
+
+
+def fishPoolInfoView(request):
+    return render(request, "fishes/fish_pool_info.html")
+
+
+def addFishPoolView(request):
+    return render(request, "fishes/add_fish_pool.html")

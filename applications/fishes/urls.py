@@ -9,4 +9,6 @@ urlpatterns = [
     url(r'^admin/productinfo/$', views.productInfoView, name="productinfo"),
     url(r'^admin/userinfo/$', views.userInfoView, name="userinfo"),
     url(r'^admin/adduser/$', views.addUserView, name="adduser"),
+    url(r'^admin/fishpoolinfo/$', views.fishPoolInfoView, name="fishpoolinfo"),
+    url(r'^admin/addfishpool/$', views.addFishPoolView, name="addfishpool"),
 ]
