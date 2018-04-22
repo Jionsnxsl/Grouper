@@ -29,20 +29,30 @@ def productInfoView(request):
 
 
 def userInfoView(request):
+    '''用户信息产看'''
     return render(request, "fishes/user_info.html")
 
 
 def addUserView(request):
+    '''添加用户信息'''
     return render(request, "fishes/add_user.html")
 
 
 def fishPoolInfoView(request):
+    '''产看鱼池信息'''
     return render(request, "fishes/fish_pool_info.html")
 
 
 def addFishPoolView(request):
+    '''添加鱼池信息'''
     return render(request, "fishes/add_fish_pool.html")
 
 
 def generateERCodeView(request):
+    '''生成产品二维码'''
     return render(request, "fishes/generate_ERcode.html")
+
+
+def thirdPartTestReportView(request):
+    '''第三方检测报告管理'''
+    return render(request, "fishes/third_part_test_report.html")

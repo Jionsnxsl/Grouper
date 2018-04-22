@@ -12,4 +12,5 @@ urlpatterns = [
     url(r'^admin/fishpoolinfo/$', views.fishPoolInfoView, name="fishpoolinfo"),
     url(r'^admin/addfishpool/$', views.addFishPoolView, name="addfishpool"),
     url(r'^admin/generateercode/$', views.generateERCodeView, name="generateercode"),
+    url(r'^admin/thirdtestreport/$', views.thirdPartTestReportView, name="thirdtestreport"),
 ]
