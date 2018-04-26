@@ -54,10 +54,17 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'config.urls'
 
+# 指定用户模型
 AUTH_USER_MODEL = 'users.GrouperUser'
 
+# 登录路径
 LOGIN_URL = '/account/login/'
 
+# 默认登录成功后进入的页面
+LOGIN_REDIRECT_URL = '/fishes/admin'
+
+# 退出登录后导向的页面
+LOGOUT_URL = '/account/login/'
 
 # 免除登录限制的URL
 LOGIN_EXEMPT_URLS = [
