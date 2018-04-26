@@ -48,9 +48,24 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
+    'utils.Middlewares.LoginRequiredMiddleware',
 ]
 
 ROOT_URLCONF = 'config.urls'
+
+# AUTH_USER_MODEL = 'users.GrouperUser'
+
+LOGIN_URL = '/account/login/'
+
+
+# 免除登录限制的URL
+LOGIN_EXEMPT_URLS = [
+    r'^fishes/$',
+    r'^fishes/search-result/$',
+    r'^account/login/$',
+    r'^account/findpwd/$',
+    ]
 
 TEMPLATES = [
     {
