@@ -54,7 +54,7 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'config.urls'
 
-# AUTH_USER_MODEL = 'users.GrouperUser'
+AUTH_USER_MODEL = 'users.GrouperUser'
 
 LOGIN_URL = '/account/login/'
 
@@ -92,8 +92,12 @@ WSGI_APPLICATION = 'config.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'grouper',
+        'USER': 'root',
+        "PASSWORD": 'admin',
+        "HOST": '127.0.0.1',
+        'PORT': '3306',
     }
 }
 
