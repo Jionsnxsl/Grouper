@@ -1,7 +1,6 @@
 from django.shortcuts import render, HttpResponse, redirect
 from django.views import View
 from django.urls import reverse
-from .models import GrouperUser
 
 # Create your views here.
 
