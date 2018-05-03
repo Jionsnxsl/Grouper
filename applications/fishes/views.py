@@ -92,7 +92,14 @@ class AddUserView(View):
         return render(request, "fishes/add_user.html")
 
     def post(self, request):
-        pass
+        employeeID = request.POST.get('val-employeeID')
+        username = request.POST.get('val-username')
+        is_manager = request.POST.get('val-is-manager')
+        password = request.POST.get('val-password')
+        phonenum = request.POST.get('val-phonenum')
+
+        print(employeeID,username,is_manager,password,phonenum)
+        return HttpResponse("OK")
 
 
 

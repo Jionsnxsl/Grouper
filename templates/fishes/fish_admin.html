@@ -45,6 +45,18 @@
         <svg class="circular" viewBox="25 25 50 50">
 			<circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10" /> </svg>
     </div>
+
+
+    <!-- 操作结果的提示信息(START) -->
+    <div class="alert alert-primary alert-dismissible fade show"
+         style="position: fixed;left: 0;right: 0;top: 2px;z-index: 1000;text-align: center;display: none;" role="alert">
+        This is a primary alert with <a href="#" class="alert-link">an example link</a>. Give it a click if you like.
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <!-- 操作结果的提示信息(END) -->
+
     <!-- Main wrapper  -->
     <div id="main-wrapper">
         <!-- header header  -->
@@ -348,6 +360,7 @@
     <!-- End Wrapper -->
     <!-- All Jquery -->
     <script src="/static/fishadmin/js/lib/jquery/jquery.min.js"></script>
+    <script src="/static/js/jquery.cookie.js"></script>
     <!-- Bootstrap tether Core JavaScript -->
     <script src="/static/fishadmin/js/lib/bootstrap/js/popper.min.js"></script>
     <script src="/static/fishadmin/js/lib/bootstrap/js/bootstrap.min.js"></script>
@@ -402,6 +415,22 @@
     <!-- my script(START) -->
     <script>
         $(function () {
+
+            /* ajax 提交数据设置(START)*/
+            function csrfSafeMethod(method) {
+                // these HTTP methods do not require CSRF protection
+                return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+            }
+
+            $.ajaxSetup({
+                beforeSend: function (xhr, settings) {
+                    if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+                        xhr.setRequestHeader("X-CSRFToken", $.cookie("csrftoken"));
+                    }
+                }
+            });
+            /* ajax 提交数据设置(END)*/
+
             /* 替换右侧内容(START) */
            $(document).pjax('a[data-pjax]', '#rightside-page-wrapper', {fragment: '#rightside-page-wrapper', timeout:3*1000});
            /* 加载图标(START) */
@@ -497,6 +526,7 @@
 
                 /* 添加用户页面替换后再次执行事件绑定(START) */
                 form_validation.init()
+                addUser();
                 /* 添加用户页面替换后再次执行事件绑定(END) */
 
                 $(".preloader-content").hide();
@@ -504,6 +534,26 @@
             });
            /* 加载图标(END) */
            /* 替换右侧内容(END) */
+
+
+           /* 加载内容(START) */
+           function addUser() {
+               $("#add-user-submit").click(function () {
+                   //$(".preloader-content").show();
+                   $.ajax({
+                       url: "{% url 'fishes:adduser' %}",
+                       type: "POST",
+                       data: $(".form-valide").serialize(),
+                       success: function (data) {
+                          // $(".preloader-content").hide();
+                           alert("添加成功！");
+                           location.reload();
+                       }
+                   });
+               });
+           }
+           addUser();
+           /*  (END)*/
         });
     </script>
     {% block custom-scripts-for-each-page %}
