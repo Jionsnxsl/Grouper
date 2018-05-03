@@ -26,7 +26,7 @@
                                 <h1 class="card-title">用户信息</h1>
                                 <div class="table-responsive m-t-40">
                                     <div id="toolbar">
-                                        <a class="btn btn-primary" href="#" role="button">添加</a>
+                                        <a data-pjax class="btn btn-primary" href="{% url 'fishes:adduser' %}" role="button">添加</a>
                                         <a class="btn btn-danger" href="#" role="button">删除</a>
                                     </div>
                                     <table id="userinfo-table"

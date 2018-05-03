@@ -2,6 +2,7 @@ from django.shortcuts import render, HttpResponse
 import time, json
 from applications.users import models
 from django.db.models import Q
+from django.views import View
 # Create your views here.
 
 
@@ -83,10 +84,16 @@ def userDetailView(request, uid):
               }
     return HttpResponse(json.dumps(result))
 
-def addUserView(request):
-    '''添加用户信息'''
-    time.sleep(1)
-    return render(request, "fishes/add_user.html")
+
+class AddUserView(View):
+    """添加用户信息"""
+
+    def get(self, request):
+        return render(request, "fishes/add_user.html")
+
+    def post(self, request):
+        pass
+
 
 
 def fishPoolInfoView(request):

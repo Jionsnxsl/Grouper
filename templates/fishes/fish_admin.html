@@ -383,8 +383,15 @@
 
     <!-- 每个页面特有的scripts(START) -->
     {% block scripts-for-each-pages-sources %}
+    <!-- 用户信息查看的表格(START) -->
     <script src="/static/js/bootstrap-table.js"></script>
     <script src="/static/js/bootstrap-table-zh-CN.js"></script>
+    <!-- 用户信息查看的表格(END) -->
+
+    <!-- 添加用户(START) -->
+    <script src="/static/fishadmin/js/lib/form-validation/jquery.validate.min.js"></script>
+    <script src="/static/fishadmin/js/lib/form-validation/jquery.validate-init.js"></script>
+    <!-- 添加用户(END) -->
     {% endblock %}
     <!-- 每个页面特有的scripts(END) -->
 
