@@ -17,6 +17,9 @@ class LoginView(View):
 class FindPasswordView(View):
 
     def get(self, request):
+        # from .models import GrouperUser
+        # for i in range(1,250):
+        #     GrouperUser.objects.create_user(username='user'+str(i), password='admin'+str(i), employeeID=i)
         return render(request, "users/forget_password.html")
 
     def post(self, request):

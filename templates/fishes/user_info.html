@@ -19,15 +19,28 @@
             <!-- Container fluid  -->
             <div class="container-fluid">
                 <!-- Start Page Content -->
-                <!--
-                <div class="row bg-white m-l-0 m-r-0 box-shadow ">
-                    <p style="margin: 50px">这是用户信息</p>
-                </div>
-                -->
                 <div class="row">
                     <div class="col-12">
                         <div class="card">
-                            <div class="card-body"> 这是用户信息 </div>
+                            <div class="card-body">
+                                <h1 class="card-title">用户信息</h1>
+                                <div class="table-responsive m-t-40">
+                                    <div id="toolbar">
+                                        <a class="btn btn-primary" href="#" role="button">添加</a>
+                                        <a class="btn btn-danger" href="#" role="button">删除</a>
+                                    </div>
+                                    <table id="userinfo-table"
+                                           data-toolbar="#toolbar"
+                                           data-search="true"
+                                           data-minimum-count-columns="2"
+                                           data-pagination="true"
+                                           data-id-field="username"
+                                           data-click-to-select="true"
+                                           data-page-list="[10, 25, 50, 100]"
+                                           data-side-pagination="server">
+                                    </table>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -39,4 +52,94 @@
             <!-- End footer -->
         </div>
         <!-- End Page wrapper  -->
+{% endblock %}
+
+{% block scripts-for-each-pages-sources %}
+    <script src="/static/js/bootstrap-table.js"></script>
+    <script src="/static/js/bootstrap-table-zh-CN.js"></script>
+{% endblock %}
+
+{% block custom-scripts-for-each-page %}
+    <script>
+        var operateFormatter = function (value, row, index) {//赋予的参数
+            //注意：这里的 row.id 是用户的ID
+            return '<a class="btn btn-info" href='+'/fishes/admin/userdetail/'+ parseInt(row.id) +' role="button">详细</a>'
+           // return "<button class='btn btn-info btn-sm' type='button'><a href="+"/fishes/admin/userdetail/"+parseInt(row.id)+" class='fa fa-paste'>详情</a></button>"
+        };
+
+        const $table = $('#userinfo-table');
+        const $remove = $('#remove');
+        let selections = [];
+
+        function initTable() {
+            $table.bootstrapTable({
+                height: getHeight(),
+                url: "{% url 'fishes:userinfo' %}",
+                columns: [{
+                    field: 'state',
+                    checkbox: true,
+                    align: 'center',
+                }, {
+                    title: '用户名',
+                    field: 'username',
+                    align: 'center',
+                    sortable: true
+                }, {
+                    field: 'employeeID',
+                    title: '员工号',
+                    sortable: true,
+                    editable: true,
+                    align: 'center'
+                }, {
+                    field: 'is_staff',
+                    title: '是否为普通员工',
+                    align: 'center',
+                }, {
+                    field: 'is_superuser',
+                    title: '是否为管理员',
+                    align: 'center',
+                }, {
+                    field: 'operate',
+                    title: '操作',
+                    align: 'center',
+                    formatter: operateFormatter
+                }]
+            });
+            // sometimes footer render error.
+            setTimeout(() => {
+                $table.bootstrapTable('resetView');
+            }, 200);
+            $table.on('check.bs.table uncheck.bs.table ' +
+                'check-all.bs.table uncheck-all.bs.table', () => {
+                $remove.prop('disabled', !$table.bootstrapTable('getSelections').length);
+
+                // save your data, here just save the current page
+                selections = getIdSelections();
+                // push or splice the selections if you want to save all data selections
+            });
+            $remove.click(() => {
+                const users = getIdSelections();
+                $table.bootstrapTable('remove', {
+                    field: 'username',
+                    values: users
+                });
+                $remove.prop('disabled', true);
+            });
+            $(window).resize(() => {
+                $table.bootstrapTable('resetView', {
+                    height: getHeight()
+                });
+            });
+        }
+        function getIdSelections() {
+            return $.map($table.bootstrapTable('getSelections'), ({username}) => username);
+        }
+        function getHeight() {
+            return $(window).height() - $('h1').outerHeight(true);
+        }
+
+        $(() => {
+            initTable();
+        });
+    </script>
 {% endblock %}

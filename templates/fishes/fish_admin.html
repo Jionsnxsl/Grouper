@@ -15,12 +15,20 @@
     <link href="/static/fishadmin/css/lib/bootstrap/bootstrap.min.css" rel="stylesheet">
     <!-- Custom CSS -->
 
+    <!--
     <link href="/static/fishadmin/css/lib/calendar2/semantic.ui.min.css" rel="stylesheet">
     <link href="/static/fishadmin/css/lib/calendar2/pignose.calendar.min.css" rel="stylesheet">
     <link href="/static/fishadmin/css/lib/owl.carousel.min.css" rel="stylesheet" />
     <link href="/static/fishadmin/css/lib/owl.theme.default.min.css" rel="stylesheet" />
+    -->
     <link href="/static/fishadmin/css/helper.css" rel="stylesheet">
     <link href="/static/fishadmin/css/style.css" rel="stylesheet">
+    <link href="/static/css/bootstrap-table.css" rel="stylesheet">
+
+
+    {% block each-page-css %}
+
+    {% endblock %}
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:** -->
     <!--[if lt IE 9]>
@@ -350,7 +358,7 @@
     <!--stickey kit -->
     <script src="/static/fishadmin/js/lib/sticky-kit-master/dist/sticky-kit.min.js"></script>
     <!--Custom JavaScript -->
-
+    <script src="/static/fishadmin/js/custom.min.js"></script>
 
     <!-- Amchart -->
      <script src="/static/fishadmin/js/lib/morris-chart/raphael-min.js"></script>
@@ -373,7 +381,12 @@
     <script src="/static/fishadmin/js/scripts.js"></script>
     <!-- scripit init-->
 
-    <script src="/static/fishadmin/js/custom.min.js"></script>
+    <!-- 每个页面特有的scripts(START) -->
+    {% block scripts-for-each-pages-sources %}
+    <script src="/static/js/bootstrap-table.js"></script>
+    <script src="/static/js/bootstrap-table-zh-CN.js"></script>
+    {% endblock %}
+    <!-- 每个页面特有的scripts(END) -->
 
     <!-- my script utils(START) -->
     <script src="/static/js/jquery.pjax.js"></script>
@@ -389,14 +402,98 @@
                $(".page-wrapper").empty();
                $(".preloader-content").show();
            });
-           $(document).on('pjax:complete', function () {
-               $(".preloader-content").hide();
-           });
+            $(document).on('pjax:complete', function () {
+                var operateFormatter = function (value, row, index) {//赋予的参数
+                    //注意：这里的 row.id 是用户的ID
+                    //return "<button class='btn btn-info btn-sm' type='button'><a href="+"/fishes/admin/userdetail/"+parseInt(row.id)+" class='fa fa-paste'>详情</a></button>"
+                    return '<a class="btn btn-info" href='+'/fishes/admin/userdetail/'+ parseInt(row.id) +' role="button">详细</a>'
+                };
+
+                const $table = $('#userinfo-table');
+                const $remove = $('#remove');
+                let selections = [];
+
+                function initTable() {
+                    $table.bootstrapTable({
+                        height: getHeight(),
+                        url: "{% url 'fishes:userinfo' %}",
+                        columns: [{
+                            field: 'state',
+                            checkbox: true,
+                            align: 'center',
+                        }, {
+                            title: '用户名',
+                            field: 'username',
+                            align: 'center',
+                            sortable: true
+                        }, {
+                            field: 'employeeID',
+                            title: '员工号',
+                            sortable: true,
+                            editable: true,
+                            align: 'center'
+                        }, {
+                            field: 'is_staff',
+                            title: '是否为普通员工',
+                            align: 'center',
+                        }, {
+                            field: 'is_superuser',
+                            title: '是否为管理员',
+                            align: 'center',
+                        }, {
+                            field: 'operate',
+                            title: '操作',
+                            align: 'center',
+                            formatter: operateFormatter
+                        }]
+                    });
+                    // sometimes footer render error.
+                    setTimeout(() => {
+                        $table.bootstrapTable('resetView');
+                    }, 200);
+                    $table.on('check.bs.table uncheck.bs.table ' +
+                        'check-all.bs.table uncheck-all.bs.table', () => {
+                        $remove.prop('disabled', !$table.bootstrapTable('getSelections').length);
+
+                        // save your data, here just save the current page
+                        selections = getIdSelections();
+                        // push or splice the selections if you want to save all data selections
+                    });
+                    $remove.click(() => {
+                        const users = getIdSelections();
+                        $table.bootstrapTable('remove', {
+                            field: 'username',
+                            values: users
+                        });
+                        $remove.prop('disabled', true);
+                    });
+                    $(window).resize(() => {
+                        $table.bootstrapTable('resetView', {
+                            height: getHeight()
+                        });
+                    });
+                }
+
+                function getIdSelections() {
+                    return $.map($table.bootstrapTable('getSelections'), ({username}) => username);
+                }
+
+                function getHeight() {
+                    return $(window).height() - $('h1').outerHeight(true);
+                }
+
+                $(() => {
+                    initTable();
+                });
+                $(".preloader-content").hide();
+
+            });
            /* 加载图标(END) */
            /* 替换右侧内容(END) */
         });
-
     </script>
+    {% block custom-scripts-for-each-page %}
+    {% endblock %}
     <!-- my script(END) -->
 
 

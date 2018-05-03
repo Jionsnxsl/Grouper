@@ -1944,7 +1944,7 @@ textarea {
 }
 .page-titles {
   background: #ffffff;
-  margin: 0 0 30px;
+  margin: 0 0 10px;
   padding: 15px 10px;
   position: relative;
   z-index: 10;
@@ -5431,7 +5431,7 @@ tbody tr th {
 }
 tbody tr td {
   font-family: 'Poppins', sans-serif;
-  color: #99abb4;
+  color: #212529;
 }
 tbody tr td:last-child {
   text-align: right;
