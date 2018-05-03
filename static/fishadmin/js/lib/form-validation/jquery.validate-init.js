@@ -15,93 +15,54 @@ var form_validation = function() {
                     jQuery(e).closest(".form-group").removeClass("is-invalid"), jQuery(e).remove()
                 },
                 rules: {
+                    "val-employeeID": {
+                        required: !0,
+                        minlength: 11,
+                        digits: !0
+                    },
                     "val-username": {
                         required: !0,
                         minlength: 3
                     },
-                    "val-email": {
-                        required: !0,
-                        email: !0
-                    },
                     "val-password": {
                         required: !0,
                         minlength: 5
                     },
-                    "val-confirm-password": {
+                    "val-phonenum": {
                         required: !0,
-                        equalTo: "#val-password"
+                        phoneNum: !0
                     },
-                    "val-select2": {
-                        required: !0
-                    },
-                    "val-select2-multiple": {
-                        required: !0,
-                        minlength: 2
-                    },
-                    "val-suggestions": {
-                        required: !0,
-                        minlength: 5
-                    },
-                    "val-skill": {
-                        required: !0
-                    },
-                    "val-currency": {
-                        required: !0,
-                        currency: ["$", !0]
-                    },
-                    "val-website": {
-                        required: !0,
-                        url: !0
-                    },
-                    "val-phoneus": {
-                        required: !0,
-                        phoneUS: !0
-                    },
-                    "val-digits": {
-                        required: !0,
-                        digits: !0
-                    },
-                    "val-number": {
-                        required: !0,
-                        number: !0
-                    },
-                    "val-range": {
-                        required: !0,
-                        range: [1, 5]
-                    },
-                    "val-terms": {
-                        required: !0
-                    }
                 },
                 messages: {
+                    "val-employeeID": {
+                        required: "员工号不能为空",
+                        minlength: "员工号长度必须大于11位",
+                        digits: "员工号必须全部为数字"
+                    },
                     "val-username": {
-                        required: "Please enter a username",
-                        minlength: "Your username must consist of at least 3 characters"
+                        required: "用户名不能为空",
+                        minlength: "用户名最小长度大于3个字符"
                     },
-                    "val-email": "Please enter a valid email address",
                     "val-password": {
-                        required: "Please provide a password",
-                        minlength: "Your password must be at least 5 characters long"
+                        required: "密码不能为空",
+                        minlength: "密码长度必须大于5个字符"
                     },
-                    "val-confirm-password": {
-                        required: "Please provide a password",
-                        minlength: "Your password must be at least 5 characters long",
-                        equalTo: "Please enter the same password as above"
+                    "val-phonenum": {
+                        required: '手机号不能为空',
+                        phoneNum: '手机号格式不正确'
                     },
-                    "val-select2": "Please select a value!",
-                    "val-select2-multiple": "Please select at least 2 values!",
-                    "val-suggestions": "What can we do to become better?",
-                    "val-skill": "Please select a skill!",
-                    "val-currency": "Please enter a price!",
-                    "val-website": "Please enter your website!",
-                    "val-phoneus": "Please enter a US phone!",
-                    "val-digits": "Please enter only digits!",
-                    "val-number": "Please enter a number!",
-                    "val-range": "Please enter a number between 1 and 5!",
-                    "val-terms": "You must agree to the service terms!"
                 }
             })
-        }
+        };
+    var a = function () {
+        $("#val-employeeID").bind('input porpertychange', function () {
+            $("#val-username").val($("#val-employeeID").val())
+        });
+        $.validator.addMethod("phoneNum", function (value, element) {
+            var reg = /^((1[3-8][0-9])+\d{8})$/;
+            return this.optional(element) || (reg.test(value));
+        }, "手机格式不正确");
+    };
     return {
         init: function() {
             e(), a(), jQuery(".js-select2").on("change", function() {
