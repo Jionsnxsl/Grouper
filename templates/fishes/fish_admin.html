@@ -256,10 +256,11 @@
                         <!-- 反馈管理(END) -->
 
                         <!-- 系统设置(START) -->
-                        <li> <a class="has-arrow" href="javascript:void(0)" aria-expanded="false">
-                            <i class="fa fa-columns"></i>
-                            <span class="hide-menu">系统设置</span>
-                        </a>
+                        <li>
+                            <a class="has-arrow" href="javascript:void(0)" aria-expanded="false">
+                                <i class="fa fa-columns"></i>
+                                <span class="hide-menu">系统设置</span>
+                            </a>
                             <ul aria-expanded="false" class="collapse">
                                 <li><a data-pjax href="{% url 'fishes:syssethomepage' %}">主页内容设置</a></li>
                                 <li><a data-pjax href="{% url 'fishes:syssetsearchresult' %}">搜索结果内容设置</a></li>
@@ -372,31 +373,33 @@
     <script src="/static/fishadmin/js/jquery.slimscroll.js"></script>
     <!--Menu sidebar -->
     <script src="/static/fishadmin/js/sidebarmenu.js"></script>
-    <!--stickey kit -->
+    <!--sticky kit -->
     <script src="/static/fishadmin/js/lib/sticky-kit-master/dist/sticky-kit.min.js"></script>
     <!--Custom JavaScript -->
     <script src="/static/fishadmin/js/custom.min.js"></script>
 
     <!-- Amchart -->
-     <script src="/static/fishadmin/js/lib/morris-chart/raphael-min.js"></script>
+    <script src="/static/fishadmin/js/lib/morris-chart/raphael-min.js"></script>
     <script src="/static/fishadmin/js/lib/morris-chart/morris.js"></script>
     <script src="/static/fishadmin/js/lib/morris-chart/dashboard1-init.js"></script>
 
 
+    <!--
+    script init
 	<script src="/static/fishadmin/js/lib/calendar-2/moment.latest.min.js"></script>
-    <!-- scripit init-->
     <script src="/static/fishadmin/js/lib/calendar-2/semantic.ui.min.js"></script>
-    <!-- scripit init-->
     <script src="/static/fishadmin/js/lib/calendar-2/prism.min.js"></script>
-    <!-- scripit init-->
     <script src="/static/fishadmin/js/lib/calendar-2/pignose.calendar.min.js"></script>
-    <!-- scripit init-->
     <script src="/static/fishadmin/js/lib/calendar-2/pignose.init.js"></script>
-
     <script src="/static/fishadmin/js/lib/owl-carousel/owl.carousel.min.js"></script>
     <script src="/static/fishadmin/js/lib/owl-carousel/owl.carousel-init.js"></script>
+    -->
+    <!-- script init-->
+    <!-- script init-->
+    <!-- script init-->
+
     <script src="/static/fishadmin/js/scripts.js"></script>
-    <!-- scripit init-->
+    <!-- script init-->
 
     <!-- 每个页面特有的scripts(START) -->
     {% block scripts-for-each-pages-sources %}
@@ -443,6 +446,7 @@
                $(".preloader-content").show();
            });
             $(document).on('pjax:complete', function () {
+
                 /* 用户信息查看页面替换后再次执行事件绑定(START) */
                 var operateFormatter = function (value, row, index) {//赋予的参数
                     //注意：这里的 row.id 是用户的ID
