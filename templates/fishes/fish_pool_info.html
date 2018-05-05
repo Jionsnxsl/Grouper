@@ -19,15 +19,28 @@
             <!-- Container fluid  -->
             <div class="container-fluid">
                 <!-- Start Page Content -->
-                <!--
-                <div class="row bg-white m-l-0 m-r-0 box-shadow ">
-                    <p style="margin: 50px">这里展示鱼池信息</p>
-                </div>
-                -->
                 <div class="row">
                     <div class="col-12">
                         <div class="card">
-                            <div class="card-body"> 这里展示鱼池信息 </div>
+                            <div class="card-body">
+                                <h1 class="card-title">鱼池信息</h1>
+                                <div class="table-responsive m-t-40">
+                                    <div id="toolbar">
+                                        <a data-pjax class="btn btn-primary" href="{% url 'fishes:adduser' %}" role="button">添加</a>
+                                        <button id="delete-user" class="btn btn-danger" type="button" style="cursor:default;" disabled>删除</button>
+                                    </div>
+                                    <table id="userinfo-table"
+                                           data-toolbar="#toolbar"
+                                           data-search="true"
+                                           data-minimum-count-columns="2"
+                                           data-pagination="true"
+                                           data-id-field="username"
+                                           data-click-to-select="true"
+                                           data-page-list="[10, 25, 50, 100]"
+                                           data-side-pagination="server">
+                                    </table>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
