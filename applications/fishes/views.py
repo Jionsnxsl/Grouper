@@ -1,4 +1,4 @@
-from django.shortcuts import render, HttpResponse
+from django.shortcuts import render, HttpResponse, get_object_or_404
 import time, json
 from applications.users import models
 from django.db.models import Q
@@ -59,6 +59,8 @@ def userInfoView(request):
 
     data = []
     for user in users:
+        if not user.is_active:
+            continue
         last_login = None
         if user.last_login is not None:
             last_login = user.last_login.strftime('%Y-%m-%d %H:%M:%S')
@@ -92,14 +94,42 @@ class AddUserView(View):
         return render(request, "fishes/add_user.html")
 
     def post(self, request):
+
+        result = {"status": False, "message": '添加数据失败，请重试！'}
         employeeID = request.POST.get('val-employeeID')
         username = request.POST.get('val-username')
-        is_manager = request.POST.get('val-is-manager')
         password = request.POST.get('val-password')
         phonenum = request.POST.get('val-phonenum')
 
-        print(employeeID,username,is_manager,password,phonenum)
-        return HttpResponse("OK")
+        is_manager = False
+        if request.POST.get('val-is-manager') == '是':
+            is_manager = True
+
+        if models.GrouperUser.objects.filter(employeeID=employeeID).exists():
+            result['message'] = '该员工号已经存在！'
+        else:
+            user = models.GrouperUser.objects.create_user(employeeID=employeeID,
+                                                          username=username,
+                                                          password=password,
+                                                          is_superuser=is_manager,
+                                                          phoneNum=phonenum)
+            if user is not None:
+                result['status'] = True
+                result['message'] = '添加用户成功！'
+
+        return HttpResponse(json.dumps(result))
+
+
+def deleteUserView(request):
+    employeeIDs = request.POST.getlist('employeeIDs')
+    result = {'status': False, 'message': '删除失败，请重试！'}
+    for employeeID in employeeIDs:
+        user = get_object_or_404(models.GrouperUser, employeeID=employeeID)
+        user.is_active = False
+        user.save()
+    result['status'] = True
+    result['message'] = '删除成功！'
+    return HttpResponse(json.dumps(result))
 
 
 

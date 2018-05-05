@@ -10,6 +10,7 @@ urlpatterns = [
     url(r'^admin/userinfo/$', views.userInfoView, name="userinfo"),
     url(r'^admin/userdetail/(?P<uid>\d+)/$', views.userDetailView, name="userdetail"),
     url(r'^admin/adduser/$', views.AddUserView.as_view(), name="adduser"),
+    url(r'^admin/deleteuser/$', views.deleteUserView, name="deleteuser"),
     url(r'^admin/fishpoolinfo/$', views.fishPoolInfoView, name="fishpoolinfo"),
     url(r'^admin/addfishpool/$', views.addFishPoolView, name="addfishpool"),
     url(r'^admin/generateercode/$', views.generateERCodeView, name="generateercode"),
