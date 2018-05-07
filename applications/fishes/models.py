@@ -10,4 +10,4 @@ class FishPool(models.Model):
     depth = models.FloatField(verbose_name='池子深度')
     PH = models.FloatField(verbose_name='PH值')
     temperature = models.FloatField(verbose_name='温度')
-    fish_batch = models.IntegerField(verbose_name='鱼的批次', blank=True)
+    fish_batch = models.IntegerField(verbose_name='鱼的批次', blank=True, null=True)

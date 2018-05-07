@@ -71,34 +71,34 @@
                 height: getHeight(),
                 url: "{% url 'fishes:userinfo' %}",
                 columns: [{
-                    field: 'state',
-                    checkbox: true,
-                    align: 'center',
-                }, {
-                    title: '用户名',
-                    field: 'username',
-                    align: 'center',
-                    sortable: true
-                }, {
-                    field: 'employeeID',
-                    title: '员工号',
-                    sortable: true,
-                    editable: true,
-                    align: 'center'
-                }, {
-                    field: 'is_staff',
-                    title: '是否为普通员工',
-                    align: 'center',
-                }, {
-                    field: 'is_superuser',
-                    title: '是否为管理员',
-                    align: 'center',
-                }, {
-                    field: 'operate',
-                    title: '操作',
-                    align: 'center',
-                    formatter: operateFormatter
-                }]
+                            field: 'state',
+                            checkbox: true,
+                            align: 'center',
+                        }, {
+                            title: '用户名',
+                            field: 'username',
+                            align: 'center',
+                            sortable: true
+                        }, {
+                            field: 'employeeID',
+                            title: '员工号',
+                            sortable: true,
+                            editable: true,
+                            align: 'center'
+                        }, {
+                            field: 'is_staff',
+                            title: '是否为普通员工',
+                            align: 'center',
+                        }, {
+                            field: 'is_superuser',
+                            title: '是否为管理员',
+                            align: 'center',
+                        }, {
+                            field: 'operate',
+                            title: '操作',
+                            align: 'center',
+                            formatter: operateFormatter
+                        }]
             });
             // sometimes footer render error.
             setTimeout(() => {

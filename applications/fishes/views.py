@@ -1,6 +1,7 @@
 from django.shortcuts import render, HttpResponse, get_object_or_404
 import time, json
 from applications.users import models
+from .models import FishPool
 from django.db.models import Q
 from django.views import View
 # Create your views here.
@@ -26,13 +27,11 @@ def adminView(request):
 def productInfoView(request):
     '''产品信息查看'''
     print("call product info view ", request.META.get("HTTP_X_PJAX", None))
-    time.sleep(2)
     return render(request, "fishes/product_info.html")
 
 
 def userInfoView(request):
     '''用户信息产看'''
-    print('in user info')
 
     if request.GET.get('offset') is None:
         return render(request, "fishes/user_info.html")
@@ -79,6 +78,7 @@ def userInfoView(request):
 
 
 def userDetailView(request, uid):
+    '''用户详细信息'''
     user = models.GrouperUser.objects.filter(id=uid).first()
     result = {"id": user.id,
               "username": user.username,
@@ -121,6 +121,7 @@ class AddUserView(View):
 
 
 def deleteUserView(request):
+    '''删除用户'''
     employeeIDs = request.POST.getlist('employeeIDs')
     result = {'status': False, 'message': '删除失败，请重试！'}
     for employeeID in employeeIDs:
@@ -135,14 +136,71 @@ def deleteUserView(request):
 
 def fishPoolInfoView(request):
     '''产看鱼池信息'''
-    time.sleep(2)
-    return render(request, "fishes/fish_pool_info.html")
+    if request.GET.get('offset') is None:
+        return render(request, "fishes/fish_pool_info.html")
+
+    search = request.GET.get('search')
+    sort = request.GET.get('sort')
+    order = request.GET.get('order')
+    offset = request.GET.get('offset')
+    limit = request.GET.get('limit')
+
+    fish_pools = None
+    if search is not None and search.isdigit():
+        fish_pools = FishPool.objects.filter(Q(num=search) | Q(fish_batch=search))
+    else:
+        fish_pools = FishPool.objects.all()
+
+    if sort is not None:
+        if order == 'asc':
+            fish_pools = fish_pools.order_by('-' + sort)
+        else:
+            fish_pools = fish_pools.order_by(sort)
+
+    total = fish_pools.count()
+
+    data = []
+    for fish_pool in fish_pools:
+        temp = {
+            'id': fish_pool.id,
+            'num': fish_pool.num,
+            'radius': fish_pool.radius,
+            'depth': fish_pool.depth,
+            'PH': fish_pool.PH,
+            'temperature':  fish_pool.temperature,
+            'fish_batch': fish_pool.fish_batch
+        }
+        data.append(temp)
+
+    result = {'total': total, 'rows': data[0+int(offset):0+int(offset)+int(limit)]}
+    return HttpResponse(json.dumps(result))
 
 
-def addFishPoolView(request):
+def fishPoolDetailView(request, pid):
+    '''鱼池详细信息'''
+    return HttpResponse("OK")
+
+
+class AddFishPoolView(View):
     '''添加鱼池信息'''
-    time.sleep(2)
-    return render(request, "fishes/add_fish_pool.html")
+
+    def get(self, request):
+        return render(request, "fishes/add_fish_pool.html")
+
+    def post(self, request):
+        pass
+
+
+def deleteFishPool(request):
+    '''删除鱼池'''
+    pool_nums = request.POST.getlist('pool_nums')
+    result = {'status': False, 'message': '删除失败，请重试！'}
+    for pool_num in pool_nums:
+        fish_pool = get_object_or_404(FishPool, num=int(pool_num))
+        fish_pool.delete()
+    result['status'] = True
+    result['message'] = '删除成功！'
+    return HttpResponse(json.dumps(result))
 
 
 def generateERCodeView(request):
