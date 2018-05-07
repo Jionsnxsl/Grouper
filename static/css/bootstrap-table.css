@@ -198,6 +198,7 @@
     position: relative;
     margin-top: 10px;
     margin-bottom: 10px;
+    line-height: 34px;
 }
 
 .fixed-table-pagination li.disabled a {
@@ -307,7 +308,7 @@ div.fixed-table-scroll-outer {
     clear: both;
 }
 
-.bootstrap-table.fullscreen {
+.fullscreen {
     position: fixed;
     top: 0;
     left: 0;
