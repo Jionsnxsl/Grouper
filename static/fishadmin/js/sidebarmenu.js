@@ -239,7 +239,6 @@ File: js
       };
 
       MetisMenu.prototype._hide = function _hide(element) {
-
         if (this._transitioning || !$(element).hasClass(this._config.collapseInClass)) {
           return;
         }
@@ -300,6 +299,7 @@ File: js
 
       MetisMenu._jQueryInterface = function _jQueryInterface(config) {
         return this.each(function () {
+          // 点击之后不执行，刷新后才执行
           var $this = $(this);
           var data = $this.data(DATA_KEY);
           var _config = $.extend({}, Default, $this.data(), (typeof config === 'undefined' ? 'undefined' : _typeof(config)) === 'object' && config);

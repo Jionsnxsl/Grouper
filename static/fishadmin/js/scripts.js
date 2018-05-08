@@ -53,7 +53,26 @@ $(function() {
         }),
 
         $(function() {
-            $("#sidebarnav").metisMenu();
+                function mysidebarMenu() {
+                $("nav a[aria-expanded]").bind('click', function () {
+                    $("nav a[aria-expanded]").attr('aria-expanded', false).removeClass('active').parent().removeClass('active')
+                    $("nav a[aria-expanded]").next('ul').attr('aria-expanded', false).removeClass('in')
+                    $("nav a[aria-expanded]").next('ul').children('li').removeClass('active').children('a').removeClass('active')
+                   if($(this).siblings('ul').length == 0){
+                       $(this).addClass("active").parent().addClass('active');
+                   } else {
+                       $(this).addClass('active').attr('aria-expanded', true).parent().addClass('active')
+                       $(this).next('ul').attr('aria-expanded', true).addClass('in')
+                   }
+                });
+
+                $("nav ul[aria-expanded] li a").bind('click', function () {
+                    $(this).parent().removeClass('active').siblings().removeClass('active').children('a').removeClass('active')
+                    $(this).addClass('active').parent().addClass('active')
+                });
+
+            };
+            mysidebarMenu();
         }),
 
         $(".scroll-sidebar").slimScroll({
