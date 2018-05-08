@@ -149,9 +149,8 @@ $(function() {
         });
 });
 
-// 用户信息查看初始化
+/* 用户信息查看初始化定(START) */
 function userInfoInit() {
-    /* 用户信息查看页面替换后再次执行事件绑定(START) */
     var operateFormatter = function (value, row, index) {//赋予的参数
         //注意：这里的 row.id 是用户的ID
         //return "<button class='btn btn-info btn-sm' type='button'><a href="+"/fishes/admin/userdetail/"+parseInt(row.id)+" class='fa fa-paste'>详情</a></button>"
@@ -251,8 +250,8 @@ function userInfoInit() {
     }
 
     initTable();
-    /* 用户信息查看页面替换后再次执行事件绑定(END) */
 }
+/* 用户信息查看初始化(END) */
 
 /* 用户信息添加初始化(START) */
 function addUser() {

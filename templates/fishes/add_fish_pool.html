@@ -24,10 +24,71 @@
                         <p style="margin: 50px">在这里添加鱼池信息</p>
                     </div>
                 -->
-                <div class="row">
-                    <div class="col-12">
+                <div class="row justify-content-center">
+                    <div class="col-lg-8">
                         <div class="card">
-                            <div class="card-body"> 在这里添加鱼池信息 </div>
+                            <div class="card-body">
+                                <h3 class="card-title m-t-15">鱼池信息</h3>
+                                <hr>
+                                <form action="#">
+                                    {% csrf_token %}
+                                    <div class="form-group row">
+                                        <label class="col-lg-4 col-form-label" for="val-employeeID">鱼池编号 <span
+                                                class="text-danger">*</span></label>
+                                        <div class="col-lg-6">
+                                            <select class="custom-select" id="inputGroupSelect01">
+                                                <option selected>请选择一个鱼池编号</option>
+                                                <option value="1">1</option>
+                                                <option value="2">2</option>
+                                                <option value="3">3</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-lg-4 col-form-label" for="val-username">鱼池半径 <span
+                                                class="text-danger">*</span></label>
+                                        <div class="col-lg-6">
+                                            <input type="number" class="form-control" id="val-username"
+                                                   name="val-username" min="1" onkeypress='return( /[\d\\.]/.test(String.fromCharCode(event.keyCode) ) )'
+                                                   placeholder="鱼池半径">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-lg-4 col-form-label" for="val-password">鱼池深度 <span
+                                                class="text-danger">*</span></label>
+                                        <div class="col-lg-6">
+                                            <input type="number" class="form-control" id="val-username"
+                                                   name="val-username" min="1" onkeypress='return( /[\d\\.]/.test(String.fromCharCode(event.keyCode) ) )'
+                                                   placeholder="鱼池深度">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-lg-4 col-form-label" for="val-is-manager">PH值 <span
+                                                class="text-danger">*</span></label>
+                                        <div class="col-lg-6">
+                                            <input type="number" class="form-control" id="val-username"
+                                                   name="val-username" min="1" onkeypress='return( /[\d\\.]/.test(String.fromCharCode(event.keyCode) ) )'
+                                                   placeholder="PH值">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-lg-4 col-form-label" for="val-phonenum">温度<span
+                                                class="text-danger">*</span></label>
+                                        <div class="col-lg-6">
+                                            <input type="number" class="form-control" id="val-username"
+                                                   name="val-username" min="1" onkeypress='return( /[\d\\.]/.test(String.fromCharCode(event.keyCode) ) )'
+                                                   placeholder="温度">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <div class="col-lg-8 ml-auto">
+                                            <button id="add-user-submit" type="button" class="btn btn-primary">
+                                                提&nbsp;交
+                                            </button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
                         </div>
                     </div>
                 </div>
