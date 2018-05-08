@@ -203,7 +203,7 @@
                                 <li><a data-pjax href="{% url 'fishes:adduser' %}">添加用户</a></li>
                             </ul>
                         </li>
-                        <!-- 用户管理(START) -->
+                        <!-- 用户管理(END) -->
 
 
                         <!-- 鱼池管理(START) -->
@@ -447,112 +447,45 @@
            });
             $(document).on('pjax:complete', function () {
 
-                /* 用户信息查看页面替换后再次执行事件绑定(START) */
-                var operateFormatter = function (value, row, index) {//赋予的参数
-                    //注意：这里的 row.id 是用户的ID
-                    //return "<button class='btn btn-info btn-sm' type='button'><a href="+"/fishes/admin/userdetail/"+parseInt(row.id)+" class='fa fa-paste'>详情</a></button>"
-                    return '<a class="btn btn-info" href='+'/fishes/admin/userdetail/'+ parseInt(row.id) +' role="button">详细</a>'
-                };
-
-                const $table = $('#userinfo-table');
-                const $remove = $('#delete-user');
-                let selections = [];
-
-                function initTable() {
-                    $table.bootstrapTable({
-                        height: getHeight(),
-                        url: "{% url 'fishes:userinfo' %}",
-                        columns: [{
-                            field: 'state',
-                            checkbox: true,
-                            align: 'center',
-                        }, {
-                            title: '用户名',
-                            field: 'username',
-                            align: 'center',
-                            sortable: true
-                        }, {
-                            field: 'employeeID',
-                            title: '员工号',
-                            sortable: true,
-                            editable: true,
-                            align: 'center'
-                        }, {
-                            field: 'is_staff',
-                            title: '是否为普通员工',
-                            align: 'center',
-                        }, {
-                            field: 'is_superuser',
-                            title: '是否为管理员',
-                            align: 'center',
-                        }, {
-                            field: 'operate',
-                            title: '操作',
-                            align: 'center',
-                            formatter: operateFormatter
-                        }]
-                    });
-                    // sometimes footer render error.
-                    setTimeout(() => {
-                        $table.bootstrapTable('resetView');
-                    }, 200);
-                    $table.on('check.bs.table uncheck.bs.table ' +
-                        'check-all.bs.table uncheck-all.bs.table', () => {
-                        $remove.prop('disabled', !$table.bootstrapTable('getSelections').length);
-
-                        // save your data, here just save the current page
-                        selections = getIdSelections();
-                        // push or splice the selections if you want to save all data selections
-                    });
-                    $remove.click(() => {
-                        // 删除用户
-                        const users = getIdSelections();
-                        var confirm = window.confirm('是否要删除 '+ users);
-                        if (confirm) {
-                            $(".preloader-submit-data").show();
-                            $.ajax({
-                                url: "{% url 'fishes:deleteuser' %}",
-                                type: "POST",
-                                data: {'employeeIDs': users},
-                                traditional: true,
-                                dataType: "JSON",
-                                success: function (data) {
-                                    $(".preloader-submit-data").hide();
-                                    if (data.status) {
-                                        alert(data.message);
-                                        location.reload();
-                                    } else {
-                                        alert(data.message);
-                                        location.reload();
-                                    }
-                                }
-                            });
-                        }else {
-                            //$remove.prop('disabled', !$table.bootstrapTable('getSelections').length);
-                        }
-                    });
-                    $(window).resize(() => {
-                        $table.bootstrapTable('resetView', {
-                            height: getHeight()
-                        });
-                    });
+                switch (window.location.pathname){
+                    case "{% url 'fishes:productinfo' %}":
+                        console.log('产品信息');
+                        break;
+                    case "{% url 'fishes:userinfo' %}":
+                        userInfoInit(); //用户信息查看页面替换后再次执行事件绑定
+                        break;
+                    case "{% url 'fishes:adduser' %}":
+                        // 添加用户页面替换后再次执行事件绑定(START)
+                        form_validation.init();
+                        addUser();
+                        break;
+                    case "{% url 'fishes:fishpoolinfo' %}":
+                        fishInfoInit(); // 鱼池信息查看初始化
+                        break;
+                    case "{% url 'fishes:addfishpool' %}":
+                        console.log('添加鱼池')
+                        break;
+                    case "{% url 'fishes:generateercode' %}":
+                        console.log('生成二维码')
+                        break;
+                    case "{% url 'fishes:thirdtestreport' %}":
+                        console.log('第三方检测报告')
+                        break;
+                    case "{% url 'fishes:feedbacknotreply' %}":
+                        console.log('未回复反馈')
+                        break;
+                    case "{% url 'fishes:feedbackreply' %}":
+                        console.log('已回复反馈')
+                        break;
+                    case "{% url 'fishes:syssethomepage' %}":
+                        console.log('主页内容设置')
+                        break;
+                    case "{% url 'fishes:syssetsearchresult' %}":
+                        console.log('搜索结果设置')
+                        break;
+                    default:
+                        console.log("ERROR")
                 }
-
-                function getIdSelections() {
-                    return $.map($table.bootstrapTable('getSelections'), ({employeeID}) => employeeID);
-                }
-
-                function getHeight() {
-                    return $(window).height() - $('h1').outerHeight(true);
-                }
-
-                initTable();
-                /* 用户信息查看页面替换后再次执行事件绑定(END) */
-
-                /* 添加用户页面替换后再次执行事件绑定(START) */
-                form_validation.init();
-                addUser();
-                /* 添加用户页面替换后再次执行事件绑定(END) */
 
                 $(".preloader-content").hide();
 
@@ -560,35 +493,6 @@
            /* 加载图标(END) */
            /* 替换右侧内容(END) */
 
-
-           /* 加载内容(START) */
-           function addUser() {
-               $("#add-user-submit").click(function () {
-                   if ($(".form-valide").valid()) {
-                       $(".preloader-submit-data").show();
-                       $.ajax({
-                           url: "{% url 'fishes:adduser' %}",
-                           type: "POST",
-                           data: $(".form-valide").serialize(),
-                           dataType: "JSON",
-                           success: function (data) {
-                               $(".preloader-submit-data").hide();
-                               if (data.status) {
-                                   alert(data.message);
-                                   location.reload();
-                               } else {
-                                   alert(data.message);
-                                   location.reload();
-                               }
-                           }
-                       });
-                   } else {
-                       console.log('无效');
-                   }
-               });
-           }
-           addUser();
-           /*  加载内容(END)*/
         });
     </script>
     {% block custom-scripts-for-each-page %}

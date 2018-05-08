@@ -148,3 +148,247 @@ $(function() {
             $(this).closest(".card").removeClass().slideUp("fast");
         });
 });
+
+// 用户信息查看初始化
+function userInfoInit() {
+    /* 用户信息查看页面替换后再次执行事件绑定(START) */
+    var operateFormatter = function (value, row, index) {//赋予的参数
+        //注意：这里的 row.id 是用户的ID
+        //return "<button class='btn btn-info btn-sm' type='button'><a href="+"/fishes/admin/userdetail/"+parseInt(row.id)+" class='fa fa-paste'>详情</a></button>"
+        return '<a class="btn btn-info" href=' + '/fishes/admin/userdetail/' + parseInt(row.id) + ' role="button">详细</a>'
+    };
+
+    const $table = $('#userinfo-table');
+    const $remove = $('#delete-user');
+    let selections = [];
+
+    function initTable() {
+        $table.bootstrapTable({
+            height: getHeight(),
+            url: "/fishes/admin/userinfo/"/*"{% url 'fishes:userinfo' %}"*/,
+            columns: [{
+                field: 'state',
+                checkbox: true,
+                align: 'center',
+            }, {
+                title: '用户名',
+                field: 'username',
+                align: 'center',
+                sortable: true
+            }, {
+                field: 'employeeID',
+                title: '员工号',
+                sortable: true,
+                editable: true,
+                align: 'center'
+            }, {
+                field: 'is_staff',
+                title: '是否为普通员工',
+                align: 'center',
+            }, {
+                field: 'is_superuser',
+                title: '是否为管理员',
+                align: 'center',
+            }, {
+                field: 'operate',
+                title: '操作',
+                align: 'center',
+                formatter: operateFormatter
+            }]
+        });
+        // sometimes footer render error.
+        setTimeout(() => {
+            $table.bootstrapTable('resetView');
+        }, 200);
+        $table.on('check.bs.table uncheck.bs.table ' +
+            'check-all.bs.table uncheck-all.bs.table', () => {
+            $remove.prop('disabled', !$table.bootstrapTable('getSelections').length);
+
+            // save your data, here just save the current page
+            selections = getIdSelections();
+            // push or splice the selections if you want to save all data selections
+        });
+        $remove.click(() => {
+            // 删除用户
+            const users = getIdSelections();
+            var confirm = window.confirm('是否要删除 ' + users);
+            if (confirm) {
+                $(".preloader-submit-data").show();
+                $.ajax({
+                    url: "/fishes/admin/deleteuser"/*"{% url 'fishes:deleteuser' %}"*/,
+                    type: "POST",
+                    data: {'employeeIDs': users},
+                    traditional: true,
+                    dataType: "JSON",
+                    success: function (data) {
+                        $(".preloader-submit-data").hide();
+                        if (data.status) {
+                            alert(data.message);
+                            location.reload();
+                        } else {
+                            alert(data.message);
+                            location.reload();
+                        }
+                    }
+                });
+            } else {
+                //$remove.prop('disabled', !$table.bootstrapTable('getSelections').length);
+            }
+        });
+        $(window).resize(() => {
+            $table.bootstrapTable('resetView', {
+                height: getHeight()
+            });
+        });
+    }
+
+    function getIdSelections() {
+        return $.map($table.bootstrapTable('getSelections'), ({employeeID}) => employeeID);
+    }
+
+    function getHeight() {
+        return $(window).height() - $('h1').outerHeight(true);
+    }
+
+    initTable();
+    /* 用户信息查看页面替换后再次执行事件绑定(END) */
+}
+
+/* 用户信息添加初始化(START) */
+function addUser() {
+    $("#add-user-submit").click(function () {
+        if ($(".form-valide").valid()) {
+            $(".preloader-submit-data").show();
+            $.ajax({
+                url: "/fishes/admin/adduser/"/*"{% url 'fishes:adduser' %}"*/,
+                type: "POST",
+                data: $(".form-valide").serialize(),
+                dataType: "JSON",
+                success: function (data) {
+                    $(".preloader-submit-data").hide();
+                    if (data.status) {
+                        alert(data.message);
+                        location.reload();
+                    } else {
+                        alert(data.message);
+                        location.reload();
+                    }
+                }
+            });
+        } else {
+            console.log('无效');
+        }
+    });
+}
+/*  用户信息添加初始化(END)*/
+
+/* 鱼池信息查看初始化(START) */
+function fishInfoInit() {
+    var operateFormatter = function (value, row, index) {//赋予的参数
+        //注意：这里的 row.id 是用户的ID
+        return '<a class="btn btn-info" href=' + '/fishes/admin/fishpooldetail/' + parseInt(row.id) + ' role="button">详细</a>'
+        // return "<button class='btn btn-info btn-sm' type='button'><a href="+"/fishes/admin/userdetail/"+parseInt(row.id)+" class='fa fa-paste'>详情</a></button>"
+    };
+
+    const $table = $('#fishpool-table');
+    const $remove = $('#delete-pool');
+    let selections = [];
+
+    function initTable() {
+        $table.bootstrapTable({
+            height: getHeight(),
+            url: "/fishes/admin/fishpoolinfo/"/*"{% url 'fishes:fishpoolinfo' %}"*/,
+            columns: [{
+                field: 'state',
+                checkbox: true,
+                align: 'center',
+            }, {
+                title: '鱼池编号',
+                field: 'num',
+                align: 'center',
+                sortable: true
+            }, {
+                field: 'radius',
+                title: '鱼池半径',
+                align: 'center'
+            }, {
+                field: 'depth',
+                title: '鱼池深度',
+                align: 'center',
+            }, {
+                field: 'PH',
+                title: 'PH值',
+                align: 'center',
+            }, {
+                field: 'temperature',
+                title: '水温',
+                align: 'center',
+            }, {
+                field: 'fish_batch',
+                title: '鱼批次',
+                align: 'center',
+            }, {
+                field: 'operate',
+                title: '操作',
+                align: 'center',
+                formatter: operateFormatter
+            }]
+        });
+        // sometimes footer render error.
+        setTimeout(() => {
+            $table.bootstrapTable('resetView');
+        }, 200);
+        $table.on('check.bs.table uncheck.bs.table ' +
+            'check-all.bs.table uncheck-all.bs.table', () => {
+            $remove.prop('disabled', !$table.bootstrapTable('getSelections').length);
+            // save your data, here just save the current page
+            selections = getIdSelections();
+            // push or splice the selections if you want to save all data selections
+        });
+        $remove.click(() => {
+            // 删除鱼池
+            const pools = getIdSelections();
+            var confirm = window.confirm('是否要删除 ' + pools);
+            if (confirm) {
+                $(".preloader-submit-data").show();
+                $.ajax({
+                    url: "/fishes/admin/deletefishpool/"/*"{% url 'fishes:deletefishpool' %}"*/,
+                    type: "POST",
+                    data: {'pool_nums': pools},
+                    traditional: true,
+                    dataType: "JSON",
+                    success: function (data) {
+                        $(".preloader-submit-data").hide();
+                        if (data.status) {
+                            alert(data.message);
+                            location.reload();
+                        } else {
+                            alert(data.message);
+                            location.reload();
+                        }
+                    }
+                });
+            } else {
+                //$remove.prop('disabled', !$table.bootstrapTable('getSelections').length);
+            }
+        });
+        $(window).resize(() => {
+            $table.bootstrapTable('resetView', {
+                height: getHeight()
+            });
+        });
+    }
+
+    function getIdSelections() {
+        return $.map($table.bootstrapTable('getSelections'), ({num}) => num);
+    }
+
+    function getHeight() {
+        return $(window).height() - $('h1').outerHeight(true);
+    }
+
+    $(() => {
+        initTable();
+    });
+}
+/* 鱼池信息查看初始化(END) */
