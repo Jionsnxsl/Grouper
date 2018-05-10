@@ -185,10 +185,30 @@ class AddFishPoolView(View):
     '''添加鱼池信息'''
 
     def get(self, request):
-        return render(request, "fishes/add_fish_pool.html")
+        fish_num_list = FishPool.objects.all().values('num')
+        available_num = set(i for i in range(1, 100+1))
+        using_num = set()
+        for item in fish_num_list:
+            using_num.add(item.get('num'))
+        available_num = list(available_num - using_num)
+        return render(request, "fishes/add_fish_pool.html", {"available_num": available_num})
 
     def post(self, request):
-        pass
+        result = {"status": False, "message": "添加数据失败，请重试！"}
+        pool = {
+            "num": request.POST.get("val-num"),
+            "radius": request.POST.get("val-radius"),
+            "depth": request.POST.get("val-depth"),
+            "PH": request.POST.get("val-ph"),
+            "temperature": request.POST.get("val-temperature")
+        }
+
+        pool_created = FishPool.objects.create(**pool)
+        if pool_created is not None:
+            result['status'] = True
+            result['message'] = '添加鱼池成功！'
+
+        return HttpResponse(json.dumps(result))
 
 
 def deleteFishPool(request):

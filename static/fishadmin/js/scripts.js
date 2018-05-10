@@ -53,7 +53,7 @@ $(function() {
         }),
 
         $(function() {
-                function mysidebarMenu() {
+                function LeftSidebarMenu() {
                 $("nav a[aria-expanded]").bind('click', function () {
                     $("nav a[aria-expanded]").attr('aria-expanded', false).removeClass('active').parent().removeClass('active')
                     $("nav a[aria-expanded]").next('ul').attr('aria-expanded', false).removeClass('in')
@@ -72,7 +72,7 @@ $(function() {
                 });
 
             };
-            mysidebarMenu();
+            LeftSidebarMenu();
         }),
 
         $(".scroll-sidebar").slimScroll({
@@ -256,12 +256,12 @@ function userInfoInit() {
 /* 用户信息添加初始化(START) */
 function addUser() {
     $("#add-user-submit").click(function () {
-        if ($(".form-valide").valid()) {
+        if ($(".form-adduser").valid()) {
             $(".preloader-submit-data").show();
             $.ajax({
                 url: "/fishes/admin/adduser/"/*"{% url 'fishes:adduser' %}"*/,
                 type: "POST",
-                data: $(".form-valide").serialize(),
+                data: $(".form-adduser").serialize(),
                 dataType: "JSON",
                 success: function (data) {
                     $(".preloader-submit-data").hide();
@@ -391,3 +391,31 @@ function fishInfoInit() {
     });
 }
 /* 鱼池信息查看初始化(END) */
+
+/* 鱼池信息添加初始化(START) */
+function addFishPool() {
+    $("#add-fishpool-submit").click(function () {
+        if ($(".form-addfishpool").valid()) {
+            $(".preloader-submit-data").show();
+            $.ajax({
+                url: "/fishes/admin/addfishpool/"/*"{% url 'fishes:adduser' %}"*/,
+                type: "POST",
+                data: $(".form-addfishpool").serialize(),
+                dataType: "JSON",
+                success: function (data) {
+                    $(".preloader-submit-data").hide();
+                    if (data.status) {
+                        alert(data.message);
+                        location.reload();
+                    } else {
+                        alert(data.message);
+                        location.reload();
+                    }
+                }
+            });
+        } else {
+            console.log('无效');
+        }
+    });
+}
+/*  鱼池信息添加初始化(END)*/

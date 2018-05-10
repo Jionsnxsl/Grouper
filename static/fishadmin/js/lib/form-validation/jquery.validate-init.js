@@ -1,7 +1,7 @@
 
 var form_validation = function() {
     var e = function() {
-            jQuery(".form-valide").validate({
+            jQuery(".form-adduser").validate({
                 ignore: [],
                 errorClass: "invalid-feedback animated fadeInDown",
                 errorElement: "div",
@@ -15,6 +15,7 @@ var form_validation = function() {
                     jQuery(e).closest(".form-group").removeClass("is-invalid"), jQuery(e).remove()
                 },
                 rules: {
+                    //TODO: 这里后面可以写成远程验证,查找JQuery validate的remote资料
                     "val-employeeID": {
                         required: !0,
                         minlength: 11,
@@ -73,4 +74,92 @@ var form_validation = function() {
 }();
 jQuery(function() {
     form_validation.init()
+});
+
+/* 鱼池添加表单验证 */
+var addFishPoolFormInit = function () {
+    $.validator.addMethod('num_required', function (value, element) {
+        var reg = /^\d+$/;
+        console.log(value);
+        return this.optional(element) || (reg.test(value));
+        }, "请选择一个鱼池编号");
+    var e = function () {
+        $(".form-addfishpool").validate({
+            ignore: [],
+            errorClass: "invalid-feedback animated fadeInDown",
+            errorElement: "div",
+            errorPlacement: function (e, a) {
+                jQuery(a).parents(".form-group > div").append(e)
+            },
+            highlight: function (e) {
+                jQuery(e).closest(".form-group").removeClass("is-invalid").addClass("is-invalid")
+            },
+            success: function (e) {
+                jQuery(e).closest(".form-group").removeClass("is-invalid"), jQuery(e).remove()
+            },
+            rules: {
+                "val-num": {
+                    required: !0,
+                    num_required: !0
+                },
+                "val-radius": {
+                    required: !0,
+                    number: !0,
+                    min: 0
+                },
+                "val-depth": {
+                    required: !0,
+                    number: !0,
+                    min: 0
+                },
+                "val-ph": {
+                    required: !0,
+                    number: !0,
+                    min: 0
+                },
+                "val-temperature": {
+                    required: !0,
+                    number: !0,
+                    min: 0
+                },
+            },
+            messages: {
+                "val-num": {
+                    required: "鱼池编号不能为空",
+                    num_required: "请选择一个鱼池编号"
+                },
+                "val-radius": {
+                    required: "鱼池半径不能为空",
+                    number: "半径必须为整数或小数",
+                    min: "半径值必须大于0"
+                },
+                "val-depth": {
+                    required: "鱼池深度不能为空",
+                    number: "深度值必须为整数或小数",
+                    min: "深度值必须大于0"
+                },
+                "val-ph": {
+                    required: "鱼池PH值不能为空",
+                    number: "鱼池PH值必须为整数或小数",
+                    min: "鱼池PH值必须大于0"
+                },
+                "val-temperature": {
+                    required: "鱼池温度不能为空",
+                    number: "鱼池温度值必须为整数或小数",
+                    min: "鱼池温度必须大于0"
+                }
+            }
+        })
+    };
+    return {
+        init: function() {
+            e(), jQuery(".js-select2").on("change", function() {
+                jQuery(this).valid()
+            })
+        }
+    }
+}();
+
+$(function () {
+    addFishPoolFormInit.init();
 });

@@ -408,10 +408,10 @@
     <script src="/static/js/bootstrap-table-zh-CN.js"></script>
     <!-- 用户信息查看的表格(END) -->
 
-    <!-- 添加用户(START) -->
+    <!-- 表单验证(START) -->
     <script src="/static/fishadmin/js/lib/form-validation/jquery.validate.min.js"></script>
     <script src="/static/fishadmin/js/lib/form-validation/jquery.validate-init.js"></script>
-    <!-- 添加用户(END) -->
+    <!-- 表单验证(END) -->
     {% endblock %}
     <!-- 每个页面特有的scripts(END) -->
 
@@ -463,7 +463,8 @@
                         fishInfoInit(); // 鱼池信息查看初始化
                         break;
                     case "{% url 'fishes:addfishpool' %}":
-                        console.log('添加鱼池')
+                        addFishPoolFormInit.init();
+                        addFishPool();
                         break;
                     case "{% url 'fishes:generateercode' %}":
                         console.log('生成二维码')
