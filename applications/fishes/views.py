@@ -1,9 +1,10 @@
-from django.shortcuts import render, HttpResponse, get_object_or_404
+from django.shortcuts import render, HttpResponse, get_object_or_404, Http404
 import time, json
 from applications.users import models
 from .models import FishPool
 from django.db.models import Q
 from django.views import View
+from django.contrib.auth.decorators import login_required
 # Create your views here.
 
 
@@ -30,6 +31,25 @@ def productInfoView(request):
     return render(request, "fishes/product_info.html")
 
 
+class FishPoolView(View):
+
+    def get(self, request):
+        pool_num = request.GET.get("pid")
+        try:
+            pool_num = int(pool_num)
+        except Exception:
+            raise Http404("鱼池信息获取失败！")
+        pool = FishPool.objects.filter(num=pool_num).first()
+
+        if pool.fish_batch is not None:
+            return render(request, 'fishes/add_product.html')
+
+
+    def post(self, request):
+        pass
+
+
+# @login_required
 def userInfoView(request):
     '''用户信息产看'''
 

@@ -22,6 +22,10 @@ urlpatterns = [
     url(r'^admin/deletefishpool/$', views.deleteFishPool, name="deletefishpool"),
     # 鱼池相关(END)
 
+    # 添加产品信息(START)
+    url(r'^admin/fishpool/$', views.FishPoolView.as_view(), name="fishpool"),
+    # 添加产品信息(END)
+
     url(r'^admin/generateercode/$', views.generateERCodeView, name="generateercode"),
     url(r'^admin/thirdtestreport/$', views.thirdPartTestReportView, name="thirdtestreport"),
     url(r'^admin/feedbacknotreply/$', views.feedbackNOTReplyView, name="feedbacknotreply"),
