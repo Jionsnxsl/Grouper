@@ -24,8 +24,11 @@ urlpatterns = [
 
     # 手机端(START)
     # url(r'^admin/m/main/$', views.MobileMainPage, name="mainpage"),
-    url(r'^admin/m/fishpool/$', views.fishPoolView, name="fishpool"),
+    url(r'^admin/m/fishpool/$', views.fishPoolView.as_view(), name="fishpool"),
     url(r'^admin/m/addproduct/$', views.addProductView, name="addproduct"),
+    url(r'^admin/m/tranproduct/(\d+)/$', views.TranProductView.as_view(), name="tranproduct"),
+    url(r'^admin/m/processproduct/(\d+)/$', views.ProcessProductView.as_view(), name="processproduct"),
+
     # 手机端(END)
 
     url(r'^admin/generateercode/$', views.generateERCodeView, name="generateercode"),

@@ -109,7 +109,8 @@
                 <div class="row justify-content-center">
                     <div class="col-lg-6">
                         <div class="card">
-                            <form action="#">
+                            <form action="{% url 'fishes:fishpool' %}" method="post">
+                                {% csrf_token %}
                                 <div>
                                     <h3>请选择您要进行的操作：</h3>
                                 </div>
@@ -120,9 +121,10 @@
                                         <input type="radio" name="operation" value="export" id="export"><label for="export">
                                         &nbsp;领&nbsp;料</label>
                                     </p>
+                                    <input type="text" name="pool_id" value="{{ pool_id }}" hidden="hidden"/>
                                 </div>
                                 <div>
-                                    <button type="submit" class="btn btn-primary">下一步</button>
+                                    <button type="submit" class="btn btn-primary">下&nbsp;一&nbsp;步</button>
                                 </div>
                             </form>
                         </div>
@@ -133,7 +135,7 @@
             </div>
             <!-- End Container fluid  -->
             <!-- footer -->
-            <footer class="footer"> © 2018 All rights reserved. Template designed by <a href="https://colorlib.com">Colorlib</a></footer>
+            <footer class="footer"> © 2018 All rights reserved. Template designed by <a href="https://www.xmu.edu.cn/">XMU</a></footer>
             <!-- End footer -->
         </div>
         <!-- End Page wrapper  -->

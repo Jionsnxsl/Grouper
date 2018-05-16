@@ -1,9 +1,10 @@
-from django.shortcuts import render, HttpResponse, get_object_or_404, Http404
+from django.shortcuts import render, HttpResponse, get_object_or_404, Http404, HttpResponseRedirect
 import time, json, random, datetime
 from applications.users import models
 from .models import FishPool, FishInfo
 from django.db.models import Q
 from django.views import View
+from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 # Create your views here.
 
@@ -31,32 +32,45 @@ def productInfoView(request):
     return render(request, "fishes/product_info.html")
 
 
-def fishPoolView(request):
+class fishPoolView(View):
     '''扫描鱼池二维码'''
-    result = {'status': False, 'message': '请扫描鱼池上的二维码进行操作！'}
-    pid = request.GET.get('pid', None)
-    try:
-        pool_num = int(pid)
-    except Exception:
-        raise Http404("鱼池信息获取失败！")
-    pool = get_object_or_404(FishPool, num=pool_num)
 
-    if pool.in_using:
-        # 鱼池中有鱼
-        return render(request, 'fishes/verified_operation.html')
-    else:
-        # 鱼池中没有鱼
-        now = datetime.datetime.now()
-        ran_num = random.randint(1000, 10000)
-        product_num = str(now.year)+str(now.month)+str(now.day)+str(ran_num)
-        return render(request, 'fishes/add_product_mobile.html', {'pool_num': pool.num, "product_num": product_num})
+    def get(self, request):
+        result = {'status': False, 'message': '请扫描鱼池上的二维码进行操作！'}
+        pid = request.GET.get('pid', None)
+        try:
+            pool_num = int(pid)
+        except Exception:
+            raise Http404("鱼池信息获取失败！")
+        pool = get_object_or_404(FishPool, num=pool_num)
+
+        if pool.in_using:
+            # 鱼池中有鱼
+            return render(request, 'fishes/verified_operation.html', {'pool_id': pool.id})
+        else:
+            # 鱼池中没有鱼
+            now = datetime.datetime.now()
+            ran_num = random.randint(1000, 10000)
+            product_num = str(now.year)+str(now.month)+str(now.day)+str(ran_num)
+            return render(request, 'fishes/add_product_mobile.html', {'pool_num': pool.num, "product_num": product_num})
+
+    def post(self, request):
+        operation = request.POST.get('operation')
+        if operation == 'tans':
+            return HttpResponseRedirect(reverse('fishes:tranproduct', args=[request.POST.get("pool_id"), ]))
+        elif operation == 'export':
+            return HttpResponseRedirect(reverse('fishes:processproduct', args=[request.POST.get("pool_id"), ]))
+        else:
+            return Http404('请重试！')
+
+
 
 def addProductView(request):
     '''添加产品信息(入料)'''
     result = {"status": False, "message": '添加数据失败，请重试！'}
-    pool_id = FishPool.objects.filter(num=int(request.POST.get("val-poolNum"))).first().id
+    fish_pool = FishPool.objects.filter(num=int(request.POST.get("val-poolNum"))).first()
     data = {
-        "pool_num_id": pool_id,
+        "pool_num_id": fish_pool.id,
         "fish_batch": request.POST.get("val-productNum"),
         "name": request.POST.get("val-typename"),
         "specification": request.POST.get("val-specification"),
@@ -67,6 +81,8 @@ def addProductView(request):
     fish_info = FishInfo.objects.create(**data)
 
     if fish_info is not None:
+        fish_pool.in_using = True
+        fish_pool.save()
         result['status'] = True
         result['message'] = '添加数据成功。'
         return HttpResponse(json.dumps(result))
@@ -74,6 +90,26 @@ def addProductView(request):
         return HttpResponse(json.dumps(result))
 
 
+class TranProductView(View):
+    '''转移鱼池'''
+
+    def get(self, request, pid):
+        print('tran product view ', pid)
+        return HttpResponse("OK")
+
+    def post(self, request):
+        pass
+
+
+class ProcessProductView(View):
+    '''领料加工'''
+
+    def get(self, reqeust, pid):
+        print('in process product view ', pid)
+        return HttpResponse("OK")
+
+    def post(self, reqeust):
+        pass
 
 def userInfoView(request):
     '''用户信息产看'''
