@@ -1,5 +1,6 @@
 from django.db import models
 from .utils import image_rename
+from django.utils import timezone
 # Create your models here.
 
 
@@ -20,7 +21,7 @@ class FishPool(models.Model):
 class FishInfo(models.Model):
     '''鱼信息表'''
     fish_batch = models.CharField(verbose_name='鱼的批次号', max_length=20, unique=True)
-    stock_date = models.DateTimeField(verbose_name='入料时间', auto_created=True)
+    stock_date = models.DateTimeField(verbose_name='入料时间', default=timezone.now)
     number = models.IntegerField(verbose_name='鱼的数量')
     total_mass = models.FloatField(verbose_name='鱼的重量')
     name = models.CharField(verbose_name='品名', max_length=100)
@@ -30,7 +31,7 @@ class FishInfo(models.Model):
     stock_scene = models.ImageField(verbose_name='入料情景', upload_to=image_rename, null=True, blank=True)
     is_stocking = models.BooleanField(verbose_name='是否正在存储中', default=True)
     is_processing = models.BooleanField(verbose_name='是否正在加工中', default=False)
-    pool_num = models.OneToOneField(verbose_name='鱼池号', to=FishPool)
+    pool_num = models.ForeignKey(verbose_name='鱼池号', to=FishPool, related_name='fishinfo')
 
     def __str__(self):
         return self.fish_batch

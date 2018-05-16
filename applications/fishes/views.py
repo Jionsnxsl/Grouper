@@ -1,7 +1,7 @@
 from django.shortcuts import render, HttpResponse, get_object_or_404, Http404
 import time, json, random, datetime
 from applications.users import models
-from .models import FishPool
+from .models import FishPool, FishInfo
 from django.db.models import Q
 from django.views import View
 from django.contrib.auth.decorators import login_required
@@ -50,6 +50,28 @@ def fishPoolView(request):
         ran_num = random.randint(1000, 10000)
         product_num = str(now.year)+str(now.month)+str(now.day)+str(ran_num)
         return render(request, 'fishes/add_product_mobile.html', {'pool_num': pool.num, "product_num": product_num})
+
+def addProductView(request):
+    '''添加产品信息(入料)'''
+    result = {"status": False, "message": '添加数据失败，请重试！'}
+    pool_id = FishPool.objects.filter(num=int(request.POST.get("val-poolNum"))).first().id
+    data = {
+        "pool_num_id": pool_id,
+        "fish_batch": request.POST.get("val-productNum"),
+        "name": request.POST.get("val-typename"),
+        "specification": request.POST.get("val-specification"),
+        "number": int(request.POST.get("val-fishnum")),
+        "total_mass": float(request.POST.get("val-totalmass")),
+    }
+
+    fish_info = FishInfo.objects.create(**data)
+
+    if fish_info is not None:
+        result['status'] = True
+        result['message'] = '添加数据成功。'
+        return HttpResponse(json.dumps(result))
+    else:
+        return HttpResponse(json.dumps(result))
 
 
 

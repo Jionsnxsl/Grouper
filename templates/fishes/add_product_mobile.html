@@ -86,12 +86,7 @@
         </div>
         <!-- End header header -->
 
-        <!-- Page wrapper  -->
         <!-- 右侧内容加载进度条(START)-->
-        <div class="preloader-content" style="display: none;">
-            <svg class="circular" viewBox="25 25 50 50">
-			    <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10" /> </svg>
-        </div>
         <div class="preloader-submit-data" style="display: none;">
             <svg class="circular" viewBox="25 25 50 50">
 			    <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10" /> </svg>
@@ -119,51 +114,55 @@
                     <div class="col-lg-6">
                         <div class="card">
                                 <div class="form-validation">
-                                    <form class="form-adduser">
+                                    <form class="form-addproduct">
                                         {% csrf_token %}
                                         <div class="form-group row">
                                             <label class="col-lg-4 col-form-label" for="val-poolNum">鱼池编号</label>
                                             <div class="col-lg-6">
                                                 <input type="text" class="form-control" id="val-poolNum"
-                                                       name="val-poolNum" value="{{ pool_num }}" disabled="disabled">
+                                                       name="val-poolNum" value="{{ pool_num }}" readonly="readonly">
                                             </div>
                                         </div>
                                         <div class="form-group row">
                                             <label class="col-lg-4 col-form-label" for="val-productNum">产品批号(系统生成)</label>
                                             <div class="col-lg-6">
                                                 <input type="text" class="form-control" id="val-productNum"
-                                                       name="val-productNum" value="{{ product_num }}" disabled="disabled">
+                                                       name="val-productNum" value="{{ product_num }}" readonly="readonly">
                                             </div>
                                         </div>
                                         <div class="form-group row">
-                                            <label class="col-lg-4 col-form-label" for="val-password">密码 <span
-                                                    class="text-danger">*</span></label>
+                                            <label class="col-lg-4 col-form-label" for="val-typename">品种</label>
                                             <div class="col-lg-6">
-                                                <input type="password" class="form-control" id="val-password"
-                                                       name="val-password" value="123456" autocomplete="new-password"><span>默认：123456</span>
-                                            </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <label class="col-lg-4 col-form-label" for="val-is-manager">是否为管理员 <span
-                                                    class="text-danger">*</span></label>
-                                            <div class="col-lg-6">
-                                                <select class="form-control" id="val-is-manager" name="val-is-manager">
-                                                    <option value="no">否</option>
-                                                    <option value="yes">是</option>
+                                                <select class="form-control" id="val-typename" name="val-typename">
+                                                    <option value="1">石斑鱼类1</option>
+                                                    <option value="2">石斑鱼类2</option>
                                                 </select>
                                             </div>
                                         </div>
                                         <div class="form-group row">
-                                            <label class="col-lg-4 col-form-label" for="val-phonenum">手机号<span
-                                                    class="text-danger">*</span></label>
+                                            <label class="col-lg-4 col-form-label" for="val-specification">规格</label>
                                             <div class="col-lg-6">
-                                                <input type="text" class="form-control" id="val-phonenum"
-                                                       name="val-phonenum" placeholder="18420089906">
+                                                <input type="text" class="form-control" id="val-specification"
+                                                       name="val-specification">
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-lg-4 col-form-label" for="val-fishnum">石斑鱼数量</label>
+                                            <div class="col-lg-6">
+                                                <input type="text" class="form-control" id="val-fishnum"
+                                                       name="val-fishnum">
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-lg-4 col-form-label" for="val-totalmass">石斑鱼重量</label>
+                                            <div class="col-lg-6">
+                                                <input type="text" class="form-control" id="val-totalmass"
+                                                       name="val-totalmass">
                                             </div>
                                         </div>
                                         <div class="form-group row">
                                             <div class="col-lg-8 ml-auto">
-                                                <button id="add-user-submit" type="button" class="btn btn-primary">提&nbsp;交</button>
+                                                <button id="add-product-submit" type="button" class="btn btn-primary">提&nbsp;交</button>
                                             </div>
                                         </div>
                                     </form>
@@ -195,7 +194,16 @@
     <!--Custom JavaScript -->
     <script src="/static/fishadmin/js/custom.min.js"></script>
     <!-- script init-->
+    <script src="/static/fishadmin/js/scripts.js"></script>
 
+    <!-- 表单验证(START) -->
+    <script src="/static/fishadmin/js/lib/form-validation/jquery.validate.min.js"></script>
+    <script src="/static/fishadmin/js/lib/form-validation/jquery.validate-init.js"></script>
+    <!-- 表单验证(END) -->
+
+    <script>
+        $.addProduct();
+    </script>
 </body>
 
 </html>

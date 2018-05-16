@@ -419,3 +419,33 @@ function addFishPool() {
     });
 }
 /*  鱼池信息添加初始化(END)*/
+
+/* 产品添加初始化(START) */
+$.extend({
+    addProduct: function () {
+        $("#add-product-submit").click(function () {
+            if ($(".form-addproduct").valid()) {
+                $(".preloader-submit-data").show();
+                $.ajax({
+                    url: "/fishes/admin/m/addproduct/"/*"{% url 'fishes:adduser' %}"*/,
+                    type: "POST",
+                    data: $(".form-addproduct").serialize(),
+                    dataType: "JSON",
+                    success: function (data) {
+                        $(".preloader-submit-data").hide();
+                        if (data.status) {
+                            alert(data.message);
+                            location.reload();
+                        } else {
+                            alert(data.message);
+                            location.reload();
+                        }
+                    }
+                });
+            } else {
+                console.log('无效');
+            }
+        });
+    }
+});
+/*  产品添加初始化(END)*/

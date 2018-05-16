@@ -25,6 +25,7 @@ urlpatterns = [
     # 手机端(START)
     # url(r'^admin/m/main/$', views.MobileMainPage, name="mainpage"),
     url(r'^admin/m/fishpool/$', views.fishPoolView, name="fishpool"),
+    url(r'^admin/m/addproduct/$', views.addProductView, name="addproduct"),
     # 手机端(END)
 
     url(r'^admin/generateercode/$', views.generateERCodeView, name="generateercode"),

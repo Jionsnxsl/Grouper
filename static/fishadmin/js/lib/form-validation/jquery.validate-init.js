@@ -163,3 +163,67 @@ var addFishPoolFormInit = function () {
 $(function () {
     addFishPoolFormInit.init();
 });
+
+
+/* 入料添加表单验证 */
+var addProductFormInit = function () {
+
+    var e = function () {
+        $(".form-addproduct").validate({
+            ignore: [],
+            errorClass: "invalid-feedback animated fadeInDown",
+            errorElement: "div",
+            errorPlacement: function (e, a) {
+                jQuery(a).parents(".form-group > div").append(e)
+            },
+            highlight: function (e) {
+                jQuery(e).closest(".form-group").removeClass("is-invalid").addClass("is-invalid")
+            },
+            success: function (e) {
+                jQuery(e).closest(".form-group").removeClass("is-invalid"), jQuery(e).remove()
+            },
+            rules: {
+                "val-specification": {
+                    required: !0,
+                },
+                "val-fishnum": {
+                    required: !0,
+                    digits: !0,
+                    min: 0
+                },
+                "val-totalmass": {
+                    required: !0,
+                    number: !0,
+                    min: 0
+                },
+            },
+            messages: {
+                "val-specification": {
+                    required: "鱼规格不能为空",
+                },
+                "val-fishnum": {
+                    required: "鱼的数量不能为空",
+                    digits: "鱼的数量必须为正整数",
+                    min: "鱼的数量必须大于0"
+                },
+                "val-totalmass": {
+                    required: "鱼的总重量不能为空",
+                    number: "鱼的总重量必须为整数或小数",
+                    min: "鱼的总重量必须大于0"
+                },
+            }
+        })
+    };
+    return {
+        init: function() {
+            e(), jQuery(".js-select2").on("change", function() {
+                jQuery(this).valid()
+            })
+        }
+    }
+}();
+
+$(function () {
+    addProductFormInit.init();
+});
+
