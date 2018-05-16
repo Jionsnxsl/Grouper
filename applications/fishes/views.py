@@ -1,5 +1,5 @@
 from django.shortcuts import render, HttpResponse, get_object_or_404, Http404
-import time, json
+import time, json, random, datetime
 from applications.users import models
 from .models import FishPool
 from django.db.models import Q
@@ -31,25 +31,28 @@ def productInfoView(request):
     return render(request, "fishes/product_info.html")
 
 
-class FishPoolView(View):
+def fishPoolView(request):
+    '''扫描鱼池二维码'''
+    result = {'status': False, 'message': '请扫描鱼池上的二维码进行操作！'}
+    pid = request.GET.get('pid', None)
+    try:
+        pool_num = int(pid)
+    except Exception:
+        raise Http404("鱼池信息获取失败！")
+    pool = get_object_or_404(FishPool, num=pool_num)
 
-    def get(self, request):
-        pool_num = request.GET.get("pid")
-        try:
-            pool_num = int(pool_num)
-        except Exception:
-            raise Http404("鱼池信息获取失败！")
-        pool = FishPool.objects.filter(num=pool_num).first()
-
-        if pool.fish_batch is not None:
-            return render(request, 'fishes/add_product.html')
-
-
-    def post(self, request):
-        pass
+    if pool.in_using:
+        # 鱼池中有鱼
+        return render(request, 'fishes/verified_operation.html')
+    else:
+        # 鱼池中没有鱼
+        now = datetime.datetime.now()
+        ran_num = random.randint(1000, 10000)
+        product_num = str(now.year)+str(now.month)+str(now.day)+str(ran_num)
+        return render(request, 'fishes/add_product_mobile.html', {'pool_num': pool.num, "product_num": product_num})
 
 
-# @login_required
+
 def userInfoView(request):
     '''用户信息产看'''
 

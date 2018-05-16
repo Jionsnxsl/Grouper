@@ -14,3 +14,6 @@ class GrouperUser(AbstractUser):
     # password = models.CharField(verbose_name="密码", max_length=100)
     # 约定：0---表示管理员；1---表示普通员工
     # permission = models.IntegerField(verbose_name="权限", null=False)
+
+    def __str__(self):
+        return self.username

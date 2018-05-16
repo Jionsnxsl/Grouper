@@ -54,6 +54,10 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'config.urls'
 
+# 文件上传路径
+MEDIA_ROOT = '/media/'
+MEDIA_URL = '/media/'
+
 # 指定用户模型
 AUTH_USER_MODEL = 'users.GrouperUser'
 
