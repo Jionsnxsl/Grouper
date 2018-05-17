@@ -113,60 +113,20 @@
                 <div class="row justify-content-center">
                     <div class="col-lg-6">
                         <div class="card">
-                                <div class="form-validation">
-                                    <form class="form-addproduct">
-                                        {% csrf_token %}
-                                        <div class="form-group row">
-                                            <label class="col-lg-4 col-form-label" for="val-poolNum">鱼池编号</label>
-                                            <div class="col-lg-6">
-                                                <input type="text" class="form-control" id="val-poolNum"
-                                                       name="val-poolNum" value="{{ pool_num }}" readonly="readonly">
-                                            </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <label class="col-lg-4 col-form-label" for="val-productNum">产品批号(系统生成)</label>
-                                            <div class="col-lg-6">
-                                                <input type="text" class="form-control" id="val-productNum"
-                                                       name="val-productNum" value="{{ product_num }}" readonly="readonly">
-                                            </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <label class="col-lg-4 col-form-label" for="val-typename">品种</label>
-                                            <div class="col-lg-6">
-                                                <select class="form-control" id="val-typename" name="val-typename">
-                                                    <option value="1">石斑鱼类1</option>
-                                                    <option value="2">石斑鱼类2</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <label class="col-lg-4 col-form-label" for="val-specification">规格</label>
-                                            <div class="col-lg-6">
-                                                <input type="text" class="form-control" id="val-specification"
-                                                       name="val-specification">
-                                            </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <label class="col-lg-4 col-form-label" for="val-fishnum">石斑鱼数量</label>
-                                            <div class="col-lg-6">
-                                                <input type="text" class="form-control" id="val-fishnum"
-                                                       name="val-fishnum">
-                                            </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <label class="col-lg-4 col-form-label" for="val-totalmass">石斑鱼重量</label>
-                                            <div class="col-lg-6">
-                                                <input type="text" class="form-control" id="val-totalmass"
-                                                       name="val-totalmass">
-                                            </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <div class="col-lg-8 ml-auto">
-                                                <button id="add-product-submit" type="button" class="btn btn-primary">提&nbsp;交</button>
-                                            </div>
-                                        </div>
-                                    </form>
+                               <form id="form-process-product">
+                                {% csrf_token %}
+                                <div>
+                                    <h3>注意：</h3>
+                                </div><hr/>
+                                <div>
+                                    <p>您正在领取<strong>{{ pool_num }}</strong>号鱼池中<strong>{{ fish_batch }}</strong>批次号的鱼进行加工</p>
+                                    <input type="text" name="pool_num" value="{{ pool_num }}" hidden="hidden"/>
+                                    <input type="text" name="fish_batch" value="{{ fish_batch }}" hidden="hidden"/>
+                                </div><hr/>
+                                <div>
+                                    <button type="button" id="process-product" class="btn btn-primary">确&nbsp;认</button>
                                 </div>
+                            </form>
                             </div>
                         </div>
                     </div>
@@ -202,7 +162,7 @@
     <!-- 表单验证(END) -->
 
     <script>
-        $.addProduct();
+        $.processProduct();
     </script>
 </body>
 

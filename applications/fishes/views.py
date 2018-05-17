@@ -1,7 +1,7 @@
 from django.shortcuts import render, HttpResponse, get_object_or_404, Http404, HttpResponseRedirect
 import time, json, random, datetime
 from applications.users import models
-from .models import FishPool, FishInfo, TransInfo
+from .models import FishPool, FishInfo, TransInfo, ProcessInfo
 from django.db.models import Q
 from django.views import View
 from django.urls import reverse
@@ -147,11 +147,46 @@ class TranProductView(View):
 class ProcessProductView(View):
     """领料加工"""
 
-    def get(self, reqeust, pnum):
-        return render(reqeust, 'fishes/process_product_mobile.html')
+    def get(self, reqeust):
+        pool_id = int(reqeust.GET.get("pid"))
+        fish_pool = FishPool.objects.get(id=pool_id)
+        fish_info = fish_pool.fishinfo.all().first()
+
+        result = {
+            'pool_num': fish_pool.num,
+            'fish_batch': fish_info.fish_batch
+        }
+
+        return render(reqeust, 'fishes/process_product_mobile.html', result)
 
     def post(self, reqeust):
-        pass
+
+        result = {'status': False, 'message': '领料失败，请重试！'}
+        # 将鱼所在的鱼池置为空
+        # 将鱼的信息表中鱼池置为空
+        # 向加工表写入一条数据
+        pool_num = int(reqeust.POST.get("pool_num"))
+        fish_batch = int(reqeust.POST.get("fish_batch"))
+
+        fish_pool = FishPool.objects.get(num=pool_num)
+        fish_info = FishInfo.objects.get(fish_batch=fish_batch)
+
+        try:
+            with transaction.atomic():
+                fish_pool.in_using = False
+                fish_pool.save()
+
+                fish_info.pool_num = None
+                fish_info.save()
+
+                ProcessInfo.objects.create(fish_info_id=fish_info.id)
+
+        except Exception as e:
+            return HttpResponse(json.dumps(result))
+
+        result['status'] = True
+        result['message'] = '领料成功，请及时处理！'
+        return HttpResponse(json.dumps(result))
 
 def userInfoView(request):
     """用户信息产看"""

@@ -477,3 +477,30 @@ $.extend({
     }
 });
 /*  转移产品初始化(END)*/
+
+/* 领料提交事件(START) */
+$.extend({
+    processProduct: function () {
+        $("#process-product").click(function () {
+            //if ($(".form-transproduct").valid())  //这个表单不在进行验证，都是系统提供选择
+                $(".preloader-submit-data").show();
+                $.ajax({
+                    url: "/fishes/admin/m/processproduct/"/*"{% url 'fishes:adduser' %}"*/,
+                    type: "POST",
+                    data: $("#form-process-product").serialize(),
+                    dataType: "JSON",
+                    success: function (data) {
+                        $(".preloader-submit-data").hide();
+                        if (data.status) {
+                            alert(data.message);
+                            location.reload();
+                        } else {
+                            alert(data.message);
+                            location.reload();
+                        }
+                    }
+                });
+        });
+    }
+});
+/*  领料提交事件(END)*/

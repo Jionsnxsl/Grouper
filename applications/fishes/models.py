@@ -31,7 +31,7 @@ class FishInfo(models.Model):
     stock_scene = models.ImageField(verbose_name='入料情景', upload_to=image_rename, null=True, blank=True)
     is_stocking = models.BooleanField(verbose_name='是否正在存储中', default=True)
     is_processing = models.BooleanField(verbose_name='是否正在加工中', default=False)
-    pool_num = models.ForeignKey(verbose_name='鱼池号', to=FishPool, related_name='fishinfo')
+    pool_num = models.ForeignKey(verbose_name='鱼池号', to=FishPool, related_name='fishinfo', null=True, blank=True)
 
     def __str__(self):
         return self.fish_batch
@@ -42,7 +42,7 @@ class TransInfo(models.Model):
     source_pool = models.ForeignKey(verbose_name='来源池', to=FishPool, related_name='source_pool')
     target_pool = models.ForeignKey(verbose_name='目的池', to=FishPool, related_name='target_pool')
     fish_info = models.ForeignKey(verbose_name='鱼的信息', to=FishInfo)
-    tans_date = models.DateTimeField(verbose_name='转移日期', default=timezone.now())
+    tans_date = models.DateTimeField(verbose_name='转移日期', default=timezone.now)
 
     def __str__(self):
         return str(self.source_pool) + " -> "+str(self.target_pool)
@@ -51,7 +51,7 @@ class TransInfo(models.Model):
 class ProcessInfo(models.Model):
     '''领料加工记录表'''
     fish_info = models.ForeignKey(verbose_name='鱼的信息', to=FishInfo)
-    process_date = models.DateTimeField(verbose_name='加工日期', auto_created=True)
+    process_date = models.DateTimeField(verbose_name='加工日期', auto_created=True, default=timezone.now)
     process_environment = models.ImageField(verbose_name='加工情景', upload_to=image_rename, null=True, blank=True)
     pack_environment = models.ImageField(verbose_name='包装情景', upload_to=image_rename, null=True, blank=True)
     seal_environment = models.ImageField(verbose_name='封箱情景', upload_to=image_rename, null=True, blank=True)
