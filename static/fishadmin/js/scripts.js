@@ -289,6 +289,14 @@ function fishInfoInit() {
         // return "<button class='btn btn-info btn-sm' type='button'><a href="+"/fishes/admin/userdetail/"+parseInt(row.id)+" class='fa fa-paste'>详情</a></button>"
     };
 
+    var in_using_formater = function (value, row, index) {
+        if(value){
+            return '是'
+        }else {
+            return '否'
+        }
+    };
+
     const $table = $('#fishpool-table');
     const $remove = $('#delete-pool');
     let selections = [];
@@ -323,9 +331,10 @@ function fishInfoInit() {
                 title: '水温',
                 align: 'center',
             }, {
-                field: 'fish_batch',
-                title: '鱼批次',
+                field: 'in_using',
+                title: '是否正在使用中',
                 align: 'center',
+                formatter: in_using_formater
             }, {
                 field: 'operate',
                 title: '操作',
@@ -493,7 +502,7 @@ $.extend({
                         $(".preloader-submit-data").hide();
                         if (data.status) {
                             alert(data.message);
-                            location.reload();
+                            location.href = '/fishes/admin/';
                         } else {
                             alert(data.message);
                             location.reload();

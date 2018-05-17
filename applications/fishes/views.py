@@ -176,7 +176,8 @@ class ProcessProductView(View):
                 fish_pool.in_using = False
                 fish_pool.save()
 
-                fish_info.pool_num = None
+                fish_info.is_stocking = False
+                fish_info.is_processing = True
                 fish_info.save()
 
                 ProcessInfo.objects.create(fish_info_id=fish_info.id)
@@ -326,7 +327,7 @@ def fishPoolInfoView(request):
             'depth': fish_pool.depth,
             'PH': fish_pool.PH,
             'temperature':  fish_pool.temperature,
-            'fish_batch': fish_pool.fish_batch
+            'in_using': fish_pool.in_using
         }
         data.append(temp)
 
