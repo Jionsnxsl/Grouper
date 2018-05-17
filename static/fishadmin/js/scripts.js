@@ -449,3 +449,31 @@ $.extend({
     }
 });
 /*  产品添加初始化(END)*/
+
+
+/* 转移产品初始化(START) */
+$.extend({
+    transProduct: function () {
+        $("#add-trans-submit").click(function () {
+            //if ($(".form-transproduct").valid())  //这个表单不在进行验证，都是系统提供选择
+                $(".preloader-submit-data").show();
+                $.ajax({
+                    url: "/fishes/admin/m/transproduct/"/*"{% url 'fishes:adduser' %}"*/,
+                    type: "POST",
+                    data: $(".form-transproduct").serialize(),
+                    dataType: "JSON",
+                    success: function (data) {
+                        $(".preloader-submit-data").hide();
+                        if (data.status) {
+                            alert(data.message);
+                            location.reload();
+                        } else {
+                            alert(data.message);
+                            location.reload();
+                        }
+                    }
+                });
+        });
+    }
+});
+/*  转移产品初始化(END)*/
