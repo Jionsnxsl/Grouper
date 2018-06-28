@@ -285,7 +285,7 @@ function addUser() {
 function fishInfoInit() {
     var operateFormatter = function (value, row, index) {//赋予的参数
         //注意：这里的 row.id 是用户的ID
-        return '<a class="btn btn-info" href=' + '/fishes/admin/fishpooldetail/' + parseInt(row.id) + ' role="button">详细</a>'
+        return '<a class="btn btn-info" href=' + '/fishes/admin/fishpoolqrcode/' + parseInt(row.id) + ' role="button">鱼池二维码</a>'
         // return "<button class='btn btn-info btn-sm' type='button'><a href="+"/fishes/admin/userdetail/"+parseInt(row.id)+" class='fa fa-paste'>详情</a></button>"
     };
 

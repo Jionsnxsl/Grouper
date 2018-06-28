@@ -6,6 +6,8 @@ from django.db.models import Q
 from django.views import View
 from django.urls import reverse
 from django.db import transaction
+import qrcode
+from django.utils.encoding import escape_uri_path
 from django.contrib.auth.decorators import login_required
 # Create your views here.
 
@@ -38,6 +40,10 @@ class fishPoolView(View):
 
     def get(self, request):
         result = {'status': False, 'message': '请扫描鱼池上的二维码进行操作！'}
+        path = request.path_info.lstrip('/')
+        url = request.build_absolute_uri()
+        print(url)
+        print(path)
         pid = request.GET.get('pid', None)
         try:
             pool_id = int(pid)
@@ -294,7 +300,7 @@ def deleteUserView(request):
 
 
 def fishPoolInfoView(request):
-    """产看鱼池信息"""
+    """查看鱼池信息"""
     if request.GET.get('offset') is None:
         return render(request, "fishes/fish_pool_info.html")
 
@@ -335,9 +341,21 @@ def fishPoolInfoView(request):
     return HttpResponse(json.dumps(result))
 
 
-def fishPoolDetailView(request, pid):
-    """鱼池详细信息"""
-    return HttpResponse("OK")
+def fishPoolQRCode(request, pid):
+    """生成鱼池对应的二维码"""
+    from django.utils.six import BytesIO
+    url = "http://" + request.get_host() + reverse("fishes:fishpool")+"?pid="+pid
+    img = qrcode.make(url)
+    buf = BytesIO()
+    img.save(buf)
+    image_stream = buf.getvalue()
+    file = "鱼池" + pid + "号的二维码" + ".png"
+    response = HttpResponse(image_stream)
+    response['Content-Type'] = 'application/image'
+    response['Content-Disposition'] = "attachment; filename*=utf-8''{0}".format(escape_uri_path(file))
+    # response['Content-Disposition'] = 'attachment;filename="{0}"'.format(file)
+    return response
+
 
 
 class AddFishPoolView(View):

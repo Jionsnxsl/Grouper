@@ -17,7 +17,7 @@ urlpatterns = [
 
     # 鱼池相关(START)
     url(r'^admin/fishpoolinfo/$', views.fishPoolInfoView, name="fishpoolinfo"),
-    url(r'^admin/fishpooldetail/(?P<pid>\d+)$', views.fishPoolDetailView, name="fishpooldetail"),
+    url(r'^admin/fishpoolqrcode/(?P<pid>\d+)$', views.fishPoolQRCode, name="fishpooldetail"),
     url(r'^admin/addfishpool/$', views.AddFishPoolView.as_view(), name="addfishpool"),
     url(r'^admin/deletefishpool/$', views.deleteFishPool, name="deletefishpool"),
     # 鱼池相关(END)
