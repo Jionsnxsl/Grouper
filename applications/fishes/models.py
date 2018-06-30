@@ -71,7 +71,7 @@ class ProductInfo(models.Model):
     '''产品信息表'''
     product_batch = models.CharField(verbose_name='产品批次号', max_length=20, unique=True)
     fish_info = models.ForeignKey(verbose_name='鱼的信息', to=FishInfo)
-    trans_info = models.ForeignKey(verbose_name='转移信息', to=TransInfo)
+    # trans_info = models.ForeignKey(verbose_name='转移信息', to=TransInfo)
     process_info = models.ForeignKey(verbose_name='加工信息', to=ProcessInfo)
 
 

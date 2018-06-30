@@ -256,7 +256,7 @@ function userInfoInit() {
 /* 用户信息添加初始化(START) */
 function addUser() {
     $("#add-user-submit").click(function () {
-        if ($(".form-adduser").valid()) {
+        if ($(".form-adduser").valid()) { // 已经在validate-init.js中注册了验证函数
             $(".preloader-submit-data").show();
             $.ajax({
                 url: "/fishes/admin/adduser/"/*"{% url 'fishes:adduser' %}"*/,
@@ -404,7 +404,7 @@ function fishInfoInit() {
 /* 鱼池信息添加初始化(START) */
 function addFishPool() {
     $("#add-fishpool-submit").click(function () {
-        if ($(".form-addfishpool").valid()) {
+        if ($(".form-addfishpool").valid()) { // 已经在validate-init.js中注册了验证函数
             $(".preloader-submit-data").show();
             $.ajax({
                 url: "/fishes/admin/addfishpool/"/*"{% url 'fishes:adduser' %}"*/,
@@ -429,11 +429,11 @@ function addFishPool() {
 }
 /*  鱼池信息添加初始化(END)*/
 
-/* 产品添加初始化(START) */
+/* 入料初始化(START) */
 $.extend({
     addProduct: function () {
         $("#add-product-submit").click(function () {
-            if ($(".form-addproduct").valid()) {
+            if ($(".form-addproduct").valid()) { // 已经在validate-init.js中注册了验证函数
                 $(".preloader-submit-data").show();
                 $.ajax({
                     url: "/fishes/admin/m/addproduct/"/*"{% url 'fishes:adduser' %}"*/,
@@ -443,9 +443,12 @@ $.extend({
                     success: function (data) {
                         $(".preloader-submit-data").hide();
                         if (data.status) {
+                            // 成功添加---->跳转到后台主页
                             alert(data.message);
-                            location.reload();
+                            //location.reload();
+                            location.href = "/fishes/admin";
                         } else {
+                            // 添加失败 ---> 刷新当前页面
                             alert(data.message);
                             location.reload();
                         }
@@ -457,10 +460,10 @@ $.extend({
         });
     }
 });
-/*  产品添加初始化(END)*/
+/*  入料初始化(END)*/
 
 
-/* 转移产品初始化(START) */
+/* 转移鱼初始化(START) */
 $.extend({
     transProduct: function () {
         $("#add-trans-submit").click(function () {
@@ -474,9 +477,12 @@ $.extend({
                     success: function (data) {
                         $(".preloader-submit-data").hide();
                         if (data.status) {
+                            // 转移成功 --》 跳转到后台主页
                             alert(data.message);
-                            location.reload();
+                            location.href = "/fishes/admin";
+                            //location.reload();
                         } else {
+                            // 否则刷新当前页面
                             alert(data.message);
                             location.reload();
                         }
@@ -485,7 +491,7 @@ $.extend({
         });
     }
 });
-/*  转移产品初始化(END)*/
+/*  转移鱼初始化(END)*/
 
 /* 领料提交事件(START) */
 $.extend({
@@ -501,6 +507,7 @@ $.extend({
                     success: function (data) {
                         $(".preloader-submit-data").hide();
                         if (data.status) {
+                            // 领料成功---》跳转到后台主页
                             alert(data.message);
                             location.href = '/fishes/admin/';
                         } else {

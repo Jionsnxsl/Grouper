@@ -1,7 +1,7 @@
 from django.shortcuts import render, HttpResponse, get_object_or_404, Http404, HttpResponseRedirect
 import time, json, random, datetime
 from applications.users import models
-from .models import FishPool, FishInfo, TransInfo, ProcessInfo
+from .models import FishPool, FishInfo, TransInfo, ProcessInfo, ProductInfo
 from django.db.models import Q
 from django.views import View
 from django.urls import reverse
@@ -58,8 +58,8 @@ class fishPoolView(View):
             # 鱼池中没有鱼
             now = datetime.datetime.now()
             ran_num = random.randint(1000, 10000)
-            product_num = str(now.year)+str(now.month)+str(now.day)+str(ran_num)
-            return render(request, 'fishes/add_product_mobile.html', {'pool_id': pool_id, "product_num": product_num})
+            fish_batch_num = str(now.year)+str(now.month)+str(now.day)+str(ran_num)
+            return render(request, 'fishes/add_product_mobile.html', {'pool_id': pool_id, "fish_batch_num": fish_batch_num})
 
     def post(self, request):
         operation = request.POST.get('operation')
@@ -79,7 +79,7 @@ def addProductView(request):
     fish_pool = FishPool.objects.filter(id=int(request.POST.get("val-poolID"))).first()
     data = {
         "pool_num_id": fish_pool.id,
-        "fish_batch": request.POST.get("val-productNum"),
+        "fish_batch": request.POST.get("val-batchNum"),
         "name": request.POST.get("val-typename"),
         "specification": request.POST.get("val-specification"),
         "number": int(request.POST.get("val-fishnum")),
@@ -186,13 +186,27 @@ class ProcessProductView(View):
                 fish_info.is_processing = True
                 fish_info.save()
 
-                ProcessInfo.objects.create(fish_info_id=fish_info.id)
+                process_info = ProcessInfo.objects.create(fish_info_id=fish_info.id)
+
+                # 领料成功后，默认向产品信息表添加领料成功的产品信息
+                # 生成产品批次号
+                now = datetime.datetime.now()
+                ran_num = random.randint(1000, 10000)
+                product_num = str(now.year) + str(now.month) + str(now.day) + str(ran_num)
+
+                product_info_data = {
+                    "product_batch": product_num,
+                    "fish_info_id": fish_info.id,
+                    "process_info_id": process_info.id
+                }
+                ProductInfo.objects.create(**product_info_data)
 
         except Exception as e:
             return HttpResponse(json.dumps(result))
 
         result['status'] = True
         result['message'] = '领料成功，请及时处理！'
+
         return HttpResponse(json.dumps(result))
 
 def userInfoView(request):

@@ -28,6 +28,7 @@ class LoginRequiredMiddleware(MiddlewareMixin):
                 'django.core.context_processors.auth'."
         if not request.user.is_authenticated():
             # TODO : 这里发现一个BUG，request.path只获取了访问路径，没有获取访问参数，如果登录的时候是个GET请求就会出错
+            # request.build_absolute_uri() 可以获取完整路径
             path = request.path_info.lstrip('/')
             if not any(m.match(path) for m in EXEMPT_URLS):
                 return HttpResponseRedirect(settings.LOGIN_URL+"?next=/"+path)
