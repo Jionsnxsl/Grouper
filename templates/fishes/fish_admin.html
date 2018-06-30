@@ -435,6 +435,7 @@
                 switch (window.location.pathname){
                     case "{% url 'fishes:productinfo' %}":
                         console.log('产品信息');
+                        productInfoInit();
                         break;
                     case "{% url 'fishes:userinfo' %}":
                         userInfoInit(); //用户信息查看页面替换后再次执行事件绑定

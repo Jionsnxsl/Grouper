@@ -149,7 +149,7 @@ $(function() {
         });
 });
 
-/* 用户信息查看初始化定(START) */
+/* 用户信息查看初始化(START) */
 function userInfoInit() {
     var operateFormatter = function (value, row, index) {//赋予的参数
         //注意：这里的 row.id 是用户的ID
@@ -520,3 +520,73 @@ $.extend({
     }
 });
 /*  领料提交事件(END)*/
+
+/* 产品信息查看初始化(START) */
+function productInfoInit() {
+    var operateFormatter = function (value, row, index) {//赋予的参数
+        //注意：这里的 row.id 是用户的ID
+        console.log(row);
+        console.log(row.id);
+        //return "<button class='btn btn-info btn-sm' type='button'><a href="+"/fishes/admin/userdetail/"+parseInt(row.id)+" class='fa fa-paste'>详情</a></button>"
+        return '<a class="btn btn-info" href=' + '/fishes/admin/userdetail/' + parseInt(row.id) + ' role="button">详细</a>'
+    };
+
+    const $table = $('#productinfo-table');
+    // const $remove = $('#delete-user'); // 产品查看不提供快速删除按钮
+    let selections = [];
+
+    function initTable() {
+        $table.bootstrapTable({
+            height: getHeight(),
+            url: "/fishes/admin/productinfo/"/*"{% url 'fishes:userinfo' %}"*/,
+            columns: [{
+                field: 'product_batch',
+                title: '产品批次',
+                align: 'center',
+                sortable: true
+            }, {
+                field: 'fish_batch',
+                title: '鱼批次',
+                sortable: true,
+                align: 'center'
+            }, {
+                field: 'product_date',
+                title: '产品生成时间',
+                align: 'center',
+            },  {
+                field: 'operate',
+                title: '操作',
+                align: 'center',
+                formatter: operateFormatter
+            }]
+        });
+        // sometimes footer render error.
+        setTimeout(() => {
+            $table.bootstrapTable('resetView');
+        }, 200);
+        $table.on('check.bs.table uncheck.bs.table ' +
+            'check-all.bs.table uncheck-all.bs.table', () => {
+            $remove.prop('disabled', !$table.bootstrapTable('getSelections').length);
+
+            // save your data, here just save the current page
+            selections = getIdSelections();
+            // push or splice the selections if you want to save all data selections
+        });
+        $(window).resize(() => {
+            $table.bootstrapTable('resetView', {
+                height: getHeight()
+            });
+        });
+    }
+
+    function getIdSelections() {
+        return $.map($table.bootstrapTable('getSelections'), ({employeeID}) => employeeID);
+    }
+
+    function getHeight() {
+        return $(window).height() - $('h1').outerHeight(true);
+    }
+
+    initTable();
+}
+/* 产品信息查看初始化(END) */

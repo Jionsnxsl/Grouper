@@ -30,9 +30,11 @@
                             <div class="card-body">
                                 <h1 class="card-title">产品信息</h1>
                                 <div class="table-responsive m-t-40">
+                                    <!-- (不提供快速删除产品信息的按钮，防止误删)
                                     <div id="toolbar">
                                         <button id="delete-product" class="btn btn-danger" type="button" style="cursor:default;" disabled>删除</button>
                                     </div>
+                                    -->
                                     <table id="productinfo-table"
                                            data-toolbar="#toolbar"
                                            data-search="true"
@@ -56,4 +58,10 @@
             <!-- End footer -->
         </div>
         <!-- End Page wrapper  -->
+{% endblock %}
+
+{% block custom-scripts-for-each-page %}
+    <script>
+        productInfoInit(); // 产品信息表格初始化
+    </script>
 {% endblock %}

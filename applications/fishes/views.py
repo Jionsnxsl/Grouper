@@ -31,8 +31,49 @@ def adminView(request):
 
 def productInfoView(request):
     """产品信息查看"""
-    print("call product info view ", request.META.get("HTTP_X_PJAX", None))
-    return render(request, "fishes/product_info.html")
+    # print("call product info view ", request.META.get("HTTP_X_PJAX", None))
+    # return render(request, "fishes/product_info.html")
+
+    # 如果请求中没有“offset”说明是请求产品信息查看页面
+    # 否则，是请求产品信息
+    if request.GET.get('offset') is None:
+        return render(request, "fishes/product_info.html")
+
+    search = request.GET.get('search')
+    sort = request.GET.get('sort')
+    order = request.GET.get('order')
+    offset = request.GET.get('offset')
+    limit = request.GET.get('limit')
+
+    products = None
+    if search is not None:
+        products = ProductInfo.objects.filter(Q(product_batch__contains=search) | Q(product_date__contains=search)
+                                              | Q(fish_info__fish_batch__contains=search))
+    else:
+        products = ProductInfo.objects.all()
+
+    if sort is not None:
+        if order == 'asc':
+            products = products.order_by('-' + sort)
+        else:
+            products = products.order_by(sort)
+
+    total = products.count()
+
+    data = []
+    for product in products:
+        temp = {
+            'id': product.id,
+            'product_batch': product.product_batch,
+            'fish_batch': product.fish_info.fish_batch,
+            'product_date': product.product_date.strftime("%Y-%m-%d"),
+        }
+        data.append(temp)
+
+    result = {'total': total, 'rows': data[0 + int(offset):0 + int(offset) + int(limit)]}
+    return HttpResponse(json.dumps(result))
+
+
 
 
 class fishPoolView(View):
@@ -210,8 +251,10 @@ class ProcessProductView(View):
         return HttpResponse(json.dumps(result))
 
 def userInfoView(request):
-    """用户信息产看"""
+    """用户信息查看"""
 
+    # 如果请求中没有“offset”说明是请求用户信息查看页面
+    # 否则，是请求用户信息
     if request.GET.get('offset') is None:
         return render(request, "fishes/user_info.html")
 

@@ -73,6 +73,7 @@ class ProductInfo(models.Model):
     fish_info = models.ForeignKey(verbose_name='鱼的信息', to=FishInfo)
     # trans_info = models.ForeignKey(verbose_name='转移信息', to=TransInfo)
     process_info = models.ForeignKey(verbose_name='加工信息', to=ProcessInfo)
+    product_date = models.DateTimeField(verbose_name='生成产品日期', auto_created=True, default=timezone.now)
 
 
 
