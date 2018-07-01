@@ -1,0 +1,232 @@
+{% extends "fishes/fish_admin.html" %}
+
+{% block rightside-page-content %}
+        <!-- Page wrapper  -->
+        <div class="page-wrapper" id="rightside-page-wrapper">
+            <!-- Bread crumb(右侧最上面的标题栏) -->
+            <div class="row page-titles">
+                <div class="col-md-5 align-self-center">
+                    <h3 class="text-primary">产品信息详细</h3> </div>
+                <div class="col-md-7 align-self-center">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="javascript:void(0)">主页</a></li>
+                        <li class="breadcrumb-item active">产品信息查看</li>
+                        <li class="breadcrumb-item active">产品信息详细</li>
+                    </ol>
+                </div>
+            </div>
+            <!-- End Bread crumb -->
+
+            <!-- Container fluid  -->
+            <div class="container-fluid">
+                <!-- Start Page Content -->
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card card-outline-primary">
+                            <div class="card-body">
+                                <form action="#">
+                                    <div class="form-body">
+                                        <h3 class="card-title m-t-15"><strong>产品基本信息</strong></h3>
+                                        <hr>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label class="control-label" for="productNum">产品批次号 : </label>
+                                                    <span id="productNum">1111</span>
+                                                </div>
+                                            </div>
+                                            <!--/span-->
+                                            <div class="col-md-6">
+                                                <div class="form-group has-danger">
+                                                    <label class="control-label" for="productDate">产品生成时间 : </label>
+                                                    <span id="productDate">2018/05/21</span>
+                                                </div>
+                                            </div><!--/span-->
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <div class="card">
+                                                    <div class="card-body">
+                                                        <h4 class="card-title">包装情景图片</h4>
+                                                        <h6 class="card-subtitle">For multiple file upload put class <code>.dropzone</code> to form.</h6>
+                                                        <form action="#" class="dropzone">
+                                                            <div class="fallback">
+                                                                <input name="file" type="file" multiple/>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!--/row-->
+                                        <h4 class="box-title m-t-40"><strong>石斑鱼基本信息</strong></h4>
+                                        <hr>
+                                        <div class="row">
+                                            <div class="col-md-6 ">
+                                                <div class="form-group">
+                                                    <label>石斑鱼批次</label>
+                                                    <input id="fish_batch" type="text" class="form-control" readonly>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 ">
+                                                <div class="form-group">
+                                                    <label>入料时间</label>
+                                                    <input id="stock_date" type="text" class="form-control" readonly>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label>石斑鱼数量</label>
+                                                    <input id="number" type="text" class="form-control" readonly>
+                                                </div>
+                                            </div>
+                                            <!--/span-->
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label>石斑鱼总重量</label>
+                                                    <input id="total_mass" type="text" class="form-control" readonly>
+                                                </div>
+                                            </div>
+                                            <!--/span-->
+                                        </div>
+                                        <!--/row-->
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label>石斑鱼品种名</label>
+                                                    <input id="name" type="text" class="form-control" readonly>
+                                                </div>
+                                            </div>
+                                            <!--/span-->
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label>石斑鱼规格</label>
+                                                    <input id="specification" type="text" class="form-control" readonly>
+                                                </div>
+                                            </div>
+                                            <!--/span-->
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <label>入料检测报告</label>
+                                                    <input id="name" type="text" class="form-control" >
+                                                </div>
+                                            </div>
+                                            <!--/span-->
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                    <div class="form-group">
+                                                        <label>第三方检测报告</label>
+                                                        <input id="specification" type="text" class="form-control" >
+                                                    </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                    <div class="form-group">
+                                                        <label>入料情景图片</label>
+                                                        <input id="specification" type="text" class="form-control" >
+                                                    </div>
+                                            </div>
+                                        </div>
+
+                                        <h4 class="box-title m-t-40"><strong>石斑鱼转移记录</strong></h4>
+                                        <hr>
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="card">
+                                                    <div class="card-title">
+                                                            <h4>转移记录表 </h4>
+                                                    </div>
+                                                    <div class="card-body">
+                                                        <div class="table-responsive">
+                                                            <table class="table table-bordered">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th>#</th>
+                                                                        <th>转移时间</th>
+                                                                        <th>来源池</th>
+                                                                        <th>目的池</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    <tr>
+                                                                        <th scope="row">1</th>
+                                                                        <td>2018/02/20</td>
+                                                                        <td> 1 号鱼池</td>
+                                                                        <td> 2 号鱼池</td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <th scope="row">2</th>
+                                                                        <td>2018/02/23</td>
+                                                                        <td> 2 号鱼池</td>
+                                                                        <td> 4 号鱼池</td>
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <h4 class="box-title m-t-40">石斑鱼加工信息</h4>
+                                        <hr>
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <label>加工日期</label>
+                                                    <input id="process_date" type="text" class="form-control" >
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <label>加工情景</label>
+                                                    <input id="process_date" type="text" class="form-control" >
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <label>领料情景</label>
+                                                    <input id="get_scene" type="text" class="form-control" >
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <label>加工检测报告</label>
+                                                    <input id="test_report_process" type="text" class="form-control" >
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <div class="form-actions" style="margin-left: 30%">
+                                        <button type="submit" class="btn btn-success"> <i class="fa fa-check"></i> 提交并生成二维码</button>
+                                        <button type="button" class="btn btn-inverse">取消</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- End PAge Content -->
+            </div>
+            <!-- End Container fluid  -->
+            <!-- footer -->
+            <footer class="footer"> © 2018 All rights reserved.Designed by <a href="https://www.xmu.edu.cn/">XUM</a></footer>
+            <!-- End footer -->
+        </div>
+        <!-- End Page wrapper  -->
+{% endblock %}
+
+

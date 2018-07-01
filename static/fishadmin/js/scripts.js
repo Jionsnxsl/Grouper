@@ -524,11 +524,11 @@ $.extend({
 /* 产品信息查看初始化(START) */
 function productInfoInit() {
     var operateFormatter = function (value, row, index) {//赋予的参数
-        //注意：这里的 row.id 是用户的ID
-        console.log(row);
-        console.log(row.id);
+        //注意：这里的 row.id 是产品信息的ID
+        //console.log(row);
+        //console.log(row.id);
         //return "<button class='btn btn-info btn-sm' type='button'><a href="+"/fishes/admin/userdetail/"+parseInt(row.id)+" class='fa fa-paste'>详情</a></button>"
-        return '<a class="btn btn-info" href=' + '/fishes/admin/userdetail/' + parseInt(row.id) + ' role="button">详细</a>'
+        return '<a class="btn btn-info" href=' + '/fishes/admin/productdetail/?pid=' + parseInt(row.id) + ' role="button">详细</a>'
     };
 
     const $table = $('#productinfo-table');

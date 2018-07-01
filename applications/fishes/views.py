@@ -75,6 +75,16 @@ def productInfoView(request):
 
 
 
+class productDetailView(View):
+    """产品信息详细"""
+
+    def get(self, request):
+        print("pid---------"+request.GET.get("pid"))
+        return render(request, "fishes/product_info_detail.html")
+
+    def post(self, request):
+        pass
+
 
 class fishPoolView(View):
     """扫描鱼池二维码"""

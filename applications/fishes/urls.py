@@ -7,6 +7,7 @@ urlpatterns = [
     url(r'^search-result/', views.search_view, name="search_view"),
     url(r'^admin/$', views.adminView, name="admin_view"),
     url(r'^admin/productinfo/$', views.productInfoView, name="productinfo"),
+    url(r'^admin/productdetail/$', views.productDetailView.as_view(), name="productdetail"),
 
     # 用户相关(START)
     url(r'^admin/userinfo/$', views.userInfoView, name="userinfo"),
