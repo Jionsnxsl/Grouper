@@ -12,24 +12,24 @@ from django.contrib.auth.decorators import login_required
 # Create your views here.
 
 
-def homepage(request):
+def Homepage(request):
     """主页"""
     return render(request, "homepage.html")
 
 
-def search_view(request):
+def SearchView(request):
     """搜索结果"""
     fish_batch = request.GET.get("fish_batch")
     result = {"fish_batch": fish_batch}
     return render(request, "search_result.html", result)
 
 
-def adminView(request):
+def AdminView(request):
     """后台管理首页"""
     return render(request, "fishes/fish_admin.html")
 
 
-def productInfoView(request):
+def ProductInfoView(request):
     """产品信息查看"""
     # print("call product info view ", request.META.get("HTTP_X_PJAX", None))
     # return render(request, "fishes/product_info.html")
@@ -75,18 +75,49 @@ def productInfoView(request):
 
 
 
-class productDetailView(View):
+class ProductDetailView(View):
     """产品信息详细"""
 
     def get(self, request):
-        print("pid---------"+request.GET.get("pid"))
-        return render(request, "fishes/product_info_detail.html")
+        product_id = request.GET.get("pid")
+        product_info_obj = ProductInfo.objects.filter(id=int(product_id)).first()
+        fish_info_obj = product_info_obj.fish_info
+        process_info_obj = product_info_obj.process_info
+
+        product_info_data = {
+            "product_batch": product_info_obj.product_batch,
+            "product_date": product_info_obj.product_date,
+        }
+
+        fish_info_data = {
+            "fish_batch": fish_info_obj.fish_batch,
+            "stock_date": fish_info_obj.stock_date,
+            "number": fish_info_obj.number,
+            "total_mass": fish_info_obj.total_mass,
+            "name": fish_info_obj.name,
+            "specification": fish_info_obj.specification,
+        }
+
+        trans_infos = fish_info_obj.transinfo.all()
+
+        process_info_data = {
+            "process_date": process_info_obj.process_date,
+        }
+
+        data = {
+            "product_info_data": product_info_data,
+            "fish_info_data": fish_info_data,
+            "trans_infos": trans_infos,
+            "process_info_data": process_info_data
+        }
+
+        return render(request, "fishes/product_info_detail.html", data)
 
     def post(self, request):
         pass
 
 
-class fishPoolView(View):
+class FishPoolView(View):
     """扫描鱼池二维码"""
 
     def get(self, request):
@@ -124,7 +155,7 @@ class fishPoolView(View):
             return Http404('请重试！')
 
 
-def addProductView(request):
+def AddProductView(request):
     """添加产品信息(入料)"""
     result = {"status": False, "message": '添加数据失败，请重试！'}
     fish_pool = FishPool.objects.filter(id=int(request.POST.get("val-poolID"))).first()
@@ -260,7 +291,7 @@ class ProcessProductView(View):
 
         return HttpResponse(json.dumps(result))
 
-def userInfoView(request):
+def UserInfoView(request):
     """用户信息查看"""
 
     # 如果请求中没有“offset”说明是请求用户信息查看页面
@@ -309,7 +340,7 @@ def userInfoView(request):
     return HttpResponse(json.dumps(result))
 
 
-def userDetailView(request, uid):
+def UserDetailView(request, uid):
     """用户详细信息"""
     user = models.GrouperUser.objects.filter(id=uid).first()
     result = {"id": user.id,
@@ -352,7 +383,7 @@ class AddUserView(View):
         return HttpResponse(json.dumps(result))
 
 
-def deleteUserView(request):
+def DeleteUserView(request):
     """删除用户"""
     employeeIDs = request.POST.getlist('employeeIDs')
     result = {'status': False, 'message': '删除失败，请重试！'}
@@ -366,7 +397,7 @@ def deleteUserView(request):
 
 
 
-def fishPoolInfoView(request):
+def FishPoolInfoView(request):
     """查看鱼池信息"""
     if request.GET.get('offset') is None:
         return render(request, "fishes/fish_pool_info.html")
@@ -408,7 +439,7 @@ def fishPoolInfoView(request):
     return HttpResponse(json.dumps(result))
 
 
-def fishPoolQRCode(request, pid):
+def FishPoolQRCode(request, pid):
     """生成鱼池对应的二维码"""
     from django.utils.six import BytesIO
     url = "http://" + request.get_host() + reverse("fishes:fishpool")+"?pid="+pid
@@ -455,7 +486,7 @@ class AddFishPoolView(View):
         return HttpResponse(json.dumps(result))
 
 
-def deleteFishPool(request):
+def DeleteFishPool(request):
     """删除鱼池"""
     pool_nums = request.POST.getlist('pool_nums')
     result = {'status': False, 'message': '删除失败，请重试！'}
@@ -467,32 +498,32 @@ def deleteFishPool(request):
     return HttpResponse(json.dumps(result))
 
 
-def generateERCodeView(request):
+def GenerateERCodeView(request):
     """生成产品二维码"""
     time.sleep(1)
     return render(request, "fishes/generate_ERcode.html")
 
 
-def thirdPartTestReportView(request):
+def ThirdPartTestReportView(request):
     """第三方检测报告管理"""
     time.sleep(1)
     return render(request, "fishes/third_part_test_report.html")
 
-def feedbackNOTReplyView(request):
+def FeedbackNOTReplyView(request):
     """未回复反馈"""
     return render(request, "fishes/feedback_not_reply.html")
 
 
-def feedbackReplyView(request):
+def FeedbackReplyView(request):
     """已回复反馈"""
     return render(request, "fishes/feedback_reply.html")
 
 
-def sysSetForHomepageView(request):
+def SysSetForHomepageView(request):
     """网站首页内容设置"""
     return render(request, "fishes/sysset_for_homepage.html")
 
 
-def sysSetForSearchResultView(request):
+def SysSetForSearchResultView(request):
     """搜索结果页面设置"""
     return render(request, "fishes/sysset_for_serach_result.html")

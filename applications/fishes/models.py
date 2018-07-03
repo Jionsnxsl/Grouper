@@ -41,7 +41,7 @@ class TransInfo(models.Model):
     '''转移记录表'''
     source_pool = models.ForeignKey(verbose_name='来源池', to=FishPool, related_name='source_pool')
     target_pool = models.ForeignKey(verbose_name='目的池', to=FishPool, related_name='target_pool')
-    fish_info = models.ForeignKey(verbose_name='鱼的信息', to=FishInfo)
+    fish_info = models.ForeignKey(verbose_name='鱼的信息', to=FishInfo, related_name='transinfo')
     tans_date = models.DateTimeField(verbose_name='转移日期', default=timezone.now)
 
     def __str__(self):

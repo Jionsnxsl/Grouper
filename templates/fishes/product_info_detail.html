@@ -31,15 +31,15 @@
                                         <div class="row">
                                             <div class="col-md-6">
                                                 <div class="form-group">
-                                                    <label class="control-label" for="productNum">产品批次号 : </label>
-                                                    <span id="productNum">1111</span>
+                                                    <label class="control-label" for="product_batch"><strong>产品批次号 : </strong></label>
+                                                    <span id="product_batch">{{ product_info_data.product_batch }}</span>
                                                 </div>
                                             </div>
                                             <!--/span-->
                                             <div class="col-md-6">
                                                 <div class="form-group has-danger">
-                                                    <label class="control-label" for="productDate">产品生成时间 : </label>
-                                                    <span id="productDate">2018/05/21</span>
+                                                    <label class="control-label" for="product_date"><strong>产品生成时间 : </strong></label>
+                                                    <span id="product_date">{{ product_info_data.product_date }}</span>
                                                 </div>
                                             </div><!--/span-->
                                         </div>
@@ -64,29 +64,29 @@
                                         <div class="row">
                                             <div class="col-md-6 ">
                                                 <div class="form-group">
-                                                    <label>石斑鱼批次</label>
-                                                    <input id="fish_batch" type="text" class="form-control" readonly>
+                                                    <label for="fish_batch"><strong>石斑鱼批次:</strong></label>
+                                                    <span id="fish_batch">{{ fish_info_data.fish_batch }}</span>
                                                 </div>
                                             </div>
                                             <div class="col-md-6 ">
                                                 <div class="form-group">
-                                                    <label>入料时间</label>
-                                                    <input id="stock_date" type="text" class="form-control" readonly>
+                                                    <label for="fish_batch"><strong>入料时间:</strong></label>
+                                                    <span id="fish_batch">{{ fish_info_data.stock_date }}</span>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="row">
                                             <div class="col-md-6">
                                                 <div class="form-group">
-                                                    <label>石斑鱼数量</label>
-                                                    <input id="number" type="text" class="form-control" readonly>
+                                                    <label for="fish_batch"><strong>石斑鱼数量:</strong></label>
+                                                    <span id="fish_batch">{{ fish_info_data.number }}</span>
                                                 </div>
                                             </div>
                                             <!--/span-->
                                             <div class="col-md-6">
                                                 <div class="form-group">
-                                                    <label>石斑鱼总重量</label>
-                                                    <input id="total_mass" type="text" class="form-control" readonly>
+                                                    <label for="fish_batch"><strong>石斑鱼总重量:</strong></label>
+                                                    <span id="fish_batch">{{ fish_info_data.total_mass }}</span>
                                                 </div>
                                             </div>
                                             <!--/span-->
@@ -95,15 +95,15 @@
                                         <div class="row">
                                             <div class="col-md-6">
                                                 <div class="form-group">
-                                                    <label>石斑鱼品种名</label>
-                                                    <input id="name" type="text" class="form-control" readonly>
+                                                    <label for="fish_batch"><strong>石斑鱼品种名:</strong></label>
+                                                    <span id="fish_batch">{{ fish_info_data.name }}</span>
                                                 </div>
                                             </div>
                                             <!--/span-->
                                             <div class="col-md-6">
                                                 <div class="form-group">
-                                                    <label>石斑鱼规格</label>
-                                                    <input id="specification" type="text" class="form-control" readonly>
+                                                    <label for="fish_batch"><strong>石斑鱼规格:</strong></label>
+                                                    <span id="fish_batch">{{ fish_info_data.specification }}</span>
                                                 </div>
                                             </div>
                                             <!--/span-->
@@ -154,18 +154,14 @@
                                                                     </tr>
                                                                 </thead>
                                                                 <tbody>
-                                                                    <tr>
-                                                                        <th scope="row">1</th>
-                                                                        <td>2018/02/20</td>
-                                                                        <td> 1 号鱼池</td>
-                                                                        <td> 2 号鱼池</td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <th scope="row">2</th>
-                                                                        <td>2018/02/23</td>
-                                                                        <td> 2 号鱼池</td>
-                                                                        <td> 4 号鱼池</td>
-                                                                    </tr>
+                                                                    {% for trans_info in trans_infos %}
+                                                                        <tr>
+                                                                            <th scope="row">{{ forloop.counter }}</th>
+                                                                            <td>{{ trans_info.tans_date }}</td>
+                                                                            <td> {{ trans_info.source_pool }} 号鱼池</td>
+                                                                            <td> {{ trans_info.target_pool }} 号鱼池</td>
+                                                                        </tr>
+                                                                    {% endfor %}
                                                                 </tbody>
                                                             </table>
                                                         </div>
@@ -179,8 +175,8 @@
                                         <div class="row">
                                             <div class="col-md-12">
                                                 <div class="form-group">
-                                                    <label>加工日期</label>
-                                                    <input id="process_date" type="text" class="form-control" >
+                                                    <label for="process_date"><strong>加工日期:</strong></label>
+                                                    <span id="process_date">{{ process_info_data.process_date }}</span>
                                                 </div>
                                             </div>
                                         </div>
@@ -211,7 +207,7 @@
                                     </div>
                                     <hr>
                                     <div class="form-actions" style="margin-left: 30%">
-                                        <button type="submit" class="btn btn-success"> <i class="fa fa-check"></i> 提交并生成二维码</button>
+                                        <button type="submit" class="btn btn-success">提交并生成二维码</button>
                                         <button type="button" class="btn btn-inverse">取消</button>
                                     </div>
                                 </form>
