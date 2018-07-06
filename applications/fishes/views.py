@@ -8,6 +8,10 @@ from django.urls import reverse
 from django.db import transaction
 import qrcode
 from django.utils.encoding import escape_uri_path
+from django.views.decorators.csrf import csrf_exempt
+from django.utils.decorators import method_decorator
+import ast
+from .utils import delete_image
 from django.contrib.auth.decorators import login_required
 # Create your views here.
 
@@ -30,7 +34,11 @@ def AdminView(request):
 
 
 def ProductInfoView(request):
-    """产品信息查看"""
+    """
+    产品信息查看
+    :param request: 
+    :return: 
+    """
     # print("call product info view ", request.META.get("HTTP_X_PJAX", None))
     # return render(request, "fishes/product_info.html")
 
@@ -74,7 +82,7 @@ def ProductInfoView(request):
     return HttpResponse(json.dumps(result))
 
 
-
+@method_decorator(csrf_exempt, name='dispatch')
 class ProductDetailView(View):
     """产品信息详细"""
 
@@ -85,6 +93,7 @@ class ProductDetailView(View):
         process_info_obj = product_info_obj.process_info
 
         product_info_data = {
+            "product_id": product_id,
             "product_batch": product_info_obj.product_batch,
             "product_date": product_info_obj.product_date,
         }
@@ -96,12 +105,19 @@ class ProductDetailView(View):
             "total_mass": fish_info_obj.total_mass,
             "name": fish_info_obj.name,
             "specification": fish_info_obj.specification,
+            "test_report_stock": fish_info_obj.test_report_stock,
+            "test_report_third": fish_info_obj.test_report_third,
+            "stock_scene": fish_info_obj.stock_scene
         }
 
         trans_infos = fish_info_obj.transinfo.all()
 
         process_info_data = {
             "process_date": process_info_obj.process_date,
+            "pack_environment": process_info_obj.pack_environment,
+            "process_environment": process_info_obj.process_environment,
+            "get_scene": process_info_obj.get_scene,
+            "test_report_process": process_info_obj.test_report_process
         }
 
         data = {
@@ -115,7 +131,69 @@ class ProductDetailView(View):
         return render(request, "fishes/product_info_detail.html", data)
 
     def post(self, request):
-        return HttpResponse("OK")
+        result = {
+            "status": "ERROR",
+            "msg": " "
+        }
+        path = request.get_full_path()
+        if path.find("delete") != -1:  # 请求删除图片
+            pid = int(request.POST.get("pid"))
+            attr_name = request.POST.get("attr_name")
+            product_info_obj = ProductInfo.objects.filter(id=pid).first()
+            if delete_image(product_info_obj, attr_name):
+                result["status"] = "SUCCESS"
+                result["msg"] = "删除成功"
+            else:
+                result["msg"] = "删除失败，请刷新后重试！"
+        else:
+            pass
+
+        return HttpResponse(json.dumps(result))
+
+
+
+@csrf_exempt
+def ImageUploadView(request):
+    '''对图片上传进行处理'''
+    pid = int(request.POST.get("pid"))
+    attr_name = request.POST.get("attr_name")
+    product_info_obj = ProductInfo.objects.filter(id=int(pid)).first()
+    fish_info_obj = product_info_obj.fish_info
+    process_info_obj = product_info_obj.process_info
+
+    result = {
+        "status": "SUCCESS",
+        "msg": "上传成功！"
+    }
+
+    try:
+        if attr_name == "pack_environment":
+            process_info_obj.pack_environment = request.FILES.get("pack_environment")
+            process_info_obj.save()
+        elif attr_name == "test_report_stock":
+            fish_info_obj.test_report_stock = request.FILES.get("test_report_stock")
+            fish_info_obj.save()
+        elif attr_name == "test_report_third":
+            fish_info_obj.test_report_third = request.FILES.get("test_report_third")
+            fish_info_obj.save()
+        elif attr_name == "stock_scene":
+            fish_info_obj.stock_scene = request.FILES.get("stock_scene")
+            fish_info_obj.save()
+        elif attr_name == "process_environment":
+            process_info_obj.process_environment = request.FILES.get("process_environment")
+            process_info_obj.save()
+        elif attr_name == "get_scene":
+            process_info_obj.get_scene = request.FILES.get("get_scene")
+            process_info_obj.save()
+        elif attr_name == "test_report_process":
+            process_info_obj.test_report_process = request.FILES.get("test_report_process")
+            process_info_obj.save()
+    except Exception:
+        result["status"] = "ERROR"
+        result["msg"] = "上传出错，请重试！"
+
+    return HttpResponse(json.dumps(result))
+
 
 
 class FishPoolView(View):

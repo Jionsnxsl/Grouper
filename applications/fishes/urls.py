@@ -8,6 +8,7 @@ urlpatterns = [
     url(r'^admin/$', views.AdminView, name="admin_view"),
     url(r'^admin/productinfo/$', views.ProductInfoView, name="productinfo"),
     url(r'^admin/productdetail/$', views.ProductDetailView.as_view(), name="productdetail"),
+    url(r'^admin/imageupload/$', views.ImageUploadView, name="imageupload"),
 
     # 用户相关(START)
     url(r'^admin/userinfo/$', views.UserInfoView, name="userinfo"),

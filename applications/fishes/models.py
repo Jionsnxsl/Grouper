@@ -1,11 +1,15 @@
 from django.db import models
 from .utils import image_rename
 from django.utils import timezone
+from django.db.models.signals import pre_delete
+from django.dispatch.dispatcher import receiver
 # Create your models here.
 
 
 class FishPool(models.Model):
-    '''鱼池信息表'''
+    """
+    鱼池信息表
+    """
     num = models.IntegerField(verbose_name='池子编号', unique=True)
     radius = models.FloatField(verbose_name='池子半径')
     depth = models.FloatField(verbose_name='池子深度')
@@ -37,6 +41,13 @@ class FishInfo(models.Model):
         return self.fish_batch
 
 
+# 调用model的delete方法后，删除media中文件
+@receiver(pre_delete, sender=FishInfo)
+def fishinfo_image_delete(sender, instance, **kwargs):
+    # Pass false so FileField doesn't save the model.
+    instance.img.delete(False)
+
+
 class TransInfo(models.Model):
     '''转移记录表'''
     source_pool = models.ForeignKey(verbose_name='来源池', to=FishPool, related_name='source_pool')
@@ -57,6 +68,13 @@ class ProcessInfo(models.Model):
     seal_environment = models.ImageField(verbose_name='封箱情景', upload_to=image_rename, null=True, blank=True)
     get_scene = models.ImageField(verbose_name='领料情景', upload_to=image_rename, null=True, blank=True)
     test_report_process = models.ImageField(verbose_name='加工检测报告', upload_to=image_rename, null=True, blank=True)
+
+
+# 调用model的delete方法后，删除media中文件
+@receiver(pre_delete, sender=ProcessInfo)
+def processinfo_image_delete(sender, instance, **kwargs):
+    # Pass false so FileField doesn't save the model.
+    instance.img.delete(False)
 
 
 class QRCode(models.Model):
