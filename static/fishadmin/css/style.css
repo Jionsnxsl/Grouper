@@ -4915,7 +4915,7 @@ footer p {
   margin-bottom: 20px;
 }
 .form-control {
-  height: 42px;
+  height: 46px;
   border-radius: 0;
   box-shadow: none;
   border-color: #e7e7e7;
@@ -6311,6 +6311,7 @@ tbody tr td:last-child {
   border: none !important;
   background: none !important;
 }
+/*
 .file-input {
   position: relative;
   font-size: 14px;
@@ -6348,6 +6349,7 @@ tbody tr td:last-child {
   border: 0;
   background: transparent;
 }
+*/
 .media-stats-content .stats-content {
   padding: 30px 0px;
 }

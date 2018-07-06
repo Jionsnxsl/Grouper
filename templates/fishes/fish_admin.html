@@ -13,18 +13,14 @@
     <title>石斑鱼后台管理系统</title>
     <!-- Bootstrap Core CSS -->
     <link href="/static/fishadmin/css/lib/bootstrap/bootstrap.min.css" rel="stylesheet">
-    <!-- Custom CSS -->
 
-    <!--
-    <link href="/static/fishadmin/css/lib/calendar2/semantic.ui.min.css" rel="stylesheet">
-    <link href="/static/fishadmin/css/lib/calendar2/pignose.calendar.min.css" rel="stylesheet">
-    <link href="/static/fishadmin/css/lib/owl.carousel.min.css" rel="stylesheet" />
-    <link href="/static/fishadmin/css/lib/owl.theme.default.min.css" rel="stylesheet" />
-    -->
-    <link href="/static/fishadmin/css/helper.css" rel="stylesheet">
     <link href="/static/fishadmin/css/style.css" rel="stylesheet">
+    <link href="/static/fishadmin/css/helper.css" rel="stylesheet">
+    <link href="/static/css/font-awesome.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
     <link href="/static/css/bootstrap-table.css" rel="stylesheet">
 
+    <link rel="stylesheet" href="/static/css/fileinput.min.css">
 
     {% block each-page-css %}
 
@@ -353,11 +349,18 @@
     </div>
     <!-- End Wrapper -->
     <!-- All Jquery -->
+    <!--
     <script src="/static/fishadmin/js/lib/jquery/jquery.min.js"></script>
+    -->
+    <script src="/static/js/jquery-3.3.1.min.js"></script>
     <script src="/static/js/jquery.cookie.js"></script>
     <!-- Bootstrap tether Core JavaScript -->
-    <script src="/static/fishadmin/js/lib/bootstrap/js/popper.min.js"></script>
+    <!--
     <script src="/static/fishadmin/js/lib/bootstrap/js/bootstrap.min.js"></script>
+     -->
+    <script src="/static/fishadmin/js/lib/bootstrap/js/bootstrap.min.js"></script>
+
+    <script src="/static/fishadmin/js/lib/bootstrap/js/popper.min.js"></script>
     <!-- slimscrollbar scrollbar JavaScript -->
     <script src="/static/fishadmin/js/jquery.slimscroll.js"></script>
     <!--Menu sidebar -->
@@ -373,16 +376,7 @@
     <script src="/static/fishadmin/js/lib/morris-chart/dashboard1-init.js"></script>
 
 
-    <!--
-    script init
-	<script src="/static/fishadmin/js/lib/calendar-2/moment.latest.min.js"></script>
-    <script src="/static/fishadmin/js/lib/calendar-2/semantic.ui.min.js"></script>
-    <script src="/static/fishadmin/js/lib/calendar-2/prism.min.js"></script>
-    <script src="/static/fishadmin/js/lib/calendar-2/pignose.calendar.min.js"></script>
-    <script src="/static/fishadmin/js/lib/calendar-2/pignose.init.js"></script>
-    <script src="/static/fishadmin/js/lib/owl-carousel/owl.carousel.min.js"></script>
-    <script src="/static/fishadmin/js/lib/owl-carousel/owl.carousel-init.js"></script>
-    -->
+
     <!-- script init-->
     <script src="/static/fishadmin/js/scripts.js"></script>
 
@@ -397,6 +391,11 @@
     <script src="/static/fishadmin/js/lib/form-validation/jquery.validate.min.js"></script>
     <script src="/static/fishadmin/js/lib/form-validation/jquery.validate-init.js"></script>
     <!-- 表单验证(END) -->
+
+    <!-- 图片上传(START) -->
+    <script src="/static/js/fileinput.min.js"></script>
+    <script src="/static/js/fileinput_locale_zh.js"></script>
+    <!-- 图片上传(END) -->
     {% endblock %}
     <!-- 每个页面特有的scripts(END) -->
 

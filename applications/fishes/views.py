@@ -108,13 +108,14 @@ class ProductDetailView(View):
             "product_info_data": product_info_data,
             "fish_info_data": fish_info_data,
             "trans_infos": trans_infos,
-            "process_info_data": process_info_data
+            "process_info_data": process_info_data,
+            "is_product_detail": True
         }
 
         return render(request, "fishes/product_info_detail.html", data)
 
     def post(self, request):
-        pass
+        return HttpResponse("OK")
 
 
 class FishPoolView(View):

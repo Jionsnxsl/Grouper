@@ -48,12 +48,9 @@
                                                 <div class="card">
                                                     <div class="card-body">
                                                         <h4 class="card-title">包装情景图片</h4>
-                                                        <h6 class="card-subtitle">For multiple file upload put class <code>.dropzone</code> to form.</h6>
-                                                        <form action="#" class="dropzone">
-                                                            <div class="fallback">
-                                                                <input name="file" type="file" multiple/>
-                                                            </div>
-                                                        </form>
+                                                        <div class="file-loading">
+                                                            <input id="pack_environment" name="pack_environment" type="file">
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -224,5 +221,60 @@
         </div>
         <!-- End Page wrapper  -->
 {% endblock %}
+
+
+{% block custom-scripts-for-each-page %}
+    <script>
+    $(function () {
+            $("#pack_environment").fileinput({
+                language: 'zh', //设置语言
+                theme: 'fa',
+                showUpload: true,
+                dropZoneEnabled: false,
+                browseClass: "btn btn-primary", //按钮样式
+                allowedFileExtensions: ['jpg', 'png'],  //接收的文件后缀
+                uploadUrl: "{% url 'fishes:productdetail'  %}", //上传的地址
+                enctype:'multipart/form-data',
+                previewFileType: "image",
+                browseClass: "btn btn-success",
+                //browseLabel: "Pick Image",
+                browseIcon: "<i class=\"fa fa-picture-o\"></i> ",
+                removeClass: "btn btn-danger",
+                //removeLabel: "Delete",
+                removeIcon: "<i class=\"fa fa-trash\"></i> ",
+                uploadClass: "btn btn-info",
+                //uploadLabel: "Upload",
+                uploadIcon: "<i class=\"fa fa-upload\"></i> ",
+                layoutTemplates: {
+                    // actionDelete:'', //去除上传预览的缩略图中的删除图标
+                    //actionUpload: '',//去除上传预览缩略图中的上传图片；
+                    //actionZoom: ''   //去除上传预览缩略图中的查看详情预览的缩略图标
+                },
+                {% if imgs %}
+                    overwriteInitial: true,
+                    initialPreviewAsData: true,
+                    initialPreview: [
+                        "{{ imgs.img.url }}",  //用来请求图片的URL
+                    ],
+                    initialPreviewConfig: [
+                        // url ： 用来删除的URL，去除的话删除按钮无效
+                        {caption: "nature-1.jpg", size: 329892, width: "120px", url: "?delete-"+"{{ imgs.id }}", key: 1},
+                    ]
+                {% endif %}
+            });
+
+            // 上传错误
+            $('#pack_environment').on('fileerror', function(event, data, msg) {
+                console.log("ERROR");
+            });
+
+            // 上传成功
+            $("#pack_environment").on("fileuploaded", function (event, data, previewId, index) {
+                console.log("OK");
+            });
+        });
+    </script>
+{% endblock %}
+
 
 
