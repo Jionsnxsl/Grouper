@@ -24,7 +24,7 @@
                     <div class="col-12">
                         <div class="card card-outline-primary">
                             <div class="card-body">
-                                <form action="#">
+                                <form action="#" class="form-product-detail">
                                     <div class="form-body">
                                         <h3 class="card-title m-t-15"><strong>产品基本信息</strong></h3>
                                         <hr>
@@ -45,9 +45,11 @@
                                         </div>
                                         <div class="row">
                                             <div class="col-12">
-                                                <label><strong>包装图片</strong></label>
-                                                <div class="file-loading">
-                                                    <input id="pack_environment" name="pack_environment" type="file">
+                                                <div class="form-group">
+                                                    <label><strong>包装图片</strong></label><span class="text-danger">*</span>
+                                                    <div class="file-loading">
+                                                        <input id="pack_environment" name="pack_environment" class="form-control" type="file">
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -106,7 +108,7 @@
                                                 <div class="form-group">
                                                     <label><strong>入料检测报告</strong></label>
                                                     <div class="file-loading">
-                                                        <input id="test_report_stock" name="test_report_stock" type="file">
+                                                        <input id="test_report_stock" name="test_report_stock" class="form-control" type="file">
                                                     </div>
                                                 </div>
                                             </div>
@@ -117,7 +119,7 @@
                                                 <div class="form-group">
                                                     <label><strong>第三方检测报告</strong></label>
                                                     <div class="file-loading">
-                                                        <input id="test_report_third" name="test_report_third" type="file">
+                                                        <input id="test_report_third" name="test_report_third" class="form-control" type="file">
                                                     </div>
                                                 </div>
                                             </div>
@@ -127,8 +129,7 @@
                                                 <div class="form-group">
                                                     <label><strong>入料图片</strong></label>
                                                     <div class="file-loading">
-                                                        <input id="stock_scene" name="stock_scene"
-                                                               type="file">
+                                                        <input id="stock_scene" name="stock_scene" class="form-control" type="file">
                                                     </div>
                                                 </div>
                                             </div>
@@ -185,7 +186,7 @@
                                                 <div class="form-group">
                                                     <label><strong>加工图片</strong></label>
                                                     <div class="file-loading">
-                                                        <input id="process_environment" name="process_environment"
+                                                        <input id="process_environment" name="process_environment" class="form-control"
                                                                type="file">
                                                     </div>
                                                 </div>
@@ -196,7 +197,7 @@
                                                 <div class="form-group">
                                                     <label><strong>领料图片</strong></label>
                                                     <div class="file-loading">
-                                                        <input id="get_scene" name="get_scene" type="file">
+                                                        <input id="get_scene" name="get_scene" class="form-control" type="file">
                                                     </div>
                                                 </div>
                                             </div>
@@ -206,7 +207,7 @@
                                                 <div class="form-group">
                                                     <label><strong>加工检测报告</strong></label>
                                                     <div class="file-loading">
-                                                        <input id="test_report_process" name="test_report_process" type="file">
+                                                        <input id="test_report_process" name="test_report_process" class="form-control" type="file">
                                                     </div>
                                                 </div>
                                             </div>
@@ -214,7 +215,7 @@
                                     </div>
                                     <hr>
                                     <div class="form-actions" style="margin-left: 30%">
-                                        <button type="submit" class="btn btn-success">提交并生成二维码</button>
+                                        <a class="btn btn-primary" style="color: white;" href="/fishes/admin/generateqrcode/product-{{ product_info_data.product_id }}" role="button">生成产品二维码</a>
                                         <button type="button" class="btn btn-inverse">取消</button>
                                     </div>
                                 </form>
@@ -236,107 +237,57 @@
 {% block custom-scripts-for-each-page %}
     <script>
     $(function () {
-        function initFileinput(ctrname, uploadurl, previewurl, pid, attr_name) {
-            $("#" + ctrname).fileinput({
-                language: 'zh', //设置语言
-                theme: 'fa',
-                showUpload: true,
-                dropZoneEnabled: false,
-                browseClass: "btn btn-primary", //按钮样式
-                allowedFileExtensions: ['jpg', 'png'],  //接收的文件后缀
-                uploadUrl: uploadurl, //上传的地址
-                enctype:'multipart/form-data',
-                previewFileType: "image",
-                browseClass: "btn btn-success",
-                //browseLabel: "Pick Image",
-                browseIcon: "<i class=\"fa fa-picture-o\"></i> ",
-                removeClass: "btn btn-danger",
-                //removeLabel: "Delete",
-                removeIcon: "<i class=\"fa fa-trash\"></i> ",
-                uploadClass: "btn btn-info",
-                //uploadLabel: "Upload",
-                uploadIcon: "<i class=\"fa fa-upload\"></i> ",
-                minFileCount: 1,
-                minFileSize: 1,
-                layoutTemplates: {
-                    // actionDelete:'', //去除上传预览的缩略图中的删除图标
-                    //actionUpload: '',//去除上传预览缩略图中的上传图片；
-                    //actionZoom: ''   //去除上传预览缩略图中的查看详情预览的缩略图标
-                },
-                uploadExtraData: {  //为上传的图片添加额外信息
-                    pid: pid,
-                    attr_name: attr_name,
-                },
-                deleteExtraData:{  //为删除添加额外信息
-                    pid: pid,
-                    attr_name: attr_name,
-                },
-                overwriteInitial: true,
-                initialPreviewAsData: true,
-                initialPreview: [
-                    previewurl, //用来请求预览图片的URL
-                ],
-                initialPreviewConfig: [
-                    // url ： 用来删除的URL，去除的话删除按钮无效
-                    {caption: "nature-1.jpg", size: 329892, width: "120px", url: "?delete", key: 1},
-                ]
-            });
-
-            // 上传错误
-            $('#' + ctrname).on('fileerror', function(event, data, msg) {
-                console.log("ERROR");
-            });
-
-            // 上传成功
-            $("#" + ctrname).on("fileuploaded", function (event, data, previewId, index) {
-                console.log("OK");
-            });
-        }
         var pid = {{ product_info_data.product_id }};
         var uploadurl = "{% url 'fishes:imageupload' %}";
 
+        var previewurl_pack ;
         var attr_name = $("#pack_environment").attr("name");
-        var previewurl ;
         {% if process_info_data.pack_environment %}
-            previewurl = "{{ process_info_data.pack_environment.url }}"
+            previewurl_pack = "{{ process_info_data.pack_environment.url }}";
         {% endif %}
-        initFileinput("pack_environment", uploadurl,previewurl, pid, attr_name)
+        initFileinput("pack_environment", uploadurl,previewurl_pack, pid, attr_name); // 函数在scripts.js中定义
 
-        var attr_name = $("#test_report_stock").attr("name");
+        var previewurl_stock ;
+        attr_name = $("#test_report_stock").attr("name");
         {% if fish_info_data.test_report_stock %}
-            previewurl = "{{ fish_info_data.test_report_stock.url }}"
+            previewurl_stock = "{{ fish_info_data.test_report_stock.url }}"
         {% endif %}
-        initFileinput("test_report_stock", uploadurl,previewurl, pid, attr_name)
+        initFileinput("test_report_stock", uploadurl,previewurl_stock, pid, attr_name)
 
-        var attr_name = $("#test_report_third").attr("name");
+        var previewurl_third ;
+        attr_name = $("#test_report_third").attr("name");
         {% if fish_info_data.test_report_third %}
-            previewurl = "{{ fish_info_data.test_report_third.url }}"
+            previewurl_third = "{{ fish_info_data.test_report_third.url }}"
         {% endif %}
-        initFileinput("test_report_third", uploadurl,previewurl, pid, attr_name)
+        initFileinput("test_report_third", uploadurl,previewurl_third, pid, attr_name)
 
-        var attr_name = $("#stock_scene").attr("name");
+        var previewurl_scene ;
+        attr_name = $("#stock_scene").attr("name");
         {% if fish_info_data.stock_scene %}
-            previewurl = "{{ fish_info_data.stock_scene.url }}"
+            previewurl_scene = "{{ fish_info_data.stock_scene.url }}"
         {% endif %}
-        initFileinput("stock_scene", uploadurl,previewurl, pid, attr_name)
+        initFileinput("stock_scene", uploadurl,previewurl_scene, pid, attr_name)
 
-        var attr_name = $("#process_environment").attr("name");
+        var previewurl_process ;
+        attr_name = $("#process_environment").attr("name");
         {% if process_info_data.process_environment %}
-            previewurl = "{{ process_info_data.process_environment.url }}"
+            previewurl_process = "{{ process_info_data.process_environment.url }}"
         {% endif %}
-        initFileinput("process_environment", uploadurl,previewurl, pid, attr_name)
+        initFileinput("process_environment", uploadurl,previewurl_process, pid, attr_name)
 
-        var attr_name = $("#get_scene").attr("name");
+        var previewurl_get ;
+        attr_name = $("#get_scene").attr("name");
         {% if process_info_data.get_scene %}
-            previewurl = "{{ process_info_data.get_scene.url }}"
+            previewurl_get = "{{ process_info_data.get_scene.url }}"
         {% endif %}
-        initFileinput("get_scene", uploadurl,previewurl, pid, attr_name)
+        initFileinput("get_scene", uploadurl,previewurl_get, pid, attr_name)
 
-        var attr_name = $("#test_report_process").attr("name");
+        var previewurl_test ;
+        attr_name = $("#test_report_process").attr("name");
         {% if process_info_data.test_report_process %}
-            previewurl = "{{ process_info_data.test_report_process.url }}"
+            previewurl_test = "{{ process_info_data.test_report_process.url }}"
         {% endif %}
-        initFileinput("test_report_process", uploadurl,previewurl, pid, attr_name)
+        initFileinput("test_report_process", uploadurl,previewurl_test, pid, attr_name)
 
     });
     </script>

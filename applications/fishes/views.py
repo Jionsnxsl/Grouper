@@ -23,9 +23,22 @@ def Homepage(request):
 
 def SearchView(request):
     """搜索结果"""
-    fish_batch = request.GET.get("fish_batch")
-    result = {"fish_batch": fish_batch}
-    return render(request, "search_result.html", result)
+    if request.GET.get("fish_batch"):
+        fish_batch = request.GET.get("fish_batch")
+        result = {"fish_batch": fish_batch}
+        return render(request, "search_result.html", result)
+    if request.GET.get("pid"):
+        product_info_obj = ProductInfo.objects.filter(id=int(request.GET.get("pid"))).first()
+        fish_info_obj = product_info_obj.fish_info
+        process_info_obj = product_info_obj.process_info
+
+        result = {
+            "product_batch": product_info_obj.product_batch,
+            "process_date": process_info_obj.process_date.strftime("%Y-%m-%d"),
+            "fish_batch": fish_info_obj.fish_batch,
+        }
+
+        return HttpResponse(json.dumps(result))
 
 
 def AdminView(request):
@@ -518,18 +531,24 @@ def FishPoolInfoView(request):
     return HttpResponse(json.dumps(result))
 
 
-def FishPoolQRCode(request, pid):
-    """生成鱼池对应的二维码"""
+def GenerateQRCode(request, key, pid):
+    """生成二维码(鱼池、产品)"""
     from django.utils.six import BytesIO
-    url = "http://" + request.get_host() + reverse("fishes:fishpool")+"?pid="+pid
+    url = None
+    file_name = None
+    if key == "pool":
+        url = "http://" + request.get_host() + reverse("fishes:fishpool")+"?pid="+pid
+        file_name = "鱼池" + pid + "号的二维码" + ".png"
+    elif key == "product":
+        url = "http://" + request.get_host() + reverse("fishes:search_view") + "?pid=" + pid
+        file_name = "产品" + ProductInfo.objects.filter(id=int(pid)).first().product_batch + "批次的二维码" + ".png"
     img = qrcode.make(url)
     buf = BytesIO()
     img.save(buf)
     image_stream = buf.getvalue()
-    file = "鱼池" + pid + "号的二维码" + ".png"
     response = HttpResponse(image_stream)
     response['Content-Type'] = 'application/image'
-    response['Content-Disposition'] = "attachment; filename*=utf-8''{0}".format(escape_uri_path(file))
+    response['Content-Disposition'] = "attachment; filename*=utf-8''{0}".format(escape_uri_path(file_name))
     # response['Content-Disposition'] = 'attachment;filename="{0}"'.format(file)
     return response
 

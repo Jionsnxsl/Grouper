@@ -285,7 +285,7 @@ function addUser() {
 function fishInfoInit() {
     var operateFormatter = function (value, row, index) {//赋予的参数
         //注意：这里的 row.id 是用户的ID
-        return '<a class="btn btn-info" href=' + '/fishes/admin/fishpoolqrcode/' + parseInt(row.id) + ' role="button">鱼池二维码</a>'
+        return '<a class="btn btn-info" href=' + '/fishes/admin/generateqrcode/' +'pool-'+ parseInt(row.id) + ' role="button">鱼池二维码</a>'
         // return "<button class='btn btn-info btn-sm' type='button'><a href="+"/fishes/admin/userdetail/"+parseInt(row.id)+" class='fa fa-paste'>详情</a></button>"
     };
 
@@ -590,3 +590,62 @@ function productInfoInit() {
     initTable();
 }
 /* 产品信息查看初始化(END) */
+
+/* 产品详细信息中的上传插件初始化(START) */
+function initFileinput(ctrname, uploadurl, previewurl, pid, attr_name) {
+            $("#" + ctrname).fileinput({
+                language: 'zh', //设置语言
+                theme: 'fa',
+                showUpload: true,
+                dropZoneEnabled: false,
+                browseClass: "btn btn-primary", //按钮样式
+                allowedFileExtensions: ['jpg', 'png'],  //接收的文件后缀
+                uploadUrl: uploadurl, //上传的地址
+                enctype:'multipart/form-data',
+                previewFileType: "image",
+                browseClass: "btn btn-success",
+                //browseLabel: "Pick Image",
+                browseIcon: "<i class=\"fa fa-picture-o\"></i> ",
+                removeClass: "btn btn-danger",
+                //removeLabel: "Delete",
+                removeIcon: "<i class=\"fa fa-trash\"></i> ",
+                uploadClass: "btn btn-info",
+                //uploadLabel: "Upload",
+                uploadIcon: "<i class=\"fa fa-upload\"></i> ",
+                minFileCount: 1,
+                minFileSize: 1,
+                layoutTemplates: {
+                    // actionDelete:'', //去除上传预览的缩略图中的删除图标
+                    //actionUpload: '',//去除上传预览缩略图中的上传图片；
+                    //actionZoom: ''   //去除上传预览缩略图中的查看详情预览的缩略图标
+                },
+                uploadExtraData: {  //为上传的图片添加额外信息
+                    pid: pid,
+                    attr_name: attr_name,
+                },
+                deleteExtraData:{  //为删除添加额外信息
+                    pid: pid,
+                    attr_name: attr_name,
+                },
+                overwriteInitial: true,
+                initialPreviewAsData: true,
+                initialPreview: [
+                    previewurl, //用来请求预览图片的URL
+                ],
+                initialPreviewConfig: [
+                    // url ： 用来删除的URL，去除的话删除按钮无效
+                    {caption: "nature-1.jpg", size: 329892, width: "120px", url: "?delete", key: 1},
+                ]
+            });
+
+            // 上传错误
+            $('#' + ctrname).on('fileerror', function(event, data, msg) {
+                console.log("ERROR");
+            });
+
+            // 上传成功
+            $("#" + ctrname).on("fileuploaded", function (event, data, previewId, index) {
+                console.log("OK");
+            });
+        }
+/* 产品详细信息中的上传插件初始化(END) */

@@ -227,3 +227,84 @@ $(function () {
     addProductFormInit.init();
 });
 
+
+/* 生成产品二维码表单验证(这里不对生成二维码的时候进行信息完整性的验证，不要求具备所有信息) */
+/*
+var productDetailFormInit = function () {
+
+    var e = function () {
+        $(".form-product-detail").validate({
+            ignore: [],
+            errorClass: "invalid-feedback animated fadeInDown",
+            errorElement: "div",
+            errorPlacement: function (e, a) {
+                jQuery(a).parents(".form-group > div").append(e)
+            },
+            highlight: function (e) {
+                jQuery(e).closest(".form-group").removeClass("is-invalid").addClass("is-invalid")
+            },
+            success: function (e) {
+                jQuery(e).closest(".form-group").removeClass("is-invalid"), jQuery(e).remove()
+            },
+            rules: {
+                "pack_environment_holder": {
+                    required: !0,
+                },
+                "test_report_stock": {
+                    required: !0,
+                },
+                "test_report_third": {
+                    required: !0,
+                },
+                "stock_scene": {
+                    required: !0,
+                },
+                "process_environment": {
+                    required: !0,
+                },
+                "get_scene": {
+                    required: !0,
+                },
+                "test_report_process": {
+                    required: !0,
+                },
+            },
+            messages: {
+                "pack_environment_holder": {
+                    required: "包装图片不能为空！",
+                },
+                "test_report_stock": {
+                    required: "入料检测报告不能为空！",
+                },
+                "test_report_third": {
+                    required: "第三方检测报告不能为空！",
+                },
+                "stock_scene": {
+                    required: "入料图片不能为空！",
+                },
+                "process_environment": {
+                    required: "加工图片不能为空！",
+                },
+                "get_scene": {
+                    required: "领料图片不能为空！",
+                },
+                "test_report_process": {
+                    required: "加工检测报告不能为空！",
+                },
+            }
+        })
+    };
+    return {
+        init: function() {
+            e(), jQuery(".js-select2").on("change", function() {
+                jQuery(this).valid()
+            })
+        }
+    }
+}();
+
+$(function () {
+    productDetailFormInit.init();
+});
+*/
+
