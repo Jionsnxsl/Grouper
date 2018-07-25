@@ -23,22 +23,54 @@ def Homepage(request):
 
 def SearchView(request):
     """搜索结果"""
-    if request.GET.get("fish_batch"):
-        fish_batch = request.GET.get("fish_batch")
-        result = {"fish_batch": fish_batch}
-        return render(request, "search_result.html", result)
+    # if request.GET.get("fish_batch"):
+    #     fish_batch = request.GET.get("fish_batch")
+    #     result = {"fish_batch": fish_batch}
+    #     return render(request, "search_result.html", result)
     if request.GET.get("pid"):
-        product_info_obj = ProductInfo.objects.filter(id=int(request.GET.get("pid"))).first()
+        product_id = request.GET.get("pid")
+        product_info_obj = ProductInfo.objects.filter(id=int(product_id)).first()
         fish_info_obj = product_info_obj.fish_info
         process_info_obj = product_info_obj.process_info
 
-        result = {
+        product_info_data = {
+            "product_id": product_id,
             "product_batch": product_info_obj.product_batch,
-            "process_date": process_info_obj.process_date.strftime("%Y-%m-%d"),
-            "fish_batch": fish_info_obj.fish_batch,
+            "product_date": product_info_obj.product_date,
         }
 
-        return HttpResponse(json.dumps(result))
+        fish_info_data = {
+            "fish_batch": fish_info_obj.fish_batch,
+            "stock_date": fish_info_obj.stock_date,
+            "number": fish_info_obj.number,
+            "total_mass": fish_info_obj.total_mass,
+            "name": fish_info_obj.name,
+            "specification": fish_info_obj.specification,
+            "test_report_stock": fish_info_obj.test_report_stock,
+            "test_report_third": fish_info_obj.test_report_third,
+            "stock_scene": fish_info_obj.stock_scene
+        }
+
+        trans_infos = fish_info_obj.transinfo.all()
+
+        process_info_data = {
+            "process_date": process_info_obj.process_date,
+            "pack_environment": process_info_obj.pack_environment,
+            "process_environment": process_info_obj.process_environment,
+            "get_scene": process_info_obj.get_scene,
+            "test_report_process": process_info_obj.test_report_process
+        }
+
+        data = {
+            "product_info_data": product_info_data,
+            "fish_info_data": fish_info_data,
+            "trans_infos": trans_infos,
+            "process_info_data": process_info_data,
+            "is_product_detail": True
+        }
+
+        return render(request, "search_result.html", data)
+        # return HttpResponse(json.dumps(result))
 
 
 def AdminView(request):

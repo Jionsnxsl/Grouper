@@ -73,6 +73,7 @@ LOGOUT_URL = '/account/login/'
 # 免除登录限制的URL
 LOGIN_EXEMPT_URLS = [
     r'^fishes/$',
+    r'^media/image/*',
     r'^fishes/search-result/$',
     r'^account/login/*',
     r'^account/findpwd/$',

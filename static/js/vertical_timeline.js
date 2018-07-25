@@ -2,7 +2,7 @@ $(function(){
 
   window.sr = ScrollReveal();
 
-  if ($(window).width() < 768) {
+  if ($(window).width() < 1000) {
 
   	if ($('.timeline-content').hasClass('js--fadeInLeft')) {
   		$('.timeline-content').removeClass('js--fadeInLeft').addClass('js--fadeInRight');
