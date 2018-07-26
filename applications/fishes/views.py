@@ -278,7 +278,7 @@ class FishPoolView(View):
         else:
             return Http404('请重试！')
 
-
+@csrf_exempt
 def AddProductView(request):
     """添加产品信息(入料)"""
     result = {"status": False, "message": '添加数据失败，请重试！'}
@@ -290,6 +290,7 @@ def AddProductView(request):
         "specification": request.POST.get("val-specification"),
         "number": int(request.POST.get("val-fishnum")),
         "total_mass": float(request.POST.get("val-totalmass")),
+        "stock_scene": request.FILES.get("pack_environment"),
     }
 
     fish_info = FishInfo.objects.create(**data)

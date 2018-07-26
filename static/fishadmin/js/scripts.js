@@ -435,11 +435,14 @@ $.extend({
         $("#add-product-submit").click(function () {
             if ($(".form-addproduct").valid()) { // 已经在validate-init.js中注册了验证函数
                 $(".preloader-submit-data").show();
+                var form_data = new FormData($(".form-addproduct")[0]);
                 $.ajax({
                     url: "/fishes/admin/m/addproduct/"/*"{% url 'fishes:adduser' %}"*/,
                     type: "POST",
-                    data: $(".form-addproduct").serialize(),
+                    data: form_data,    //$(".form-addproduct").serialize(),
                     dataType: "JSON",
+                    processData:false,
+                    contentType:false,
                     success: function (data) {
                         $(".preloader-submit-data").hide();
                         if (data.status) {
@@ -452,6 +455,9 @@ $.extend({
                             alert(data.message);
                             location.reload();
                         }
+                    },
+                    error: function(xhr, type, errorThrown) {
+                        alert('网络异常，请稍后再试！');
                     }
                 });
             } else {

@@ -19,7 +19,7 @@
     <link href="/static/fishadmin/css/style.css" rel="stylesheet">
     <link href="/static/css/bootstrap-table.css" rel="stylesheet">
 
-
+    <link rel="stylesheet" href="/static/css/fileinput.min.css">
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:** -->
     <!--[if lt IE 9]>
@@ -160,6 +160,16 @@
                                                        name="val-totalmass">
                                             </div>
                                         </div>
+                                         <div class="row">
+                                            <div class="col-12">
+                                                <div class="form-group">
+                                                    <label>入料图片</label>
+                                                    <div class="file-loading">
+                                                        <input id="pack_environment" name="pack_environment" class="form-control" type="file">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                         <div class="form-group row">
                                             <div class="col-lg-8 ml-auto">
                                                 <button id="add-product-submit" type="button" class="btn btn-primary">提&nbsp;交</button>
@@ -201,8 +211,53 @@
     <script src="/static/fishadmin/js/lib/form-validation/jquery.validate-init.js"></script>
     <!-- 表单验证(END) -->
 
+    <!-- 图片上传(START) -->
+    <script src="/static/js/fileinput.min.js"></script>
+    <script src="/static/js/fileinput_locale_zh.js"></script>
+    <!-- 图片上传(END) -->
+
     <script>
         $.addProduct();
+        $("#pack_environment").fileinput({
+                language: 'zh', //设置语言
+                theme: 'fa',
+                showUpload: false,
+                dropZoneEnabled: false,
+                browseClass: "btn btn-primary", //按钮样式
+                allowedFileExtensions: ['jpg', 'png'],  //接收的文件后缀
+                //uploadUrl: "http://www.soyiyuan.com/", //上传的地址
+                enctype:'multipart/form-data',
+                //previewFileType: "image",
+                browseClass: "btn btn-success",
+                //browseLabel: "Pick Image",
+                browseIcon: "<i class=\"fa fa-picture-o\"></i> ",
+                removeClass: "btn btn-danger",
+                //removeLabel: "Delete",
+                removeIcon: "<i class=\"fa fa-trash\"></i> ",
+                uploadClass: "btn btn-info",
+                //uploadLabel: "Upload",
+                uploadIcon: "<i class=\"fa fa-upload\"></i> ",
+                minFileCount: 1,
+                minFileSize: 1,
+                layoutTemplates: {
+                    // actionDelete:'', //去除上传预览的缩略图中的删除图标
+                    //actionUpload: '',//去除上传预览缩略图中的上传图片；
+                    //actionZoom: ''   //去除上传预览缩略图中的查看详情预览的缩略图标
+                },
+                uploadExtraData: {  //为上传的图片添加额外信息
+                    pid: 1,
+                    attr_name: "pack_environment",
+                },
+                deleteExtraData:{  //为删除添加额外信息
+                    pid: 1,
+                    attr_name: "pack_environment",
+                },
+                overwriteInitial: true,
+                initialPreviewAsData: false,
+            });
+            //on("filebatchselected", function(event, files) {
+            //    $(this).fileinput("upload");
+            //});
     </script>
 </body>
 
