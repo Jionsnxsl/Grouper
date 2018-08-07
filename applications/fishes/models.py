@@ -25,6 +25,7 @@ class FishPool(models.Model):
 class Variety(models.Model):
     """鱼的品种名称"""
     name = models.CharField(verbose_name='品种名称', max_length=200)
+    description = models.CharField(verbose_name='说明', max_length=500, null=True, blank=True)
 
     def __str__(self):
         return self.name

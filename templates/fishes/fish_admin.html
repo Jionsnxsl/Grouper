@@ -224,6 +224,14 @@
                         </li>
                         <!-- 第三方检测报告管理(END) -->
 
+                        <!-- 品种名称管理(START) -->
+                        <li>
+                            <a data-pjax class="has-arrow" href="{% url 'fishes:variety' %}" aria-expanded="false">
+                                <i class="fa fa-wpforms"></i>
+                                <span class="hide-menu">品种名称管理</span>
+                            </a>
+                        </li>
+                        <!-- 品种名称管理(END) -->
 
                         <!-- 反馈管理(START) -->
                         <li>
@@ -358,9 +366,9 @@
     <!--
     <script src="/static/fishadmin/js/lib/bootstrap/js/bootstrap.min.js"></script>
      -->
+    <script src="/static/fishadmin/js/lib/bootstrap/js/popper.min.js"></script>
     <script src="/static/fishadmin/js/lib/bootstrap/js/bootstrap.min.js"></script>
 
-    <script src="/static/fishadmin/js/lib/bootstrap/js/popper.min.js"></script>
     <!-- slimscrollbar scrollbar JavaScript -->
     <script src="/static/fishadmin/js/jquery.slimscroll.js"></script>
     <!--Menu sidebar -->
@@ -455,6 +463,10 @@
                         break;
                     case "{% url 'fishes:thirdtestreport' %}":
                         console.log('第三方检测报告')
+                        break;
+                    case "{% url 'fishes:variety' %}":
+                        console.log('石斑鱼品种');
+                        varietyInfoInit();
                         break;
                     case "{% url 'fishes:feedbacknotreply' %}":
                         console.log('未回复反馈')

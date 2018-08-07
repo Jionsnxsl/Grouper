@@ -655,3 +655,141 @@ function initFileinput(ctrname, uploadurl, previewurl, pid, attr_name) {
             });
         }
 /* 产品详细信息中的上传插件初始化(END) */
+
+
+/* 石斑鱼品种信息查看初始化(START) */
+function varietyInfoInit() {
+
+    /* 验证是否输入了品种名称 */
+    $("#val-variety-name").bind('input porpertychange',function () {
+        if($("#val-variety-name").val() == ''){
+            $("#variety-submit").attr('disabled',true);
+        }else {
+            $("#variety-submit").attr('disabled',false);
+        }
+    });
+
+    $("#variety-submit").click(function () {
+        $(".preloader-submit-data").show();
+        $.ajax({
+                url: "/fishes/admin/addvariety/"/*"{% url 'fishes:adduser' %}"*/,
+                type: "POST",
+                data: $("#form-add-variety").serialize(),
+                dataType: "JSON",
+                timeout:6000,
+                success: function (data) {
+                    $(".preloader-submit-data").hide();
+                    if (data.status) {
+                        alert(data.message);
+                        location.reload();
+                    } else {
+                        alert(data.message);
+                        location.reload();
+                    }
+                },
+                error: function (p_request, p_status, p_err) {
+                    $(".preloader-submit-data").hide();
+                    alert("网络异常，请重试！");
+                }
+            });
+    });
+
+
+    /* table 设置(START) */
+    const $table = $('#variety-table');
+    const $remove = $('#delete-variety');
+    let selections = [];
+
+    function initTable() {
+        $table.bootstrapTable({
+            height: getHeight(),
+            url: "/fishes/admin/variety/"/*"{% url 'fishes:fishpoolinfo' %}"*/,
+            columns: [{
+                field: 'id',
+                visible: false
+            },{
+                field: 'state',
+                checkbox: true,
+                align: 'center',
+            }, {
+                title: '品种名',
+                field: 'name',
+                align: 'center',
+                sortable: true
+            }, {
+                field: 'description',
+                title: '说明',
+                align: 'center',
+                display: false
+            }]
+        });
+        // sometimes footer render error.
+        setTimeout(() => {
+            $table.bootstrapTable('resetView');
+        }, 200);
+        $table.on('check.bs.table uncheck.bs.table ' +
+            'check-all.bs.table uncheck-all.bs.table', () => {
+            $remove.prop('disabled', !$table.bootstrapTable('getSelections').length);
+            // save your data, here just save the current page
+            selections = getIdSelections();
+            // push or splice the selections if you want to save all data selections
+        });
+        $remove.click(() => {
+            // 删除品种
+            var id_name_maps = getIdSelections().split("-");
+            if(id_name_maps.length == 0){
+                alert("请选择要删除的品种名称！");
+                location.reload();
+            }
+
+            var id = id_name_maps[0];
+            var name = id_name_maps[1];
+            var confirm = window.confirm('是否要删除 ' + name);
+            if (confirm) {
+                $(".preloader-submit-data").show();
+                $.ajax({
+                    url: "/fishes/admin/delvariety/"/*"{% url 'fishes:deletefishpool' %}"*/,
+                    type: "POST",
+                    data: {'variety_ids': id},
+                    traditional: true,
+                    dataType: "JSON",
+                    success: function (data) {
+                        $(".preloader-submit-data").hide();
+                        if (data.status) {
+                            alert(data.message);
+                            location.reload();
+                        } else {
+                            alert(data.message);
+                            location.reload();
+                        }
+                    },
+                    error: function (p_request, p_status, p_err) {
+                    $(".preloader-submit-data").hide();
+                        alert("网络异常，请重试！");
+                    }
+                });
+            } else {
+                //$remove.prop('disabled', !$table.bootstrapTable('getSelections').length);
+            }
+        });
+        $(window).resize(() => {
+            $table.bootstrapTable('resetView', {
+                height: getHeight()
+            });
+        });
+    }
+
+    function getIdSelections() {
+        id_name = $.map($table.bootstrapTable('getSelections'), ({id}) => id)+"-"+$.map($table.bootstrapTable('getSelections'), ({name}) => name);
+        return id_name
+    }
+
+    function getHeight() {
+        return $(window).height() - $('h1').outerHeight(true);
+    }
+
+    $(() => {
+        initTable();
+    });
+}
+/* 石斑鱼品种信息查看初始化(END) */

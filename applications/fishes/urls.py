@@ -30,11 +30,13 @@ urlpatterns = [
     url(r'^admin/m/addproduct/$', views.AddProductView, name="addproduct"),
     url(r'^admin/m/transproduct/$', views.TranProductView.as_view(), name="tranproduct"),
     url(r'^admin/m/processproduct/$', views.ProcessProductView.as_view(), name="processproduct"),
-
     # 手机端(END)
 
     url(r'^admin/generateercode/$', views.GenerateERCodeView, name="generateercode"),
     url(r'^admin/thirdtestreport/$', views.ThirdPartTestReportView, name="thirdtestreport"),
+    url(r'^admin/variety/$', views.VarietyView, name="variety"),
+    url(r'^admin/addvariety/$', views.AddVarietyView, name="addvariety"),
+    url(r'^admin/delvariety/$', views.DelVarietyView, name="delvariety"),
     url(r'^admin/feedbacknotreply/$', views.FeedbackNOTReplyView, name="feedbacknotreply"),
     url(r'^admin/feedbackreply/$', views.FeedbackReplyView, name="feedbackreply"),
     url(r'^admin/syssethomepage/$', views.SysSetForHomepageView, name="syssethomepage"),

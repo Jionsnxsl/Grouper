@@ -1,7 +1,7 @@
 from django.shortcuts import render, HttpResponse, get_object_or_404, Http404, HttpResponseRedirect
 import time, json, random, datetime
 from applications.users import models
-from .models import FishPool, FishInfo, TransInfo, ProcessInfo, ProductInfo
+from .models import FishPool, FishInfo, TransInfo, ProcessInfo, ProductInfo, Variety
 from django.db.models import Q
 from django.views import View
 from django.urls import reverse
@@ -639,6 +639,79 @@ def ThirdPartTestReportView(request):
     """第三方检测报告管理"""
     time.sleep(1)
     return render(request, "fishes/third_part_test_report.html")
+
+
+def VarietyView(request):
+    """石斑鱼品种管理"""
+    if request.GET.get('offset') is None:
+        return render(request, "fishes/variety.html")
+
+    search = request.GET.get('search')
+    sort = request.GET.get('sort')
+    order = request.GET.get('order')
+    offset = request.GET.get('offset')
+    limit = request.GET.get('limit')
+
+    varieties = None
+    if search is not None and search.strip():
+        varieties = Variety.objects.filter(Q(name=search) | Q(description=search))
+    else:
+        varieties = Variety.objects.all()
+
+    if sort is not None:
+        if order == 'asc':
+            varieties = varieties.order_by('-' + sort)
+        else:
+            varieties = varieties.order_by(sort)
+
+    total = varieties.count()
+    print("total", total)
+
+    data = []
+    for variety in varieties:
+        temp = {
+            'id': variety.id,
+            'name': variety.name,
+            'description': variety.description
+        }
+        data.append(temp)
+
+    result = {'total': total, 'rows': data[0+int(offset):0+int(offset)+int(limit)]}
+    return HttpResponse(json.dumps(result))
+
+
+def AddVarietyView(request):
+    """添加石斑鱼品种名称"""
+    result = {"status": False, "message": "添加数据失败，请重试！"}
+    variety = {
+        "name": request.POST.get("val-variety-name"),
+        "description": request.POST.get("description") if request.POST.get("description") else None,
+    }
+
+    variety_created = Variety.objects.create(**variety)
+    if variety_created is not None:
+        result['status'] = True
+        result['message'] = '添加品种名称成功！'
+
+    return HttpResponse(json.dumps(result))
+
+
+def DelVarietyView(request):
+    """删除石斑鱼品种名称"""
+    result = {"status": False, "message": "删除数据失败，请重试！"}
+    ids = request.POST.get("variety_ids")
+    ids_list = None
+    if ids:
+        ids_list = ids.split(',')
+    if ids_list:
+        for vid in ids_list:
+            variety = get_object_or_404(Variety, id=int(vid))
+            variety.delete()
+        result['status'] = True
+        result['message'] = "删除数据成功！"
+
+    return HttpResponse(json.dumps(result))
+
 
 def FeedbackNOTReplyView(request):
     """未回复反馈"""
