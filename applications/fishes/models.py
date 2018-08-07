@@ -22,6 +22,14 @@ class FishPool(models.Model):
         return str(self.num)
 
 
+class Variety(models.Model):
+    """鱼的品种名称"""
+    name = models.CharField(verbose_name='品种名称', max_length=200)
+
+    def __str__(self):
+        return self.name
+
+
 class FishInfo(models.Model):
     '''鱼信息表'''
     fish_batch = models.CharField(verbose_name='鱼的批次号', max_length=20, unique=True)
@@ -29,6 +37,7 @@ class FishInfo(models.Model):
     number = models.IntegerField(verbose_name='鱼的数量')
     total_mass = models.FloatField(verbose_name='鱼的重量')
     name = models.CharField(verbose_name='品名', max_length=100)
+    variety = models.ForeignKey(verbose_name='品种', to=Variety, null=True, blank=True)
     specification = models.CharField(verbose_name='规格', max_length=100)
     test_report_third = models.ImageField(verbose_name='第三方检测报告', upload_to=image_rename, null=True, blank=True)
     test_report_stock = models.ImageField(verbose_name='入料检测报告', upload_to=image_rename, null=True, blank=True)

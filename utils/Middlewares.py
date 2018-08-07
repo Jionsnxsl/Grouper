@@ -27,9 +27,15 @@ class LoginRequiredMiddleware(MiddlewareMixin):
                 work, ensure your TEMPLATE_CONTEXT_PROCESSORS setting includes\
                 'django.core.context_processors.auth'."
         if not request.user.is_authenticated():
-            # TODO : 这里发现一个BUG，request.path只获取了访问路径，没有获取访问参数，如果登录的时候是个GET请求就会出错
-            url_full = request.build_absolute_uri() #可以获取完整路径
-            print(url_full)
-            path = request.path_info.lstrip('/')
+            # TODO_fix : 这里发现一个BUG，request.path只获取了访问路径，没有获取访问参数，如果登录的时候是个GET请求就会出错
+            url_full = request.build_absolute_uri()   # 可以获取完整路径
+            pattern = compile(r'.*?/(\?.*)')
+            result = pattern.match(url_full)
+            args = ""
+            if result:
+                print("match:", )
+                args = result.group(1)
+            path = request.path_info.lstrip('/') + args
+            print(path)
             if not any(m.match(path) for m in EXEMPT_URLS):
                 return HttpResponseRedirect(settings.LOGIN_URL+"?next=/"+path)
