@@ -32,7 +32,7 @@ urlpatterns = [
     url(r'^admin/m/processproduct/$', views.ProcessProductView.as_view(), name="processproduct"),
     # 手机端(END)
 
-    url(r'^admin/generateercode/$', views.GenerateERCodeView, name="generateercode"),
+    url(r'^admin/generateercode/$', views.GenerateProductQRCodeView, name="generateercode"),
     url(r'^admin/thirdtestreport/$', views.ThirdPartTestReportView, name="thirdtestreport"),
     url(r'^admin/variety/$', views.VarietyView, name="variety"),
     url(r'^admin/addvariety/$', views.AddVarietyView, name="addvariety"),
@@ -41,4 +41,10 @@ urlpatterns = [
     url(r'^admin/feedbackreply/$', views.FeedbackReplyView, name="feedbackreply"),
     url(r'^admin/syssethomepage/$', views.SysSetForHomepageView, name="syssethomepage"),
     url(r'^admin/syssetsearchresult/$', views.SysSetForSearchResultView, name="syssetsearchresult"),
+
+    # 首页统计信息获取(START)
+    url(r'^admin/getfishnum/$', views.GetFishNumView, name="getfishnum"),
+    url(r'^admin/getvarityfishnum/$', views.GetVarietyNumView, name="getvarityfishnum"),
+    url(r'^admin/getprocesshnum/$', views.GetProcessNumView, name="getprocesshnum"),
+    # 首页统计信息获取(END)
 ]

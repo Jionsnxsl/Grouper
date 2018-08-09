@@ -161,9 +161,9 @@
 
                         <!-- 查看网站主页(START) -->
                         <li>
-                            <a class="has-arrow" href="{% url 'fishes:homepage' %}" aria-expanded="false">
+                            <a data-pjax class="has-arrow" href="{% url 'fishes:admin_view' %}" aria-expanded="false">
                                 <i class="fa fa-tachometer"></i>
-                                <span class="hide-menu">查看网站主页</span>
+                                <span class="hide-menu">首页</span>
                             </a>
                         </li>
                         <!-- 查看网站主页(END) -->
@@ -299,51 +299,45 @@
             <!-- Container fluid  -->
             <div class="container-fluid">
                 <!-- Start Page Content -->
-                <div class="row bg-white m-l-0 m-r-0 box-shadow ">
-
-                    <!-- column -->
-                    <div class="col-lg-8">
+                <div class="row">
+                    <div class="col-lg-6">
                         <div class="card">
-                            <div class="card-body">
-                                <h4 class="card-title">石斑鱼生产情况</h4>
-                                <div id="extra-area-chart"></div>
+                            <!--
+                            <div class="card-title">
+                                <h4>Echart</h4>
+                            </div>
+                            -->
+                            <div class="card-content">
+                                <div id="b-line" style="height: 370px"></div>
                             </div>
                         </div>
                     </div>
-                    <!-- column -->
-
-                    <!-- column -->
-                    <div class="col-lg-4">
+                    <div class="col-lg-6">
                         <div class="card">
-                            <div class="card-body browser">
-                                <p class="f-w-600">iMacs <span class="pull-right">85%</span></p>
-                                <div class="progress ">
-                                    <div role="progressbar" style="width: 85%; height:8px;" class="progress-bar bg-danger wow animated progress-animated"> <span class="sr-only">60% Complete</span> </div>
-                                </div>
-
-                                <p class="m-t-30 f-w-600">iBooks<span class="pull-right">90%</span></p>
-                                <div class="progress">
-                                    <div role="progressbar" style="width: 90%; height:8px;" class="progress-bar bg-info wow animated progress-animated"> <span class="sr-only">60% Complete</span> </div>
-                                </div>
-
-                                <p class="m-t-30 f-w-600">iPhone<span class="pull-right">65%</span></p>
-                                <div class="progress">
-                                    <div role="progressbar" style="width: 65%; height:8px;" class="progress-bar bg-success wow animated progress-animated"> <span class="sr-only">60% Complete</span> </div>
-                                </div>
-
-                                <p class="m-t-30 f-w-600">Samsung<span class="pull-right">65%</span></p>
-                                <div class="progress">
-                                    <div role="progressbar" style="width: 65%; height:8px;" class="progress-bar bg-warning wow animated progress-animated"> <span class="sr-only">60% Complete</span> </div>
-                                </div>
-
-								<p class="m-t-30 f-w-600">android<span class="pull-right">65%</span></p>
-                                <div class="progress m-b-30">
-                                    <div role="progressbar" style="width: 65%; height:8px;" class="progress-bar bg-success wow animated progress-animated"> <span class="sr-only">60% Complete</span> </div>
-                                </div>
+                            <!--
+                            <div class="card-title">
+                                <h4>Echart</h4>
+                            </div>
+                            -->
+                            <div class="card-content">
+                                <div id="b-area" style="height: 370px"></div>
                             </div>
                         </div>
                     </div>
-                    <!-- column -->
+                </div>
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="card">
+                            <!--
+                            <div class="card-title">
+                                <h4>Echart</h4>
+                            </div>
+                            -->
+                            <div class="card-content">
+                                <div id="rainfall" style="height: 370px"></div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <!-- End PAge Content -->
             </div>
@@ -378,12 +372,9 @@
     <!--Custom JavaScript -->
     <script src="/static/fishadmin/js/custom.min.js"></script>
 
-    <!-- Amchart -->
-    <script src="/static/fishadmin/js/lib/morris-chart/raphael-min.js"></script>
-    <script src="/static/fishadmin/js/lib/morris-chart/morris.js"></script>
-    <script src="/static/fishadmin/js/lib/morris-chart/dashboard1-init.js"></script>
-
-
+    <!-- Echart -->
+    <script src="/static/fishadmin/js/lib/echart/echarts.js"></script>
+    <script src="/static/fishadmin/js/lib/echart/echarts-init.js"></script>
 
     <!-- script init-->
     <script src="/static/fishadmin/js/scripts.js"></script>
@@ -439,6 +430,10 @@
             $(document).on('pjax:complete', function () {
 
                 switch (window.location.pathname){
+                    case "{% url 'fishes:admin_view' %}":
+                        console.log('首页信息');
+                        init_echart();
+                        break;
                     case "{% url 'fishes:productinfo' %}":
                         console.log('产品信息');
                         productInfoInit();
@@ -483,9 +478,7 @@
                     default:
                         console.log("ERROR")
                 }
-
                 $(".preloader-content").hide();
-
             });
            /* 加载图标(END) */
            /* 替换右侧内容(END) */

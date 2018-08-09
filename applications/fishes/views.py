@@ -10,6 +10,7 @@ import qrcode
 from django.utils.encoding import escape_uri_path
 from django.views.decorators.csrf import csrf_exempt
 from django.utils.decorators import method_decorator
+from datetime import timedelta
 import ast
 from .utils import delete_image
 from django.contrib.auth.decorators import login_required
@@ -629,7 +630,7 @@ def DeleteFishPool(request):
     return HttpResponse(json.dumps(result))
 
 
-def GenerateERCodeView(request):
+def GenerateProductQRCodeView(request):
     """生成产品二维码"""
     time.sleep(1)
     return render(request, "fishes/generate_ERcode.html")
@@ -731,3 +732,94 @@ def SysSetForHomepageView(request):
 def SysSetForSearchResultView(request):
     """搜索结果页面设置"""
     return render(request, "fishes/sysset_for_serach_result.html")
+
+
+def GetFishNumView(request):
+    """获取每个鱼池的石斑鱼数量和品种"""
+    data = {
+        "pool_num": None,
+        "variety": None,
+        "fish_num": None
+    }
+
+    pools_in_using = FishPool.objects.filter(in_using=True)
+
+    if pools_in_using is None:
+        return HttpResponse(json.dumps(data))
+    pool_num = []
+    variety = []
+    fish_num = []
+    for pool in pools_in_using:
+        fishes = pool.fishinfo.all()
+        for fish in fishes:
+            if fish.is_stocking:
+                pool_num.append("鱼池 "+str(pool.num)+" 号")
+                variety.append(fish.variety.name if fish.variety.name else "-")
+                fish_num.append(fish.number)
+
+    data['pool_num'] = pool_num
+    data['variety'] = variety
+    data['fish_num'] = fish_num
+    return HttpResponse(json.dumps(data))
+
+
+def GetVarietyNumView(request):
+    """获取品种——鱼数量"""
+    data = {
+        "variety": None,
+        "seriesData": None
+    }
+
+    varieties = Variety.objects.all()
+    variety_list = []
+    seriesData_list = []
+    for variety in varieties:
+        variety_list.append(variety.name)
+        fishinfos = variety.fishinfo_variety.all()
+        fish_num = 0
+        for fishinfo in fishinfos:
+            fish_num += fishinfo.number
+        seriesData_list.append({"value": fish_num, "name": variety.name})
+
+    data['variety'] = variety_list
+    data['seriesData'] = seriesData_list
+
+    return HttpResponse(json.dumps(data))
+
+
+def GetProcessNumView(request):
+    """获取生产数据进行统计"""
+    result = {}
+    data = {}
+    processinfos = ProcessInfo.objects.all()
+    for processinfo in processinfos:
+        process_date = processinfo.process_date.strftime("%Y-%m-%d")
+        fish_nums = processinfo.fish_info.number
+        if process_date in data.keys():
+            data[process_date] += fish_nums
+        else:
+            data[process_date] = fish_nums
+
+    sorted(data)
+    # result['date'] = list(data.keys())
+    # result['data'] = list(data.values())
+    # print(result)
+    date_list = []
+    data_list = []
+    for key in sorted(data.keys()):
+        date_list.append(key)
+        data_list.append(data.get(key))
+
+    result['date'] = date_list
+    result['data'] = data_list
+
+    today = datetime.datetime.today()
+    start_date = today - timedelta(days=14)
+    end_date = today + timedelta(days=14)
+
+    result['start'] = start_date.strftime('%Y-%m-%d')
+    result['end'] = end_date.strftime('%Y-%m-%d')
+
+    return HttpResponse(json.dumps(result))
+
+
