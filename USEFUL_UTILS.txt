@@ -21,3 +21,17 @@
 其他可选风格：https://colorlib.com/wp/free-bootstrap-admin-dashboard-templates/
 ##### 后台风格设计(END) ######
 
+##### 页面浮动按钮插件 #####
+(图标换成：font-awesome的，直接改成：fa fa-home之类的就行)
+https://github.com/nobitagit/material-floating-button
+##### 页面浮动按钮插件 #####
+
+#### 生成二维码的Jquery插件 #####
+https://github.com/davidshimjs/qrcodejs
+#### 生成二维码的Jquery插件 #####
+
+
+
+
+
+

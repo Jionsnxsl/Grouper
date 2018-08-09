@@ -19,6 +19,7 @@
     <link href="/static/css/font-awesome.min.css" rel="stylesheet">
     <!-- Custom CSS -->
     <link href="/static/css/bootstrap-table.css" rel="stylesheet">
+    <link href="/static/css/mfb.css" rel="stylesheet">
 
     <link rel="stylesheet" href="/static/css/fileinput.min.css">
 
@@ -34,6 +35,39 @@
 </head>
 
 <body class="fix-header fix-sidebar">
+
+    <!--悬浮按钮(START)-->
+    <ul id="menu" class="mfb-component--br mfb-fountain" data-mfb-toggle="hover">
+        <li class="mfb-component__wrap">
+            <a class="mfb-component__button--main">
+                <i class="mfb-component__main-icon--resting fa fa-plus"></i>
+                <i class="mfb-component__main-icon--active  fa fa-times"></i>
+            </a>
+            <ul class="mfb-component__list">
+                <li>
+                    <a href="#" data-mfb-label="产品二维码" class="mfb-component__button--child" data-toggle="modal" data-target="#ercodemodal">
+                        <i class="mfb-component__child-icon fa fa-qrcode"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" data-mfb-label="搜索" class="mfb-component__button--child">
+                        <i class="mfb-component__child-icon fa fa-search"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="{% url 'fishes:admin_view' %}"
+                       data-mfb-label="首页" class="mfb-component__button--child">
+                        <i class="mfb-component__child-icon fa fa-home"></i>
+                    </a>
+                </li>
+            </ul>
+        </li>
+    </ul>
+    <!--悬浮按钮(END)-->
+
+    <!-- 生成二维码的modal -->
+    {% include 'fishes/generate_ercode_modal.html' %}
+
     <!-- Preloader - style you can find in spinners.css
          初始化的时候那个加载小圆圈
     -->
@@ -371,6 +405,7 @@
     <script src="/static/fishadmin/js/lib/sticky-kit-master/dist/sticky-kit.min.js"></script>
     <!--Custom JavaScript -->
     <script src="/static/fishadmin/js/custom.min.js"></script>
+    <script src="/static/js/mfb.min.js"></script>
 
     <!-- Echart -->
     <script src="/static/fishadmin/js/lib/echart/echarts.js"></script>
