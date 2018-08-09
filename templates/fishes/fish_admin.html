@@ -239,6 +239,7 @@
                         <!-- 鱼池管理(END) -->
 
                         <!-- 生成产品二维码(START) -->
+                        <!--
 						<li>
                             <a data-pjax class="has-arrow" href="{% url 'fishes:generateercode' %}" aria-expanded="false">
                                 <i class="fa fa-suitcase"></i>
@@ -247,6 +248,7 @@
                                 </span>
                             </a>
                         </li>
+                        -->
                         <!-- 生成产品二维码(END) -->
 
                         <!-- 第三方检测报告管理(START) -->
@@ -414,6 +416,10 @@
     <!-- script init-->
     <script src="/static/fishadmin/js/scripts.js"></script>
 
+    <!-- 二维码生成-->
+    <script src="/static/js/qrcode.min.js"></script>
+
+
     <!-- 每个页面特有的scripts(START) -->
     {% block scripts-for-each-pages-sources %}
     <!-- 用户信息查看的表格(START) -->
@@ -523,7 +529,22 @@
     {% block custom-scripts-for-each-page %}
     {% endblock %}
     <!-- my script(END) -->
-
+    <script>
+        $(document).ready(function () {
+            var curWwwPath = window.document.location.href;
+            var pathname= window.document.location.pathname;
+            var pos = curWwwPath.indexOf(pathname);
+            var default_url = curWwwPath .substring(0,pos+8);
+            var qrcode = new QRCode(document.getElementById("qrcode"), default_url);
+            var link = $("#input-link").val();
+            $("#btn-generateqrcode").click(function () {
+                if(link != ''){
+                    qrcode.clear();
+                    qrcode.makeCode(link);
+                }
+            });
+        });
+    </script>
 
 </body>
 

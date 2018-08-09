@@ -11,6 +11,7 @@ from django.utils.encoding import escape_uri_path
 from django.views.decorators.csrf import csrf_exempt
 from django.utils.decorators import method_decorator
 from datetime import timedelta
+from django.utils.six import BytesIO
 import ast
 from .utils import delete_image
 from django.contrib.auth.decorators import login_required
@@ -567,7 +568,6 @@ def FishPoolInfoView(request):
 
 def GenerateQRCode(request, key, pid):
     """生成二维码(鱼池、产品)"""
-    from django.utils.six import BytesIO
     url = None
     file_name = None
     if key == "pool":
@@ -632,8 +632,20 @@ def DeleteFishPool(request):
 
 def GenerateProductQRCodeView(request):
     """生成产品二维码"""
-    time.sleep(1)
-    return render(request, "fishes/generate_ERcode.html")
+    url = request.GET.get("input-link")
+    if url == '':   # 没有输入新的链接，则使用默认的链接
+        url = "http://" + request.get_host() + reverse("fishes:homepage")
+    file_name = "通用产品二维码" + ".png"
+
+    img = qrcode.make(url)
+    buf = BytesIO()
+    img.save(buf)
+    image_stream = buf.getvalue()
+    response = HttpResponse(image_stream)
+    response['Content-Type'] = 'application/image'
+    response['Content-Disposition'] = "attachment; filename*=utf-8''{0}".format(escape_uri_path(file_name))
+    # response['Content-Disposition'] = 'attachment;filename="{0}"'.format(file)
+    return response
 
 
 def ThirdPartTestReportView(request):

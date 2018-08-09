@@ -46,10 +46,10 @@
                 </div>
 
                 <!-- add variety Modal (START)-->
-                <div class="modal fade bd-example-modal-lg" id="addVarietyModal" tabindex="-1" role="dialog"
+                <div class="modal bd-example-modal-lg" id="addVarietyModal" tabindex="-1" role="dialog"
                      aria-labelledby="ModalCenterTitle" aria-hidden="true">
                     <div class="modal-dialog modal-dialog-centered modal-lg" role="document" style="top: 35%">
-                        <div class="modal-content animated zoomIn">
+                        <div class="modal-content animated zoomIn ">
                             <div class="modal-header">
                                 <h5 class="modal-title" id="exampleModalLongTitle">添加石斑鱼品种名</h5>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -59,17 +59,17 @@
                             <form id="form-add-variety">
                                 <div class="modal-body">
                                 <div class="row">
-                                    <label class="col-lg-2 col-form-label" for="val-variety-name">品种名称 <span
+                                    <label class="col-lg-2" for="val-variety-name">品种名称 <span
                                                 class="text-danger">*</span></label>
                                     <div class="col-lg-8">
-                                        <input type="text" id="val-variety-name" name="val-variety-name" placeholder="品种名称" style="margin-top: 4px">
+                                        <input type="text" id="val-variety-name" name="val-variety-name" class="form-control" placeholder="品种名称">
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <label class="col-lg-3 col-form-label" for="description">品种描述 </label>
+                                    <label class="col-lg-3" for="description">品种描述 </label>
                                 </div>
-                                <div class="row">
-                                    <textarea id="description" name="description" placeholder="这里写品种描述" rows="5" cols="80" style="margin-left: 10%;margin-top: 2px;overflow: scroll"></textarea>
+                                <div class="form-group">
+                                    <textarea id="description" name="description" class="form-control" placeholder="这里写品种描述" style="height:60%;overflow: scroll"></textarea>
                                 </div>
                             </div>
                                 <div class="modal-footer">

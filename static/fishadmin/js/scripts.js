@@ -457,6 +457,7 @@ $.extend({
                         }
                     },
                     error: function(xhr, type, errorThrown) {
+                        $(".preloader-submit-data").hide();
                         alert('网络异常，请稍后再试！');
                     }
                 });
