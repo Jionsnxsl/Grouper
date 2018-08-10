@@ -1,0 +1,67 @@
+{% extends "fishes/fish_admin.html" %}
+
+{% block rightside-page-content %}
+        <!-- Page wrapper  -->
+        <div class="page-wrapper" id="rightside-page-wrapper">
+            <!-- Bread crumb(右侧最上面的标题栏) -->
+            <div class="row page-titles">
+                <div class="col-md-5 align-self-center">
+                    <h3 class="text-primary">产品信息查看</h3> </div>
+                <div class="col-md-7 align-self-center">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="javascript:void(0)">主页</a></li>
+                        <li class="breadcrumb-item active">产品信息查看</li>
+                    </ol>
+                </div>
+            </div>
+            <!-- End Bread crumb -->
+
+            <!-- Container fluid  -->
+            <div class="container-fluid">
+                <!-- Start Page Content -->
+                <!--
+                <div class="row bg-white m-l-0 m-r-0 box-shadow ">
+                    <p style="margin: 50px">这是产品信息</p>
+                </div>
+                -->
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <h1 class="card-title">产品信息</h1>
+                                <div class="table-responsive m-t-40">
+                                    <!-- (不提供快速删除产品信息的按钮，防止误删)
+                                    <div id="toolbar">
+                                        <button id="delete-product" class="btn btn-danger" type="button" style="cursor:default;" disabled>删除</button>
+                                    </div>
+                                    -->
+                                    <table id="productinfo-table"
+                                           data-toolbar="#toolbar"
+                                           data-search="true"
+                                           data-minimum-count-columns="2"
+                                           data-pagination="true"
+                                           data-id-field="username"
+                                           data-click-to-select="true"
+                                           data-page-list="[10, 25, 50, 100]"
+                                           data-side-pagination="server">
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- End PAge Content -->
+            </div>
+            <!-- End Container fluid  -->
+            <!-- footer -->
+            <footer class="footer"> © 2018 All rights reserved.Designed by <a href="https://www.xmu.edu.cn/">XUM</a></footer>
+            <!-- End footer -->
+        </div>
+        <!-- End Page wrapper  -->
+{% endblock %}
+
+{% block custom-scripts-for-each-page %}
+    <script>
+        productInfoInit(); // 产品信息表格初始化
+    </script>
+{% endblock %}

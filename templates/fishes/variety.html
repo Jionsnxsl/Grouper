@@ -1,0 +1,98 @@
+{% extends "fishes/fish_admin.html" %}
+
+{% block rightside-page-content %}
+        <!-- Page wrapper  -->
+        <div class="page-wrapper" id="rightside-page-wrapper">
+            <!-- Bread crumb(右侧最上面的标题栏) -->
+            <div class="row page-titles">
+                <div class="col-md-5 align-self-center">
+                    <h3 class="text-primary">石斑鱼品种名称管理</h3> </div>
+                <div class="col-md-7 align-self-center">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="javascript:void(0)">主页</a></li>
+                        <li class="breadcrumb-item active">石斑鱼品种名称管理</li>
+                    </ol>
+                </div>
+            </div>
+            <!-- End Bread crumb -->
+
+            <!-- Container fluid  -->
+            <div class="container-fluid">
+                <!-- Start Page Content -->
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <h1 class="card-title">石斑鱼品种信息</h1>
+                                <div class="table-responsive m-t-40">
+                                    <div id="toolbar">
+                                        <button class="btn btn-primary" data-toggle="modal" data-target="#addVarietyModal">添加</button>
+                                        <button id="delete-variety" class="btn btn-danger" type="button" style="cursor:default;" disabled>删除</button>
+                                    </div>
+                                    <table id="variety-table"
+                                           data-toolbar="#toolbar"
+                                           data-search="true"
+                                           data-minimum-count-columns="2"
+                                           data-pagination="true"
+                                           data-id-field="num"
+                                           data-click-to-select="true"
+                                           data-page-list="[10, 25, 50, 100]"
+                                           data-side-pagination="server">
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- add variety Modal (START)-->
+                <div class="modal bd-example-modal-lg" id="addVarietyModal" tabindex="-1" role="dialog"
+                     aria-labelledby="ModalCenterTitle" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered modal-lg" role="document" style="top: 35%">
+                        <div class="modal-content animated zoomIn ">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLongTitle">添加石斑鱼品种名</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <form id="form-add-variety">
+                                <div class="modal-body">
+                                <div class="row">
+                                    <label class="col-lg-2" for="val-variety-name">品种名称 <span
+                                                class="text-danger">*</span></label>
+                                    <div class="col-lg-8">
+                                        <input type="text" id="val-variety-name" name="val-variety-name" class="form-control" placeholder="品种名称">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <label class="col-lg-3" for="description">品种描述 </label>
+                                </div>
+                                <div class="form-group">
+                                    <textarea id="description" name="description" class="form-control" placeholder="这里写品种描述" style="height:60%;overflow: scroll"></textarea>
+                                </div>
+                            </div>
+                                <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+                                <button id='variety-submit' type="button" class="btn btn-primary" disabled="disabled">提交</button>
+                            </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <!-- add variety Modal (END)-->
+                <!-- End PAge Content -->
+            </div>
+            <!-- End Container fluid  -->
+            <!-- footer -->
+            <footer class="footer"> © 2018 All rights reserved.Designed by <a href="https://www.xmu.edu.cn/">XUM</a></footer>
+            <!-- End footer -->
+        </div>
+        <!-- End Page wrapper  -->
+{% endblock %}
+
+{% block custom-scripts-for-each-page %}
+    <script>
+        varietyInfoInit(); // 鱼池信息查看初始化
+    </script>
+{% endblock %}

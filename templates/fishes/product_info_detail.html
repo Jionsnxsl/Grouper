@@ -1,0 +1,297 @@
+{% extends "fishes/fish_admin.html" %}
+
+{% block rightside-page-content %}
+        <!-- Page wrapper  -->
+        <div class="page-wrapper" id="rightside-page-wrapper">
+            <!-- Bread crumb(右侧最上面的标题栏) -->
+            <div class="row page-titles">
+                <div class="col-md-5 align-self-center">
+                    <h3 class="text-primary">产品信息详细</h3> </div>
+                <div class="col-md-7 align-self-center">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="javascript:void(0)">主页</a></li>
+                        <li class="breadcrumb-item active">产品信息查看</li>
+                        <li class="breadcrumb-item active">产品信息详细</li>
+                    </ol>
+                </div>
+            </div>
+            <!-- End Bread crumb -->
+
+            <!-- Container fluid  -->
+            <div class="container-fluid">
+                <!-- Start Page Content -->
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card card-outline-primary">
+                            <div class="card-body">
+                                <form action="#" class="form-product-detail">
+                                    <div class="form-body">
+                                        <h3 class="card-title m-t-15"><strong>产品基本信息</strong></h3>
+                                        <hr>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label class="control-label" for="product_batch"><strong>产品批次号 : </strong></label>
+                                                    <span id="product_batch">{{ product_info_data.product_batch }}</span>
+                                                </div>
+                                            </div>
+                                            <!--/span-->
+                                            <div class="col-md-6">
+                                                <div class="form-group has-danger">
+                                                    <label class="control-label" for="product_date"><strong>产品生成时间 : </strong></label>
+                                                    <span id="product_date">{{ product_info_data.product_date }}</span>
+                                                </div>
+                                            </div><!--/span-->
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <div class="form-group">
+                                                    <label><strong>包装图片</strong></label><span class="text-danger">*</span>
+                                                    <div class="file-loading">
+                                                        <input id="pack_environment" name="pack_environment" class="form-control" type="file">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!--/row-->
+                                        <h4 class="box-title m-t-40"><strong>石斑鱼基本信息</strong></h4>
+                                        <hr>
+                                        <div class="row">
+                                            <div class="col-md-6 ">
+                                                <div class="form-group">
+                                                    <label for="fish_batch"><strong>石斑鱼批次:</strong></label>
+                                                    <span id="fish_batch">{{ fish_info_data.fish_batch }}</span>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 ">
+                                                <div class="form-group">
+                                                    <label for="fish_batch"><strong>入料时间:</strong></label>
+                                                    <span id="fish_batch">{{ fish_info_data.stock_date }}</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label for="fish_batch"><strong>石斑鱼数量:</strong></label>
+                                                    <span id="fish_batch">{{ fish_info_data.number }}</span>
+                                                </div>
+                                            </div>
+                                            <!--/span-->
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label for="fish_batch"><strong>石斑鱼总重量:</strong></label>
+                                                    <span id="fish_batch">{{ fish_info_data.total_mass }}</span>
+                                                </div>
+                                            </div>
+                                            <!--/span-->
+                                        </div>
+                                        <!--/row-->
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label for="fish_batch"><strong>石斑鱼品种名:</strong></label>
+                                                    <span id="fish_batch">{{ fish_info_data.name }}</span>
+                                                </div>
+                                            </div>
+                                            <!--/span-->
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label for="fish_batch"><strong>石斑鱼规格:</strong></label>
+                                                    <span id="fish_batch">{{ fish_info_data.specification }}</span>
+                                                </div>
+                                            </div>
+                                            <!--/span-->
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <label><strong>原料检测报告</strong></label>
+                                                    <div class="file-loading">
+                                                        <input id="test_report_stock" name="test_report_stock" class="form-control" type="file">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!--/span-->
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <label><strong>第三方检测报告</strong></label>
+                                                    <div class="file-loading">
+                                                        <input id="test_report_third" name="test_report_third" class="form-control" type="file">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <label><strong>入料图片</strong></label>
+                                                    <div class="file-loading">
+                                                        <input id="stock_scene" name="stock_scene" class="form-control" type="file">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <h4 class="box-title m-t-40"><strong>石斑鱼转移记录</strong></h4>
+                                        <hr>
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="card">
+                                                    <div class="card-title">
+                                                            <h4>转移记录表 </h4>
+                                                    </div>
+                                                    <div class="card-body">
+                                                        <div class="table-responsive">
+                                                            <table class="table table-bordered">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th>#</th>
+                                                                        <th>转移时间</th>
+                                                                        <th>来源池</th>
+                                                                        <th>目的池</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    {% for trans_info in trans_infos %}
+                                                                        <tr>
+                                                                            <th scope="row">{{ forloop.counter }}</th>
+                                                                            <td>{{ trans_info.tans_date }}</td>
+                                                                            <td> {{ trans_info.source_pool }} 号鱼池</td>
+                                                                            <td> {{ trans_info.target_pool }} 号鱼池</td>
+                                                                        </tr>
+                                                                    {% endfor %}
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <h4 class="box-title m-t-40"><strong>石斑鱼加工信息</strong></h4>
+                                        <hr>
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <label for="process_date"><strong>加工日期:</strong></label>
+                                                    <span id="process_date">{{ process_info_data.process_date }}</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <label><strong>加工图片</strong></label>
+                                                    <div class="file-loading">
+                                                        <input id="process_environment" name="process_environment" class="form-control"
+                                                               type="file">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <label><strong>领料图片</strong></label>
+                                                    <div class="file-loading">
+                                                        <input id="get_scene" name="get_scene" class="form-control" type="file">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <label><strong>成品检测报告</strong></label>
+                                                    <div class="file-loading">
+                                                        <input id="test_report_process" name="test_report_process" class="form-control" type="file">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <div class="form-actions" style="margin-left: 30%">
+                                        <a class="btn btn-primary" style="color: white;" href="/fishes/admin/generateqrcode/product-{{ product_info_data.product_id }}" role="button">生成产品二维码</a>
+                                        <button type="button" class="btn btn-inverse">取消</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- End PAge Content -->
+            </div>
+            <!-- End Container fluid  -->
+            <!-- footer -->
+            <footer class="footer"> © 2018 All rights reserved.Designed by <a href="https://www.xmu.edu.cn/">XUM</a></footer>
+            <!-- End footer -->
+        </div>
+        <!-- End Page wrapper  -->
+{% endblock %}
+
+
+{% block custom-scripts-for-each-page %}
+    <script>
+    $(function () {
+        var pid = {{ product_info_data.product_id }};
+        var uploadurl = "{% url 'fishes:imageupload' %}";
+
+        var previewurl_pack ;
+        var attr_name = $("#pack_environment").attr("name");
+        {% if process_info_data.pack_environment %}
+            previewurl_pack = "{{ process_info_data.pack_environment.url }}";
+        {% endif %}
+        initFileinput("pack_environment", uploadurl,previewurl_pack, pid, attr_name); // 函数在scripts.js中定义
+
+        var previewurl_stock ;
+        attr_name = $("#test_report_stock").attr("name");
+        {% if fish_info_data.test_report_stock %}
+            previewurl_stock = "{{ fish_info_data.test_report_stock.url }}"
+        {% endif %}
+        initFileinput("test_report_stock", uploadurl,previewurl_stock, pid, attr_name)
+
+        var previewurl_third ;
+        attr_name = $("#test_report_third").attr("name");
+        {% if fish_info_data.test_report_third %}
+            previewurl_third = "{{ fish_info_data.test_report_third.url }}"
+        {% endif %}
+        initFileinput("test_report_third", uploadurl,previewurl_third, pid, attr_name)
+
+        var previewurl_scene ;
+        attr_name = $("#stock_scene").attr("name");
+        {% if fish_info_data.stock_scene %}
+            previewurl_scene = "{{ fish_info_data.stock_scene.url }}"
+        {% endif %}
+        initFileinput("stock_scene", uploadurl,previewurl_scene, pid, attr_name)
+
+        var previewurl_process ;
+        attr_name = $("#process_environment").attr("name");
+        {% if process_info_data.process_environment %}
+            previewurl_process = "{{ process_info_data.process_environment.url }}"
+        {% endif %}
+        initFileinput("process_environment", uploadurl,previewurl_process, pid, attr_name)
+
+        var previewurl_get ;
+        attr_name = $("#get_scene").attr("name");
+        {% if process_info_data.get_scene %}
+            previewurl_get = "{{ process_info_data.get_scene.url }}"
+        {% endif %}
+        initFileinput("get_scene", uploadurl,previewurl_get, pid, attr_name)
+
+        var previewurl_test ;
+        attr_name = $("#test_report_process").attr("name");
+        {% if process_info_data.test_report_process %}
+            previewurl_test = "{{ process_info_data.test_report_process.url }}"
+        {% endif %}
+        initFileinput("test_report_process", uploadurl,previewurl_test, pid, attr_name)
+
+    });
+    </script>
+{% endblock %}
+
+
+

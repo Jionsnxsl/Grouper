@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <!-- Favicon icon -->
+    <link rel="icon" type="image/png" sizes="16x16" href="/static/fishadmin/images/favicon.png">
+    <title>石斑鱼后台管理系统</title>
+    <!-- Bootstrap Core CSS -->
+    <link href="/static/fishadmin/css/lib/bootstrap/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+
+    <link href="/static/fishadmin/css/helper.css" rel="stylesheet">
+    <link href="/static/fishadmin/css/style.css" rel="stylesheet">
+    <link href="/static/css/bootstrap-table.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="/static/css/fileinput.min.css">
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:** -->
+    <!--[if lt IE 9]>
+    <script src="https:**oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https:**oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+</head>
+
+<body class="fix-header fix-sidebar">
+    <!-- Preloader - style you can find in spinners.css
+         初始化的时候那个加载小圆圈
+    -->
+    <div class="preloader">
+        <svg class="circular" viewBox="25 25 50 50">
+			<circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10" /> </svg>
+    </div>
+
+    <!-- Main wrapper  -->
+    <div id="main-wrapper">
+        <!-- header header  -->
+        <div class="header">
+            <nav class="navbar top-navbar navbar-expand-md navbar-light">
+                <!-- Logo -->
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="#">
+                        <!-- Logo icon -->
+                        <b><img src="/static/fishadmin/images/logo.png" alt="homepage" class="dark-logo" /></b>
+                        <!--End Logo icon -->
+                        <!-- Logo text -->
+                        <span><img src="/static/fishadmin/images/logo-text.png" alt="homepage" class="dark-logo" /></span>
+                    </a>
+                </div>
+                <!-- End Logo -->
+                <div class="navbar-collapse">
+                    <!-- toggle and nav items -->
+                    <ul class="navbar-nav mr-auto mt-md-0">
+                    </ul>
+                    <!-- User profile and search -->
+                    <ul class="navbar-nav my-lg-0">
+
+                        <!-- Profile -->
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle text-muted  " href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <!--
+                                <img src="/static/polladmin/images/users/5.jpg" alt="user" class="profile-pic" />
+                                -->
+                                <span><strong>&nbsp;欢迎 Monster </strong></span>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right animated zoomIn">
+                                <ul class="dropdown-user">
+                                    <li><a href="#"><i class="ti-user"></i> &nbsp;个人信息</a></li>
+                                    <!--
+                                    <li><a href="#"><i class="ti-wallet"></i> Balance</a></li>
+                                    <li><a href="#"><i class="ti-email"></i> Inbox</a></li>
+                                    -->
+                                    <li><a href="#"><i class="ti-settings"></i> &nbsp;进入后台</a></li>
+                                    <li><a href="{% url 'users:logout' %}"><i class="fa fa-power-off"></i> &nbsp;注&nbsp;销</a></li>
+                                </ul>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+        <!-- End header header -->
+
+        <!-- 右侧内容加载进度条(START)-->
+        <div class="preloader-submit-data" style="display: none;">
+            <svg class="circular" viewBox="25 25 50 50">
+			    <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10" /> </svg>
+        </div>
+        <!-- 右侧内容加载进度条(END)-->
+        <!-- Page wrapper  -->
+        <div class="page-wrapper">
+            <!-- Bread crumb -->
+            <div class="row page-titles">
+                <div class="col-md-5 align-self-center">
+                    <h3 class="text-primary">入料</h3> </div>
+                <div class="col-md-7 align-self-center">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="javascript:void(0)">主页</a></li>
+                        <li class="breadcrumb-item active">入料</li>
+                    </ol>
+                </div>
+            </div>
+            <!-- End Bread crumb -->
+            <!-- Container fluid  -->
+            <div class="container-fluid">
+                <!-- Start Page Content -->
+
+                <div class="row justify-content-center">
+                    <div class="col-lg-6">
+                        <div class="card">
+                                <div class="form-validation">
+                                    <form class="form-addproduct">
+                                        {% csrf_token %}
+                                        <div class="form-group row">
+                                            <label class="col-lg-4 col-form-label" for="val-poolID">鱼池编号</label>
+                                            <div class="col-lg-6">
+                                                <input type="text" class="form-control" id="val-poolID"
+                                                       name="val-poolID" value="{{ pool_id }}" readonly="readonly">
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-lg-4 col-form-label" for="val-batchNum">鱼批次号(系统生成)</label>
+                                            <div class="col-lg-6">
+                                                <input type="text" class="form-control" id="val-batchNum"
+                                                       name="val-batchNum" value="{{ fish_batch_num }}" readonly="readonly">
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-lg-4 col-form-label" for="val-typename">品种</label>
+                                            <div class="col-lg-6">
+                                                <select class="form-control" id="val-typename" name="val-typename">
+                                                    <option value="1">石斑鱼类1</option>
+                                                    <option value="2">石斑鱼类2</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-lg-4 col-form-label" for="val-specification">规格</label>
+                                            <div class="col-lg-6">
+                                                <input type="text" class="form-control" id="val-specification"
+                                                       name="val-specification">
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-lg-4 col-form-label" for="val-fishnum">石斑鱼数量</label>
+                                            <div class="col-lg-6">
+                                                <input type="text" class="form-control" id="val-fishnum"
+                                                       name="val-fishnum">
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-lg-4 col-form-label" for="val-totalmass">石斑鱼重量</label>
+                                            <div class="col-lg-6">
+                                                <input type="text" class="form-control" id="val-totalmass"
+                                                       name="val-totalmass">
+                                            </div>
+                                        </div>
+                                         <div class="row">
+                                            <div class="col-12">
+                                                <div class="form-group">
+                                                    <label>入料图片</label>
+                                                    <div class="file-loading">
+                                                        <input id="pack_environment" name="pack_environment" class="form-control" type="file">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <div class="col-lg-8 ml-auto">
+                                                <button id="add-product-submit" type="button" class="btn btn-primary">提&nbsp;交</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- End PAge Content -->
+            </div>
+            <!-- End Container fluid  -->
+            <!-- footer -->
+            <footer class="footer"> © 2018 All rights reserved. Template designed by <a href="https://colorlib.com">Colorlib</a></footer>
+            <!-- End footer -->
+        </div>
+        <!-- End Page wrapper  -->
+    </div>
+    <!-- End Wrapper -->
+    <!-- All Jquery -->
+    <script src="/static/fishadmin/js/lib/jquery/jquery.min.js"></script>
+    <!-- Bootstrap tether Core JavaScript -->
+    <script src="/static/fishadmin/js/lib/bootstrap/js/popper.min.js"></script>
+    <script src="/static/fishadmin/js/lib/bootstrap/js/bootstrap.min.js"></script>
+    <!-- slimscrollbar scrollbar JavaScript -->
+    <script src="/static/fishadmin/js/jquery.slimscroll.js"></script>
+    <!--sticky kit -->
+    <script src="/static/fishadmin/js/lib/sticky-kit-master/dist/sticky-kit.min.js"></script>
+    <!--Custom JavaScript -->
+    <script src="/static/fishadmin/js/custom.min.js"></script>
+    <!-- script init-->
+    <script src="/static/fishadmin/js/scripts.js"></script>
+
+    <!-- 表单验证(START) -->
+    <script src="/static/fishadmin/js/lib/form-validation/jquery.validate.min.js"></script>
+    <script src="/static/fishadmin/js/lib/form-validation/jquery.validate-init.js"></script>
+    <!-- 表单验证(END) -->
+
+    <!-- 图片上传(START) -->
+    <script src="/static/js/fileinput.min.js"></script>
+    <script src="/static/js/fileinput_locale_zh.js"></script>
+    <!-- 图片上传(END) -->
+
+    <script>
+        $.addProduct();
+        $("#pack_environment").fileinput({
+                language: 'zh', //设置语言
+                theme: 'fa',
+                showUpload: false,
+                dropZoneEnabled: false,
+                browseClass: "btn btn-primary", //按钮样式
+                allowedFileExtensions: ['jpg', 'png'],  //接收的文件后缀
+                //uploadUrl: "http://www.soyiyuan.com/", //上传的地址
+                enctype:'multipart/form-data',
+                //previewFileType: "image",
+                browseClass: "btn btn-success",
+                //browseLabel: "Pick Image",
+                browseIcon: "<i class=\"fa fa-picture-o\"></i> ",
+                removeClass: "btn btn-danger",
+                //removeLabel: "Delete",
+                removeIcon: "<i class=\"fa fa-trash\"></i> ",
+                uploadClass: "btn btn-info",
+                //uploadLabel: "Upload",
+                uploadIcon: "<i class=\"fa fa-upload\"></i> ",
+                minFileCount: 1,
+                minFileSize: 1,
+                layoutTemplates: {
+                    // actionDelete:'', //去除上传预览的缩略图中的删除图标
+                    //actionUpload: '',//去除上传预览缩略图中的上传图片；
+                    //actionZoom: ''   //去除上传预览缩略图中的查看详情预览的缩略图标
+                },
+                uploadExtraData: {  //为上传的图片添加额外信息
+                    pid: 1,
+                    attr_name: "pack_environment",
+                },
+                deleteExtraData:{  //为删除添加额外信息
+                    pid: 1,
+                    attr_name: "pack_environment",
+                },
+                overwriteInitial: true,
+                initialPreviewAsData: false,
+            });
+            //on("filebatchselected", function(event, files) {
+            //    $(this).fileinput("upload");
+            //});
+    </script>
+</body>
+
+</html>

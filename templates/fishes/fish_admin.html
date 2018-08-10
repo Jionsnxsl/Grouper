@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <!-- Favicon icon -->
+    <link rel="icon" type="image/png" sizes="16x16" href="/static/fishadmin/images/favicon.png">
+    <title>石斑鱼后台管理系统</title>
+    <!-- Bootstrap Core CSS -->
+    <link href="/static/fishadmin/css/lib/bootstrap/bootstrap.min.css" rel="stylesheet">
+
+    <link href="/static/fishadmin/css/style.css" rel="stylesheet">
+    <link href="/static/fishadmin/css/helper.css" rel="stylesheet">
+    <link href="/static/css/font-awesome.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link href="/static/css/bootstrap-table.css" rel="stylesheet">
+    <link href="/static/css/mfb.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="/static/css/fileinput.min.css">
+
+    {% block each-page-css %}
+
+    {% endblock %}
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:** -->
+    <!--[if lt IE 9]>
+    <script src="https:**oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https:**oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+</head>
+
+<body class="fix-header fix-sidebar">
+
+    <!--悬浮按钮(START)-->
+    <ul id="menu" class="mfb-component--br mfb-fountain" data-mfb-toggle="hover">
+        <li class="mfb-component__wrap">
+            <a href="javascript:void(0);" class="mfb-component__button--main">
+                <i class="mfb-component__main-icon--resting fa fa-plus"></i>
+                <i class="mfb-component__main-icon--active  fa fa-times"></i>
+            </a>
+            <ul class="mfb-component__list">
+                <li>
+                    <a href="#" data-mfb-label="产品二维码" class="mfb-component__button--child" data-toggle="modal" data-target="#ercodemodal">
+                        <i class="mfb-component__child-icon fa fa-qrcode"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" data-mfb-label="搜索" class="mfb-component__button--child">
+                        <i class="mfb-component__child-icon fa fa-search"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="{% url 'fishes:admin_view' %}"
+                       data-mfb-label="首页" class="mfb-component__button--child">
+                        <i class="mfb-component__child-icon fa fa-home"></i>
+                    </a>
+                </li>
+            </ul>
+        </li>
+    </ul>
+    <!--悬浮按钮(END)-->
+
+    <!-- 生成二维码的modal -->
+    {% include 'fishes/generate_ercode_modal.html' %}
+
+    <!-- Preloader - style you can find in spinners.css
+         初始化的时候那个加载小圆圈
+    -->
+    <div class="preloader">
+        <svg class="circular" viewBox="25 25 50 50">
+			<circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10" /> </svg>
+    </div>
+
+    <!-- Main wrapper  -->
+    <div id="main-wrapper">
+        <!-- header header  -->
+        <div class="header">
+            <nav class="navbar top-navbar navbar-expand-md navbar-light">
+                <!-- Logo -->
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="#">
+                        <!-- Logo icon -->
+                        <b><img src="/static/fishadmin/images/logo.png" alt="homepage" class="dark-logo" /></b>
+                        <!--End Logo icon -->
+                        <!-- Logo text -->
+                        <span><img src="/static/fishadmin/images/logo-text.png" alt="homepage" class="dark-logo" /></span>
+                    </a>
+                </div>
+                <!-- End Logo -->
+                <div class="navbar-collapse">
+                    <!-- toggle and nav items -->
+                    <ul class="navbar-nav mr-auto mt-md-0">
+                        <!-- This is  -->
+                        <li class="nav-item"> <a class="nav-link nav-toggler hidden-md-up text-muted  " href="javascript:void(0)"><i class="mdi mdi-menu"></i></a> </li>
+                        <li class="nav-item m-l-10"> <a class="nav-link sidebartoggler hidden-sm-down text-muted  " href="javascript:void(0)"><i class="ti-menu"></i></a> </li>
+                    </ul>
+                    <!-- User profile and search -->
+                    <ul class="navbar-nav my-lg-0">
+
+                        <!-- Search -->
+                        <li class="nav-item hidden-sm-down search-box"> <a class="nav-link hidden-sm-down text-muted  " href="javascript:void(0)"><i class="ti-search"></i></a>
+                            <form class="app-search">
+                                <input type="text" class="form-control" placeholder="搜索"> <a class="srh-btn"><i class="ti-close"></i></a> </form>
+                        </li>
+
+                        <!-- Comment(小铃铛图标相关) -->
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle text-muted text-muted  " href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="fa fa-bell"></i>
+								<div class="notify"> <span class="heartbit"></span> <span class="point"></span> </div>
+							</a>
+                            <div class="dropdown-menu dropdown-menu-right mailbox animated zoomIn">
+                                <ul>
+                                    <li>
+                                        <div class="drop-title">提醒</div>
+                                    </li>
+                                    <li>
+                                        <div class="message-center">
+                                            <!-- Message -->
+                                            <a href="#">
+                                                <div class="btn btn-danger btn-circle m-r-10"><i class="fa fa-link"></i></div>
+                                                <div class="mail-contnet">
+                                                    <h5>反馈提醒</h5> <span class="mail-desc">系统很好用！</span> <span class="time">9:30 AM</span>
+                                                </div>
+                                            </a>
+                                            <!-- Message -->
+                                            <a href="#">
+                                                <div class="btn btn-success btn-circle m-r-10"><i class="ti-calendar"></i></div>
+                                                <div class="mail-contnet">
+                                                    <h5>反馈提醒</h5> <span class="mail-desc">Just a reminder that you have event</span> <span class="time">9:10 AM</span>
+                                                </div>
+                                            </a>
+                                            <!-- Message -->
+                                            <a href="#">
+                                                <div class="btn btn-info btn-circle m-r-10"><i class="ti-settings"></i></div>
+                                                <div class="mail-contnet">
+                                                    <h5>生产提醒</h5> <span class="mail-desc">有需要生成二维码的产品</span> <span class="time">9:08 AM</span>
+                                                </div>
+                                            </a>
+                                            <!-- Message -->
+                                            <a href="#">
+                                                <div class="btn btn-primary btn-circle m-r-10"><i class="ti-user"></i></div>
+                                                <div class="mail-contnet">
+                                                    <h5>生产提醒</h5> <span class="mail-desc">Just see the my admin!</span> <span class="time">9:02 AM</span>
+                                                </div>
+                                            </a>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <a class="nav-link text-center" href="javascript:void(0);"> <strong>查看所有提醒</strong> <i class="fa fa-angle-right"></i> </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                        <!-- End Comment -->
+
+                        <!-- Profile -->
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle text-muted  " href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <!--
+                                <img src="/static/polladmin/images/users/5.jpg" alt="user" class="profile-pic" />
+                                -->
+                                <span><strong>&nbsp;欢迎 Monster </strong></span>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right animated zoomIn">
+                                <ul class="dropdown-user">
+                                    <li><a href="#"><i class="ti-user"></i> &nbsp;个人信息</a></li>
+                                    <!--
+                                    <li><a href="#"><i class="ti-wallet"></i> Balance</a></li>
+                                    <li><a href="#"><i class="ti-email"></i> Inbox</a></li>
+                                    -->
+                                    <li><a href="#"><i class="ti-settings"></i> &nbsp;设&nbsp;置</a></li>
+                                    <li><a href="{% url 'users:logout' %}"><i class="fa fa-power-off"></i> &nbsp;注&nbsp;销</a></li>
+                                </ul>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+        <!-- End header header -->
+
+        <!-- Left Sidebar  -->
+        <div class="left-sidebar">
+            <!-- Sidebar scroll-->
+            <div class="scroll-sidebar">
+                <!-- Sidebar navigation-->
+                <nav class="sidebar-nav">
+                    <ul id="sidebarnav">
+                        <li class="nav-devider"></li>
+
+                        <!-- 查看网站主页(START) -->
+                        <li>
+                            <a data-pjax class="has-arrow" href="{% url 'fishes:admin_view' %}" aria-expanded="false">
+                                <i class="fa fa-tachometer"></i>
+                                <span class="hide-menu">首页</span>
+                            </a>
+                        </li>
+                        <!-- 查看网站主页(END) -->
+
+                        <!-- 查看产品信息(START) -->
+                        <li>
+                            <a data-pjax class="has-arrow" href="{% url 'fishes:productinfo' %}" aria-expanded="false">
+                                <i class="fa fa-envelope"></i>
+                                <span class="hide-menu">产品管理</span>
+                            </a>
+                        </li>
+                         <!-- 查看产品信息(END) -->
+
+                        <!-- 用户管理(START) -->
+                        <li>
+                            <a class="has-arrow" href="javascript:void(0)" aria-expanded="false">
+                                <i class="fa fa-bar-chart"></i>
+                                <span class="hide-menu">用户管理</span>
+                            </a>
+                            <ul aria-expanded="false" class="collapse">
+                                <li><a data-pjax href="{% url 'fishes:userinfo' %}">用户信息查看</a></li>
+                                <li><a data-pjax href="{% url 'fishes:adduser' %}">添加用户</a></li>
+                            </ul>
+                        </li>
+                        <!-- 用户管理(END) -->
+
+
+                        <!-- 鱼池管理(START) -->
+                        <li>
+                            <a class="has-arrow" href="javascript:void(0)" aria-expanded="false">
+                                <i class="fa fa-suitcase"></i>
+                                <span class="hide-menu">鱼池管理</span>
+                            </a>
+                            <ul aria-expanded="false" class="collapse">
+                                <li><a data-pjax href="{% url 'fishes:fishpoolinfo' %}">鱼池信息查看</a></li>
+                                <li><a data-pjax href="{% url 'fishes:addfishpool' %}">添加鱼池</a></li>
+                            </ul>
+                        </li>
+                        <!-- 鱼池管理(END) -->
+
+                        <!-- 生成产品二维码(START) -->
+                        <!--
+						<li>
+                            <a data-pjax class="has-arrow" href="{% url 'fishes:generateercode' %}" aria-expanded="false">
+                                <i class="fa fa-suitcase"></i>
+                                <span class="hide-menu">生成产品二维码
+                                    <span class="label label-rouded label-danger pull-right">6</span>
+                                </span>
+                            </a>
+                        </li>
+                        -->
+                        <!-- 生成产品二维码(END) -->
+
+                        <!-- 第三方检测报告管理(START) -->
+                        <li>
+                            <a data-pjax class="has-arrow" href="{% url 'fishes:thirdtestreport' %}" aria-expanded="false">
+                                <i class="fa fa-wpforms"></i>
+                                <span class="hide-menu">第三方检测报告管理</span>
+                            </a>
+                        </li>
+                        <!-- 第三方检测报告管理(END) -->
+
+                        <!-- 品种名称管理(START) -->
+                        <li>
+                            <a data-pjax class="has-arrow" href="{% url 'fishes:variety' %}" aria-expanded="false">
+                                <i class="fa fa-wpforms"></i>
+                                <span class="hide-menu">品种名称管理</span>
+                            </a>
+                        </li>
+                        <!-- 品种名称管理(END) -->
+
+                        <!-- 反馈管理(START) -->
+                        <li>
+                            <a class="has-arrow" href="javascript:void(0)" aria-expanded="false">
+                                <i class="fa fa-table"></i>
+                                <span class="hide-menu">反馈管理
+                                    <span class="label label-rouded label-danger pull-right">2</span>
+                                </span>
+                            </a>
+                            <ul aria-expanded="false" class="collapse">
+                                <li><a data-pjax href="{% url 'fishes:feedbacknotreply' %}">未回复反馈</a></li>
+                                <li><a data-pjax href="{% url 'fishes:feedbackreply' %}">已回复反馈</a></li>
+                            </ul>
+                        </li>
+                        <!-- 反馈管理(END) -->
+
+                        <!-- 系统设置(START) -->
+                        <li>
+                            <a class="has-arrow" href="javascript:void(0)" aria-expanded="false">
+                                <i class="fa fa-columns"></i>
+                                <span class="hide-menu">系统设置</span>
+                            </a>
+                            <ul aria-expanded="false" class="collapse">
+                                <li><a data-pjax href="{% url 'fishes:syssethomepage' %}">主页内容设置</a></li>
+                                <li><a data-pjax href="{% url 'fishes:syssetsearchresult' %}">搜索结果内容设置</a></li>
+                            </ul>
+                        </li>
+                        <!-- 系统设置(END) -->
+                    </ul>
+                </nav>
+                <!-- End Sidebar navigation -->
+            </div>
+            <!-- End Sidebar scroll-->
+        </div>
+        <!-- End Left Sidebar  -->
+
+
+
+        <!-- Page wrapper  -->
+        <!-- 右侧内容加载进度条(START)-->
+        <div class="preloader-content" style="display: none;">
+            <svg class="circular" viewBox="25 25 50 50">
+			    <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10" /> </svg>
+        </div>
+        <div class="preloader-submit-data" style="display: none;">
+            <svg class="circular" viewBox="25 25 50 50">
+			    <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10" /> </svg>
+        </div>
+        <!-- 右侧内容加载进度条(END)-->
+        {% block rightside-page-content %}
+        <div class="page-wrapper" id="rightside-page-wrapper">
+            <!-- Bread crumb(右侧最上面的标题栏) -->
+            <div class="row page-titles">
+                <div class="col-md-5 align-self-center">
+                    <h3 class="text-primary">产品信息(默认展示内容)</h3> </div>
+                <div class="col-md-7 align-self-center">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="javascript:void(0)">主页</a></li>
+                        <li class="breadcrumb-item active">产品信息查看(访问路径预留)</li>
+                    </ol>
+                </div>
+            </div>
+            <!-- End Bread crumb -->
+
+            <!-- Container fluid  -->
+            <div class="container-fluid">
+                <!-- Start Page Content -->
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="card">
+                            <!--
+                            <div class="card-title">
+                                <h4>Echart</h4>
+                            </div>
+                            -->
+                            <div class="card-content">
+                                <div id="b-line" style="height: 370px"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="card">
+                            <!--
+                            <div class="card-title">
+                                <h4>Echart</h4>
+                            </div>
+                            -->
+                            <div class="card-content">
+                                <div id="b-area" style="height: 370px"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="card">
+                            <!--
+                            <div class="card-title">
+                                <h4>Echart</h4>
+                            </div>
+                            -->
+                            <div class="card-content">
+                                <div id="rainfall" style="height: 370px"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- End PAge Content -->
+            </div>
+            <!-- End Container fluid  -->
+            <!-- footer -->
+            <footer class="footer"> © 2018 All rights reserved.Designed by <a href="https://www.xmu.edu.cn/">XUM</a></footer>
+            <!-- End footer -->
+        </div>
+        {% endblock %}
+        <!-- End Page wrapper  -->
+    </div>
+    <!-- End Wrapper -->
+    <!-- All Jquery -->
+    <!--
+    <script src="/static/fishadmin/js/lib/jquery/jquery.min.js"></script>
+    -->
+    <script src="/static/js/jquery-3.3.1.min.js"></script>
+    <script src="/static/js/jquery.cookie.js"></script>
+    <!-- Bootstrap tether Core JavaScript -->
+    <!--
+    <script src="/static/fishadmin/js/lib/bootstrap/js/bootstrap.min.js"></script>
+     -->
+    <script src="/static/fishadmin/js/lib/bootstrap/js/popper.min.js"></script>
+    <script src="/static/fishadmin/js/lib/bootstrap/js/bootstrap.min.js"></script>
+
+    <!-- slimscrollbar scrollbar JavaScript -->
+    <script src="/static/fishadmin/js/jquery.slimscroll.js"></script>
+    <!--Menu sidebar -->
+{#    <script src="/static/fishadmin/js/sidebarmenu.js"></script>#}
+    <!--sticky kit -->
+    <script src="/static/fishadmin/js/lib/sticky-kit-master/dist/sticky-kit.min.js"></script>
+    <!--Custom JavaScript -->
+    <script src="/static/fishadmin/js/custom.min.js"></script>
+    <script src="/static/js/mfb.min.js"></script>
+
+    <!-- Echart -->
+    <script src="/static/fishadmin/js/lib/echart/echarts.js"></script>
+    <script src="/static/fishadmin/js/lib/echart/echarts-init.js"></script>
+
+    <!-- script init-->
+    <script src="/static/fishadmin/js/scripts.js"></script>
+
+    <!-- 二维码生成-->
+    <script src="/static/js/qrcode.min.js"></script>
+
+
+    <!-- 每个页面特有的scripts(START) -->
+    {% block scripts-for-each-pages-sources %}
+    <!-- 用户信息查看的表格(START) -->
+    <script src="/static/js/bootstrap-table.js"></script>
+    <script src="/static/js/bootstrap-table-zh-CN.js"></script>
+    <!-- 用户信息查看的表格(END) -->
+
+    <!-- 表单验证(START) -->
+    <script src="/static/fishadmin/js/lib/form-validation/jquery.validate.min.js"></script>
+    <script src="/static/fishadmin/js/lib/form-validation/jquery.validate-init.js"></script>
+    <!-- 表单验证(END) -->
+
+    <!-- 图片上传(START) -->
+    <script src="/static/js/fileinput.min.js"></script>
+    <script src="/static/js/fileinput_locale_zh.js"></script>
+    <!-- 图片上传(END) -->
+    {% endblock %}
+    <!-- 每个页面特有的scripts(END) -->
+
+    <!-- my script utils(START) -->
+    <script src="/static/js/jquery.pjax.js"></script>
+    <!-- my script utils(END) -->
+
+    <!-- my script(START) -->
+    <script>
+        $(function () {
+            /* ajax 提交数据设置(START)*/
+            function csrfSafeMethod(method) {
+                // these HTTP methods do not require CSRF protection
+                return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+            }
+
+            $.ajaxSetup({
+                beforeSend: function (xhr, settings) {
+                    if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+                        xhr.setRequestHeader("X-CSRFToken", $.cookie("csrftoken"));
+                    }
+                }
+            });
+            /* ajax 提交数据设置(END)*/
+
+            /* 替换右侧内容(START) */
+           $(document).pjax('a[data-pjax]', '#rightside-page-wrapper', {fragment: '#rightside-page-wrapper', timeout:3*1000});
+           /* 加载图标(START) */
+           $(document).on('pjax:send', function () {
+               $(".page-wrapper").empty();
+               $(".preloader-content").show();
+           });
+            $(document).on('pjax:complete', function () {
+
+                switch (window.location.pathname){
+                    case "{% url 'fishes:admin_view' %}":
+                        console.log('首页信息');
+                        init_echart();
+                        break;
+                    case "{% url 'fishes:productinfo' %}":
+                        console.log('产品信息');
+                        productInfoInit();
+                        break;
+                    case "{% url 'fishes:userinfo' %}":
+                        userInfoInit(); //用户信息查看页面替换后再次执行事件绑定
+                        break;
+                    case "{% url 'fishes:adduser' %}":
+                        // 添加用户页面替换后再次执行事件绑定(START)
+                        form_validation.init();
+                        addUser();
+                        break;
+                    case "{% url 'fishes:fishpoolinfo' %}":
+                        fishInfoInit(); // 鱼池信息查看初始化
+                        break;
+                    case "{% url 'fishes:addfishpool' %}":
+                        addFishPoolFormInit.init();
+                        addFishPool();
+                        break;
+                    case "{% url 'fishes:generateercode' %}":
+                        console.log('生成二维码')
+                        break;
+                    case "{% url 'fishes:thirdtestreport' %}":
+                        console.log('第三方检测报告')
+                        break;
+                    case "{% url 'fishes:variety' %}":
+                        console.log('石斑鱼品种');
+                        varietyInfoInit();
+                        break;
+                    case "{% url 'fishes:feedbacknotreply' %}":
+                        console.log('未回复反馈')
+                        break;
+                    case "{% url 'fishes:feedbackreply' %}":
+                        console.log('已回复反馈')
+                        break;
+                    case "{% url 'fishes:syssethomepage' %}":
+                        console.log('主页内容设置')
+                        break;
+                    case "{% url 'fishes:syssetsearchresult' %}":
+                        console.log('搜索结果设置')
+                        break;
+                    default:
+                        console.log("ERROR")
+                }
+                $(".preloader-content").hide();
+            });
+           /* 加载图标(END) */
+           /* 替换右侧内容(END) */
+
+        });
+    </script>
+    {% block custom-scripts-for-each-page %}
+    {% endblock %}
+    <!-- my script(END) -->
+    <script>
+        $(document).ready(function () {
+            var curWwwPath = window.document.location.href;
+            var pathname= window.document.location.pathname;
+            var pos = curWwwPath.indexOf(pathname);
+            var default_url = curWwwPath .substring(0,pos+8);
+            var qrcode = new QRCode(document.getElementById("qrcode"), default_url);
+            var link = $("#input-link").val();
+            $("#btn-generateqrcode").click(function () {
+                if(link != ''){
+                    qrcode.clear();
+                    qrcode.makeCode(link);
+                }
+            });
+        });
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,28 @@
+<!-- 生成二维码 (START)-->
+<div class="modal  bd-example-modal-lg" id="ercodemodal" tabindex="-1" role="dialog"
+     aria-labelledby="ModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document" style="top: 35%">
+        <div class="modal-content animated zoomIn">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">产品二维码</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form action="/fishes/admin/generateercode/" method="get">
+            <div class="modal-body">
+                    <div class="row">
+                        <input type="text" class="col-lg-8 form-control" id='input-link' name="input-link" style="margin-left: 5%" placeholder="请输入链接"/>
+                        <button type="button" id='btn-generateqrcode' class="btn btn-primary" style="margin-left: 2%">生成二维码</button>
+                    </div><hr/>
+                    <div id="qrcode" style="margin-left: 30%"></div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+                <button type="submit" id="btn-download-qrcode" class="btn btn-primary" >下载</button>
+            </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- 生成二维码(END)-->

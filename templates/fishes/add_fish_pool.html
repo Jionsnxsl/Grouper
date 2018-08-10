@@ -1,0 +1,117 @@
+{% extends "fishes/fish_admin.html" %}
+
+{% block rightside-page-content %}
+        <!-- Page wrapper  -->
+        <div class="page-wrapper" id="rightside-page-wrapper">
+            <!-- Bread crumb(右侧最上面的标题栏) -->
+            <div class="row page-titles">
+                <div class="col-md-5 align-self-center">
+                    <h3 class="text-primary">添加鱼池信息</h3> </div>
+                <div class="col-md-7 align-self-center">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="javascript:void(0)">主页</a></li>
+                        <li class="breadcrumb-item active">添加鱼池信息</li>
+                    </ol>
+                </div>
+            </div>
+            <!-- End Bread crumb -->
+
+            <!-- Container fluid  -->
+            <div class="container-fluid">
+                <!-- Start Page Content -->
+                <!--
+                    <div class="row bg-white m-l-0 m-r-0 box-shadow ">
+                        <p style="margin: 50px">在这里添加鱼池信息</p>
+                    </div>
+                -->
+                <div class="row justify-content-center">
+                    <div class="col-lg-8">
+                        <div class="card">
+                            <div class="card-body">
+                                <h3 class="card-title m-t-15">鱼池信息</h3>
+                                <hr>
+                                <div class="form-validation">
+                                    <form class="form-addfishpool" novalidate="novalidate">
+                                        {% csrf_token %}
+                                        <div class="form-group row">
+                                            <label class="col-lg-4 col-form-label" for="val-num">鱼池编号 <span
+                                                    class="text-danger">*</span></label>
+                                            <div class="col-lg-6">
+                                                <select class="custom-select" id="val-num" name="val-num" title="请选择一个鱼池编号" required>
+                                                    <option value=""></option>
+                                                    {% for item in available_num %}
+                                                        <option value="{{ item }}">{{ item }}</option>
+                                                    {% endfor %}
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-lg-4 col-form-label" for="val-radius">鱼池半径 <span
+                                                    class="text-danger">*</span></label>
+                                            <div class="col-lg-6">
+                                                <input type="text" class="form-control" id="val-radius"
+                                                       name="val-radius" min="0"
+                                                       onkeypress='return( /[\d\\.]/.test(String.fromCharCode(event.keyCode) ) )'
+                                                       placeholder="鱼池半径">
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-lg-4 col-form-label" for="val-depth">鱼池深度 <span
+                                                    class="text-danger">*</span></label>
+                                            <div class="col-lg-6">
+                                                <input type="text" class="form-control" id="val-depth"
+                                                       name="val-depth" min="0"
+                                                       onkeypress='return( /[\d\\.]/.test(String.fromCharCode(event.keyCode) ) )'
+                                                       placeholder="鱼池深度">
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-lg-4 col-form-label" for="val-ph">PH值 <span
+                                                    class="text-danger">*</span></label>
+                                            <div class="col-lg-6">
+                                                <input type="text" class="form-control" id="val-ph"
+                                                       name="val-ph" min="1"
+                                                       onkeypress='return( /[\d\\.]/.test(String.fromCharCode(event.keyCode) ) )'
+                                                       placeholder="PH值">
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-lg-4 col-form-label" for="val-temperature">温度<span
+                                                    class="text-danger">*</span></label>
+                                            <div class="col-lg-6">
+                                                <input type="text" class="form-control" id="val-temperature"
+                                                       name="val-temperature" min="1"
+                                                       onkeypress='return( /[\d\\.]/.test(String.fromCharCode(event.keyCode) ) )'
+                                                       placeholder="温度">
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <div class="col-lg-8 ml-auto">
+                                                <button id="add-fishpool-submit" type="button" class="btn btn-primary">
+                                                    提&nbsp;交
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- End PAge Content -->
+            </div>
+            <!-- End Container fluid  -->
+            <!-- footer -->
+            <footer class="footer"> © 2018 All rights reserved.Designed by <a href="https://www.xmu.edu.cn/">XUM</a></footer>
+            <!-- End footer -->
+        </div>
+        <!-- End Page wrapper  -->
+{% endblock %}
+
+{% block custom-scripts-for-each-page %}
+    <script>
+    /* 鱼池信息添加初始化(START) */
+    addFishPool();
+    /*  鱼池信息添加初始化(END)*/
+    </script>
+{% endblock %}

@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>石斑鱼查询结果</title>
+    <!-- Bootstrap Core CSS -->
+    <link href="/static/fishadmin/css/lib/bootstrap/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link href="/static/fishadmin/css/style.css" rel="stylesheet">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:** -->
+    <!--[if lt IE 9]>
+    <script src="https:**oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https:**oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+</head>
+<!---->
+<body style="margin-top: -15px;">
+
+    {% if status %}
+        <!-- add variety Modal (START)-->
+        <div class="modal bd-example-modal-lg show" id="addVarietyModal" tabindex="-1" role="dialog"
+                     aria-labelledby="ModalCenterTitle" style=" display: block">
+                    <div class="modal-dialog modal-dialog-centered modal-lg" role="document" style="top: 200px;">
+                        <div class="modal-content animated zoomIn ">
+                            <div class="modal-header">
+                                <h3 class="modal-title" id="exampleModalLongTitle">提示</h3>
+                            </div>
+                            <div class="modal-body">
+                                <div class="row">
+                                    <p style="margin-left: 5%">没有查询到相关的产品信息，请选择其他日期进行查询。</p>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <a class="btn btn-primary" role="button" href="{% url 'fishes:homepage' %}">返回查询页面</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        <!-- add variety Modal (END)-->
+    {% else %}
+        <!-- Main wrapper  -->
+        <div id="main-wrapper">
+            <!-- Page wrapper  -->
+            <div class="page-wrapper" style="margin-left: 0px">
+                <!-- Container fluid  -->
+                <div class="container-fluid" style="padding: 8px">
+                    <!-- Start Page Content -->
+                    <div class="row">
+                        <div class="col-12">
+                            <!-- Start Page Content -->
+                            <div class="card">
+                                <div class="card-body">
+                                    <div>
+                                        <img src="/media/image/xiaodengxuanchuan.png" style="width: 100%;height: auto">
+                                    </div>
+                                    <hr>
+                                    <div class="profiletimeline">
+                                        <div class="sl-item">
+                                            <div class="sl-left"><h6
+                                                    style="background-color: #32A0DD;color: white;border-radius: 25%;padding: 4px 10px;margin-left: -5px;font-size: 10px;">
+                                                基&nbsp;本<br/>信&nbsp;息</h6></div>
+                                            <div class="sl-right">
+                                                <div><span style="font-size: 16px;padding-bottom: 5px">产品基本信息</span>
+                                                    <div class="row" style="margin-top: 40px">
+                                                        <div class="col-md-12">
+                                                            <div class="form-group">
+                                                                <label for="process_date"><strong>产品名称:</strong></label>
+                                                                <span id="process_date">龙胆石斑鱼</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            <div class="form-group">
+                                                                <label for="process_date"><strong>生产公司:</strong></label>
+                                                                <span id="process_date">厦门小嶝水产科技有限公司</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            <div class="form-group">
+                                                                <label for="process_date"><strong>联系电话:</strong></label>
+                                                                <span id="process_date">(86)592-2625228</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            <div class="form-group">
+                                                                <label for="process_date"><strong>E-mail:</strong></label>
+                                                                <span id="process_date">limin@xmgbd.com</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            <div class="form-group">
+                                                                <label for="process_date"><strong>联系地址:</strong></label>
+                                                                <span id="process_date">厦门市湖里区宜宾路149号</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            <div class="form-group">
+                                                                <label for="process_date"><strong>生产日期:</strong></label>
+                                                                <span id="process_date">2018.07.30</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            <div class="form-group">
+                                                                <label for="process_date"><strong>产品编号:</strong></label>
+                                                                <span id="process_date">201807201150606</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            <div class="form-group">
+                                                                <label for="process_date"><strong>生产许可编号:</strong></label>
+                                                                <span id="process_date">SC11850022728069</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            <div class="form-group">
+                                                                <div><strong>检测报告</strong><span
+                                                                        class="text-danger">*</span></div>
+                                                                <img src="/media/image/testreport.jpg" width="100%"/>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <hr>
+                                        <div class="sl-item">
+                                            <div class="sl-left"><h6
+                                                    style="background-color: #32A0DD;color: white;border-radius: 25%;padding: 4px 10px;margin-left: -5px;font-size: 10px;">
+                                                动&nbsp;态<br/>信&nbsp;息</h6></div>
+                                            <div class="sl-right">
+                                                <div><span style="font-size: 16px;padding-bottom: 5px">产品动态信息</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="sl-item">
+                                            <div class="sl-left"><h6 class="btn"
+                                                    style="background-color: #32A0DD;border-radius: 50%;margin-left: 3px;width: 30px;height: 30px"></h6></div>
+                                            <div class="sl-right">
+                                                <div><span style="font-size: 20px;padding-bottom: 5px">2017.07.28 : 入料</span>
+                                                    <div class="row" style="margin-top: 8px">
+                                                        <div class="col-md-12">
+                                                            <div class="form-group">
+                                                                <label for="process_date"><strong>石斑鱼批次:</strong></label>
+                                                                <span id="process_date">SF20180022728069</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            <div class="form-group">
+                                                                <label for="process_date"><strong>石斑鱼品种:</strong></label>
+                                                                <span id="process_date">龙胆石斑鱼</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            <div class="form-group">
+                                                                <label for="process_date"><strong>石斑鱼数量:</strong></label>
+                                                                <span id="process_date">20 尾(条)</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            <div class="form-group">
+                                                                <label for="process_date"><strong>石斑鱼重量:</strong></label>
+                                                                <span id="process_date">120 KG</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            <div class="form-group">
+                                                                <div><strong>入料检测报告</strong><span
+                                                                        class="text-danger">*</span></div>
+                                                                <img src="/media/image/testreport.jpg" width="100%"/>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            <div class="form-group">
+                                                                <div><strong>入料图片</strong><span
+                                                                        class="text-danger">*</span></div>
+                                                                <img src="/media/image/storescene.jpg" width="100%"/>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="sl-item">
+                                            <div class="sl-left"><h6 class="btn"
+                                                    style="background-color: #32A0DD;border-radius: 50%;margin-left: 3px;width: 30px;height: 30px"></h6></div>
+                                            <div class="sl-right">
+                                                <div><span style="font-size: 20px;padding-bottom: 5px">2017.07.30 : 从 1 号鱼池转移到 2 号鱼池</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="sl-item">
+                                            <div class="sl-left"><h6 class="btn"
+                                                    style="background-color: #32A0DD;border-radius: 50%;margin-left: 3px;width: 30px;height: 30px"></h6></div>
+                                            <div class="sl-right">
+                                                <div><span style="font-size: 20px;padding-bottom: 5px">2017.07.31 : 从 2 号鱼池转移到 5 号鱼池</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="sl-item">
+                                            <div class="sl-left"><h6 class="btn"
+                                                    style="background-color: #32A0DD;border-radius: 50%;margin-left: 3px;width: 30px;height: 30px"></h6></div>
+                                            <div class="sl-right">
+                                                <div><span style="font-size: 20px;padding-bottom: 5px">2017.07.31 : 领料加工</span>
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            <div class="form-group">
+                                                                <div><strong>领料图片</strong><span
+                                                                        class="text-danger">*</span></div>
+                                                                <img src="/media/image/storescene.jpg" width="100%"/>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            <div class="form-group">
+                                                                <div><strong>加工图片</strong><span
+                                                                        class="text-danger">*</span></div>
+                                                                <img src="/media/image/storescene.jpg" width="100%"/>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            <div class="form-group">
+                                                                <div><strong>加工检测报告</strong><span
+                                                                        class="text-danger">*</span></div>
+                                                                    <img src="/media/image/testreport.jpg"  width="100%"/>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- End PAge Content -->
+                        </div>
+                    </div>
+                    <!-- End PAge Content -->
+                </div>
+                <!-- End Container fluid  -->
+                <!-- footer -->
+                <footer class="footer"> © 2018 厦门小嶝水产科技有限公司</footer>
+                <!-- End footer -->
+            </div>
+            <!-- End Page wrapper  -->
+        </div>
+        <!-- End Wrapper -->
+    {% endif %}
+
+    <!-- All Jquery -->
+    <script src="/static/fishadmin/js/lib/jquery/jquery.min.js"></script>
+    <!-- Bootstrap tether Core JavaScript -->
+    <script src="/static/fishadmin/js/lib/bootstrap/js/popper.min.js"></script>
+    <script src="/static/fishadmin/js/lib/bootstrap/js/bootstrap.min.js"></script>
+    <script>
+{#        console.log({% status %})#}
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <!-- Favicon icon -->
+    <link rel="icon" type="image/png" sizes="16x16" href="/static/fishadmin/images/favicon.png">
+    <title>石斑鱼后台管理系统</title>
+    <!-- Bootstrap Core CSS -->
+    <link href="/static/fishadmin/css/lib/bootstrap/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+
+    <link href="/static/fishadmin/css/helper.css" rel="stylesheet">
+    <link href="/static/fishadmin/css/style.css" rel="stylesheet">
+    <link href="/static/css/bootstrap-table.css" rel="stylesheet">
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:** -->
+    <!--[if lt IE 9]>
+    <script src="https:**oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https:**oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+</head>
+
+<body class="fix-header fix-sidebar">
+    <!-- Preloader - style you can find in spinners.css
+         初始化的时候那个加载小圆圈
+    -->
+    <div class="preloader">
+        <svg class="circular" viewBox="25 25 50 50">
+			<circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10" /> </svg>
+    </div>
+
+    <!-- Main wrapper  -->
+    <div id="main-wrapper">
+        <!-- header header  -->
+        <div class="header">
+            <nav class="navbar top-navbar navbar-expand-md navbar-light">
+                <!-- Logo -->
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="#">
+                        <!-- Logo icon -->
+                        <b><img src="/static/fishadmin/images/logo.png" alt="homepage" class="dark-logo" /></b>
+                        <!--End Logo icon -->
+                        <!-- Logo text -->
+                        <span><img src="/static/fishadmin/images/logo-text.png" alt="homepage" class="dark-logo" /></span>
+                    </a>
+                </div>
+                <!-- End Logo -->
+                <div class="navbar-collapse">
+                    <!-- toggle and nav items -->
+                    <ul class="navbar-nav mr-auto mt-md-0">
+                    </ul>
+                    <!-- User profile and search -->
+                    <ul class="navbar-nav my-lg-0">
+
+                        <!-- Profile -->
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle text-muted  " href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <!--
+                                <img src="/static/polladmin/images/users/5.jpg" alt="user" class="profile-pic" />
+                                -->
+                                <span><strong>&nbsp;欢迎 Monster </strong></span>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right animated zoomIn">
+                                <ul class="dropdown-user">
+                                    <li><a href="#"><i class="ti-user"></i> &nbsp;个人信息</a></li>
+                                    <!--
+                                    <li><a href="#"><i class="ti-wallet"></i> Balance</a></li>
+                                    <li><a href="#"><i class="ti-email"></i> Inbox</a></li>
+                                    -->
+                                    <li><a href="#"><i class="ti-settings"></i> &nbsp;进入后台</a></li>
+                                    <li><a href="{% url 'users:logout' %}"><i class="fa fa-power-off"></i> &nbsp;注&nbsp;销</a></li>
+                                </ul>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+        <!-- End header header -->
+
+        <!-- 右侧内容加载进度条(START)-->
+        <div class="preloader-submit-data" style="display: none;">
+            <svg class="circular" viewBox="25 25 50 50">
+			    <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10" /> </svg>
+        </div>
+        <!-- 右侧内容加载进度条(END)-->
+        <!-- Page wrapper  -->
+        <div class="page-wrapper">
+            <!-- Bread crumb -->
+            <div class="row page-titles">
+                <div class="col-md-5 align-self-center">
+                    <h3 class="text-primary">转移鱼池</h3> </div>
+                <div class="col-md-7 align-self-center">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="javascript:void(0)">主页</a></li>
+                        <li class="breadcrumb-item active">转移鱼池</li>
+                    </ol>
+                </div>
+            </div>
+            <!-- End Bread crumb -->
+            <!-- Container fluid  -->
+            <div class="container-fluid">
+                <!-- Start Page Content -->
+
+                <div class="row justify-content-center">
+                    <div class="col-lg-6">
+                        <div class="card">
+                                <div class="form-validation">
+                                    <form class="form-transproduct">
+                                        {% csrf_token %}
+                                        <div class="form-group row">
+                                            <label class="col-lg-4 col-form-label" for="val-sourcepool">来源鱼池</label>
+                                            <div class="col-lg-6">
+                                                <input type="text" class="form-control" id="val-sourcepool"
+                                                       name="val-sourcepool" value="{{ source_pool }}" readonly="readonly">
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-lg-4 col-form-label" for="val-targetpool">目的鱼池</label>
+                                            <div class="col-lg-6">
+                                                <select class="form-control" id="val-targetpool" name="val-targetpool">
+                                                    {% for pool in avail_pool %}
+                                                        <option value="{{ pool.num }}">{{ pool.num }}</option>
+                                                    {% endfor %}
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <div class="col-lg-8 ml-auto">
+                                                <button id="add-trans-submit" type="button" class="btn btn-primary">转&nbsp;移</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- End PAge Content -->
+            </div>
+            <!-- End Container fluid  -->
+            <!-- footer -->
+            <footer class="footer"> © 2018 All rights reserved. Template designed by <a href="https://www.xmu.edu.cn/">XMU</a></footer>
+            <!-- End footer -->
+        </div>
+        <!-- End Page wrapper  -->
+    </div>
+    <!-- End Wrapper -->
+    <!-- All Jquery -->
+    <script src="/static/fishadmin/js/lib/jquery/jquery.min.js"></script>
+    <!-- Bootstrap tether Core JavaScript -->
+    <script src="/static/fishadmin/js/lib/bootstrap/js/popper.min.js"></script>
+    <script src="/static/fishadmin/js/lib/bootstrap/js/bootstrap.min.js"></script>
+    <!-- slimscrollbar scrollbar JavaScript -->
+    <script src="/static/fishadmin/js/jquery.slimscroll.js"></script>
+    <!--sticky kit -->
+    <script src="/static/fishadmin/js/lib/sticky-kit-master/dist/sticky-kit.min.js"></script>
+    <!--Custom JavaScript -->
+    <script src="/static/fishadmin/js/custom.min.js"></script>
+    <!-- script init-->
+    <script src="/static/fishadmin/js/scripts.js"></script>
+
+    <!-- 表单验证(START) -->
+    <script src="/static/fishadmin/js/lib/form-validation/jquery.validate.min.js"></script>
+    <script src="/static/fishadmin/js/lib/form-validation/jquery.validate-init.js"></script>
+    <!-- 表单验证(END) -->
+
+    <script>
+        $.transProduct();
+    </script>
+</body>
+
+</html>

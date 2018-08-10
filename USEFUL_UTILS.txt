@@ -1,0 +1,37 @@
+######### 一些有用的小工具及资源 #########
+1. 可以使用的前端模板 ： http://www.cssmoban.com/cssthemes/7039.shtml
+2. 登录页面参考样式： https://colorlib.com/wp/html5-and-css3-login-forms/
+3. 搜索框参考样式：https://colorlib.com/wp/free-css3-html5-search-form-examples/
+4. 搜索框参考样式二：https://webdesign.tutsplus.com/tutorials/css-experiments-with-a-search-form-input-and-button--cms-22069
+5. 时间轴展示参看样式：http://freefrontend.com/css-timelines/
+6. 各种参考模板集合：https://colorlib.com/wp/
+7. admin模板参考一：https://colorlib.com/polygon/adminator/index.html
+8. admin模板参考二：https://colorlib.com/polygon/elaadmin/email-compose.html
+9. admin模板参考三：https://colorlib.com/wp/free-admin-templates/
+
+
+##### 后台风格设计 ######
+风格一：https://my.chsi.com.cn/archive/index.action
+风格二：https://colorlib.com/polygon/elaadmin/table-bootstrap.html
+风格三：https://colorlib.com/polygon/adminator/index.html
+风格四：https://medialoot.com/preview/lumino/index.html
+风格五：https://wrappixel.com/templates/ample-admin-lite/?ref=23
+风格六：https://wrappixel.com/demos/free-admin-templates/monster-admin-lite/html/index.html
+风格二三四下载地址：https://colorlib.com/wp/free-admin-templates/
+其他可选风格：https://colorlib.com/wp/free-bootstrap-admin-dashboard-templates/
+##### 后台风格设计(END) ######
+
+##### 页面浮动按钮插件 #####
+(图标换成：font-awesome的，直接改成：fa fa-home之类的就行)
+https://github.com/nobitagit/material-floating-button
+##### 页面浮动按钮插件 #####
+
+#### 生成二维码的Jquery插件 #####
+https://github.com/davidshimjs/qrcodejs
+#### 生成二维码的Jquery插件 #####
+
+
+
+
+
+
