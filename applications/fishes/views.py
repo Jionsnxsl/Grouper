@@ -25,18 +25,22 @@ def Homepage(request):
 
 def SearchView(request):
     """搜索结果"""
-    # if request.GET.get("fish_batch"):
-    #     fish_batch = request.GET.get("fish_batch")
-    #     result = {"fish_batch": fish_batch}
-    #     return render(request, "search_result.html", result)
-    if request.GET.get("pid"):
-        product_id = request.GET.get("pid")
-        product_info_obj = ProductInfo.objects.filter(id=int(product_id)).first()
+    if request.GET.get("product_date"):
+        product_date = request.GET.get("product_date")
+        product_info_obj = ProductInfo.objects.filter(product_date__contains=product_date).first()
+
+        if product_info_obj is None:
+            data = {
+                "status": True
+            }
+            print("空")
+            return render(request, "search_result.html", data)
+
         fish_info_obj = product_info_obj.fish_info
         process_info_obj = product_info_obj.process_info
 
         product_info_data = {
-            "product_id": product_id,
+            "product_id": product_info_obj.id,
             "product_batch": product_info_obj.product_batch,
             "product_date": product_info_obj.product_date,
         }
@@ -64,15 +68,22 @@ def SearchView(request):
         }
 
         data = {
+            "status": False,
             "product_info_data": product_info_data,
             "fish_info_data": fish_info_data,
             "trans_infos": trans_infos,
             "process_info_data": process_info_data,
-            "is_product_detail": True
+            "is_product_detail": True,
         }
 
         return render(request, "search_result.html", data)
-        # return HttpResponse(json.dumps(result))
+
+    else:  # 用户输入为空
+        data = {
+            "status": True
+        }
+        print("空2")
+        return render(request, "search_result.html", data)
 
 
 def AdminView(request):

@@ -74,9 +74,9 @@ LOGOUT_URL = '/account/login/'
 LOGIN_EXEMPT_URLS = [
     r'^fishes/$',
     r'^media/image/*',
-    r'^fishes/search-result/$',
+    r'^fishes/search-result/*',
     r'^account/login/*',
-    r'^account/findpwd/$',
+    r'^account/findpwd/*',
     ]
 
 TEMPLATES = [

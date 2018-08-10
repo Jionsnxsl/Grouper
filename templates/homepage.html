@@ -32,6 +32,8 @@
     <link rel="stylesheet" href="/static/css/owl.carousel.css">
     <link rel="stylesheet" href="/static/css/main.css">
     <link rel="stylesheet" href="/static/css/search_box.css"/>
+    <link rel="stylesheet" href="/static/css/mobiscroll.css" />
+    <link rel="stylesheet" href="/static/css/mobiscroll_date.css" />
 </head>
 <body>
 
@@ -43,11 +45,11 @@
             </div>
             <nav id="nav-menu-container">
                 <ul class="nav-menu">
-                    <li class="menu-active"><a href="#home">主页</a></li>
-                    <li><a href="#feature">Feature</a></li>
-                    <li><a href="#project">Project</a></li>
-                    <li><a href="#service">Service</a></li>
-                    <li><a href="#blog">Blog</a></li>
+                    <li class="menu-active"><a href="#home">首页</a></li>
+                    <li><a href="#feature">产品中心</a></li>
+                    <li><a href="#project">品牌中心</a></li>
+                    <li><a href="#service">美食知识</a></li>
+                    <li><a href="#blog">关于我们</a></li>
                     <li><a href="#contact">联系我们</a></li>
                     {% if request.user.is_authenticated %}
                         <li><a href="{% url 'fishes:admin_view' %}">进入后台管理</a></li>
@@ -68,27 +70,21 @@
     </div>
 </header><!-- #header -->
 
-<!-- start banner Area -->
+<!-- start banner Area
+data-parallax="scroll" data-image-src="/static/img/header-bg.jpg"-->
 <section class="banner-area relative" id="home" data-parallax="scroll" data-image-src="/static/img/header-bg.jpg">
+{#    <img src="/static/img/header-bg.jpg" style="width: 100%;height:100%;background-size: cover;-webkit-background-size:cover;-moz-background-size: cover;#}
+{#                    -o-background-size: cover;">#}
     <div class="overlay-bg overlay"></div>
     <div class="container">
         <div class="row fullscreen d-flex align-items-center justify-content-center">
-            <div class="banner-content col-lg-8 col-md-12">
-                <h2 class="text-white text-uppercase">厦门大学</h2><br/><br/>
-                {% include "searchbox.html" %}
-                <br/><br/><br/><br/><br/><br/><br/>
-
-
-                <!--
-                <h4 class="text-white text-uppercase">Discover the Colorful World</h4>
-                <h1 class="text-uppercase">
-                    Build Your Dream
-                </h1>
-                <p class="text-white">
-                    思考：这里是否还需要放搜索框？
-                </p>
-                <a href="#" class="primary-btn header-btn text-uppercase">Discover Now</a>
-                -->
+            <div class="banner-content col-lg-6 col-md-12" style="width: 75%;top:-65px">
+                <form action="{% url 'fishes:search_view' %}" method="get">
+                    <div class="form-group">
+                        <input type="text" name="product_date" id="product_date" class="form-control" readonly placeholder="请选择生产日期" required/>
+                        <button type="submit" class="btn btn-primary" style="margin-top: 5px;padding-left: 25px;padding-right: 25px">查&nbsp;询</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
@@ -102,27 +98,29 @@
         <div class="feature-section">
             <div class="row">
                 <div class="single-feature col-lg-4">
-                    <img src="/static/img/f1.png" alt="">
-                    <h4 class="pt-20 pb-20">Building Drawings</h4>
+                    <a href="http://xiaodengfish.com/Product/detail/id/7.html" target="_blank">
+                        <img src="/static/img/f1.png" alt="">
+                        <h4 class="pt-20 pb-20">产品中心——龙胆石斑鱼</h4>
+                    </a>
                     <p>
-                        Lorem ipsum dolor sit amet, consecteturadipis icing elit, sed do eiusmod tempor incididunt ut
-                        labore et dolore magna aliqua.
+                        龙胆石斑鱼学名鞍带石斑鱼，中文俗名龙趸、龙胆石斑、过鱼、枪头石斑鱼、倒吞鲎、鸳鸯鲙、紫石斑鱼，是石斑鱼类中体型最大者，故也被称为“斑王”。这个品种......
                     </p>
                 </div>
                 <div class="single-feature col-lg-4">
-                    <img src="/static/img/f2.png" alt="">
-                    <h4 class="pt-20 pb-20">Building Drawings</h4>
+                    <a href="http://xiaodengfish.com/Product/detail/id/10.html" target="_blank">
+                        <img src="/static/img/f2.png" alt="">
+                        <h4 class="pt-20 pb-20">产品中心 —— 黑豆豉</h4>
+                     </a>
                     <p>
-                        Lorem ipsum dolor sit amet, consecteturadipis icing elit, sed do eiusmod tempor incididunt ut
-                        labore et dolore magna aliqua.
+                        黑豆豉--纯手工的古早味，每罐豆豉都历时两年发酵，浓浓的豆香，无任何添加剂，纯正古早味，一定不能错过的美味—可以配 、馒头食用，也可以作为菜品的......
                     </p>
                 </div>
                 <div class="single-feature col-lg-4">
+                    <a href="http://xiaodengfish.com/Product/detail/id/11.html" target="_blank"></a>
                     <img src="/static/img/f3.png" alt="">
-                    <h4 class="pt-20 pb-20">Building Drawings</h4>
+                    <h4 class="pt-20 pb-20">产品中心 —— 小嶝头水紫菜</h4>
                     <p>
-                        Lorem ipsum dolor sit amet, consecteturadipis icing elit, sed do eiusmod tempor incididunt ut
-                        labore et dolore magna aliqua.
+                        头水紫菜—原生态的美味体验，采用小嶝岛头水紫菜日晒而成，浑然天成，不添加任何人工成分，让您体验最原生态的美味.....
                     </p>
                 </div>
             </div>
@@ -132,13 +130,13 @@
 <!-- End features Area -->
 
 <!-- Start offered Area -->
-<section class="offered-area section-gap" id="offered">
+<section class="offered-area section-gap" id="project">
     <div class="container">
         <div class="row d-flex justify-content-center">
             <div class="menu-content pb-60 col-lg-8">
                 <div class="title text-center">
-                    <h1 class="mb-10">Some Features that Made us Unique</h1>
-                    <p>Who are in extremely love with eco friendly system.</p>
+                    <h1 class="mb-10">品牌中心</h1>
+                    <p>好品牌，值得信赖！</p>
                 </div>
             </div>
         </div>
@@ -146,30 +144,27 @@
             <div class="col-lg-4">
                 <div class="single-offered">
                     <img class="img-fluid" src="/static/img/s1.png" alt="">
-                    <a href="#"><h4 class="pt-20 pb-20">Basic & Common Repairs</h4></a>
+                    <a href="#"><h4 class="pt-20 pb-20">品牌1号</h4></a>
                     <p>
-                        Computer users and programmers have become so accustomed to using Windows, even for the changing
-                        capabilities and the appearances of the graphical.
+                        龙胆石斑鱼
                     </p>
                 </div>
             </div>
             <div class="col-lg-4">
                 <div class="single-offered">
                     <img class="img-fluid" src="/static/img/s2.png" alt="">
-                    <a href="#"><h4 class="pt-20 pb-20">Brake Repairs & Services</h4></a>
+                    <a href="#"><h4 class="pt-20 pb-20">品牌2号</h4></a>
                     <p>
-                        Computer users and programmers have become so accustomed to using Windows, even for the changing
-                        capabilities and the appearances of the graphical.
+                        伊氏石斑鱼
                     </p>
                 </div>
             </div>
             <div class="col-lg-4">
                 <div class="single-offered">
                     <img class="img-fluid" src="/static/img/s3.png" alt="">
-                    <a href="#"><h4 class="pt-20 pb-20">Preventive Maintenance</h4></a>
+                    <a href="#"><h4 class="pt-20 pb-20">品牌3号</h4></a>
                     <p>
-                        Computer users and programmers have become so accustomed to using Windows, even for the changing
-                        capabilities and the appearances of the graphical.
+                        德氏石斑鱼
                     </p>
                 </div>
             </div>
@@ -179,226 +174,334 @@
 <!-- End offered Area -->
 
 <!-- Start projects Area -->
-<section class="projects-area pb-100" id="project">
+{#<section class="projects-area pb-100" id="project">#}
+{#    <div class="container-fluid">#}
+{#        <div class="row d-flex justify-content-center">#}
+{#            <div class="menu-content pb-60 col-lg-8">#}
+{#                <div class="title text-center">#}
+{#                    <h1 class="mb-10">Why Choose Us Your Fitness Builder</h1>#}
+{#                    <p>Who are in extremely love with eco friendly system.</p>#}
+{#                </div>#}
+{#            </div>#}
+{#        </div>#}
+{#        <div class="row">#}
+{#            <div class="active-project-carusel col-lg-12">#}
+{#                <div class="item">#}
+{#                    <div class="single-project" style="background: url('/static/img/p1.jpg');">#}
+{#                        <div class="overlay overlay-content">#}
+{#                            <h1>Alex Complex for <br> esidence</h1>#}
+{#                            <p>#}
+{#                                LCD screens are uniquely modern in style, and the liquid crystals that make them work#}
+{#                                have allowed humanity to create slimmer, more portable technology than we’ve ever had#}
+{#                                access to before. From your wrist watch to your laptop, a lot of the on the go#}
+{#                                electronics that we tote from place to place are only possible because of their thin,#}
+{#                                light LCD display screens. Liquid crystal display.#}
+{#                            </p>#}
+{#                        </div>#}
+{#                    </div>#}
+{#                </div>#}
+{#                <div class="item">#}
+{#                    <div class="single-project" style="background: url('/static/img/p2.jpg');">#}
+{#                        <div class="overlay overlay-content">#}
+{#                            <h1>Alex Complex for <br> esidence</h1>#}
+{#                            <p>#}
+{#                                LCD screens are uniquely modern in style, and the liquid crystals that make them work#}
+{#                                have allowed humanity to create slimmer, more portable technology than we’ve ever had#}
+{#                                access to before. From your wrist watch to your laptop, a lot of the on the go#}
+{#                                electronics that we tote from place to place are only possible because of their thin,#}
+{#                                light LCD display screens. Liquid crystal display.#}
+{#                            </p>#}
+{#                        </div>#}
+{#                    </div>#}
+{#                </div>#}
+{#                <div class="item">#}
+{#                    <div class="single-project" style="background: url('/static/img/p3.jpg');">#}
+{#                        <div class="overlay overlay-content">#}
+{#                            <h1>Alex Complex for <br> esidence</h1>#}
+{#                            <p>#}
+{#                                LCD screens are uniquely modern in style, and the liquid crystals that make them work#}
+{#                                have allowed humanity to create slimmer, more portable technology than we’ve ever had#}
+{#                                access to before. From your wrist watch to your laptop, a lot of the on the go#}
+{#                                electronics that we tote from place to place are only possible because of their thin,#}
+{#                                light LCD display screens. Liquid crystal display.#}
+{#                            </p>#}
+{#                        </div>#}
+{#                    </div>#}
+{#                </div>#}
+{#                <div class="item">#}
+{#                    <div class="single-project" style="background: url('/static/img/p4.jpg');">#}
+{#                        <div class="overlay overlay-content">#}
+{#                            <h1>Alex Complex for <br> esidence</h1>#}
+{#                            <p>#}
+{#                                LCD screens are uniquely modern in style, and the liquid crystals that make them work#}
+{#                                have allowed humanity to create slimmer, more portable technology than we’ve ever had#}
+{#                                access to before. From your wrist watch to your laptop, a lot of the on the go#}
+{#                                electronics that we tote from place to place are only possible because of their thin,#}
+{#                                light LCD display screens. Liquid crystal display.#}
+{#                            </p>#}
+{#                        </div>#}
+{#                    </div>#}
+{#                </div>#}
+{#                <div class="item">#}
+{#                    <div class="single-project" style="background: url('/static/img/p1.jpg');">#}
+{#                        <div class="overlay overlay-content">#}
+{#                            <h1>Alex Complex for <br> esidence</h1>#}
+{#                            <p>#}
+{#                                LCD screens are uniquely modern in style, and the liquid crystals that make them work#}
+{#                                have allowed humanity to create slimmer, more portable technology than we’ve ever had#}
+{#                                access to before. From your wrist watch to your laptop, a lot of the on the go#}
+{#                                electronics that we tote from place to place are only possible because of their thin,#}
+{#                                light LCD display screens. Liquid crystal display.#}
+{#                            </p>#}
+{#                        </div>#}
+{#                    </div>#}
+{#                </div>#}
+{#                <div class="item">#}
+{#                    <div class="single-project" style="background: url('/static/img/p2.jpg');">#}
+{#                        <div class="overlay overlay-content">#}
+{#                            <h1>Alex Complex for <br> esidence</h1>#}
+{#                            <p>#}
+{#                                LCD screens are uniquely modern in style, and the liquid crystals that make them work#}
+{#                                have allowed humanity to create slimmer, more portable technology than we’ve ever had#}
+{#                                access to before. From your wrist watch to your laptop, a lot of the on the go#}
+{#                                electronics that we tote from place to place are only possible because of their thin,#}
+{#                                light LCD display screens. Liquid crystal display.#}
+{#                            </p>#}
+{#                        </div>#}
+{#                    </div>#}
+{#                </div>#}
+{#                <div class="item">#}
+{#                    <div class="single-project" style="background: url('/static/img/p3.jpg');">#}
+{#                        <div class="overlay overlay-content">#}
+{#                            <h1>Alex Complex for <br> esidence</h1>#}
+{#                            <p>#}
+{#                                LCD screens are uniquely modern in style, and the liquid crystals that make them work#}
+{#                                have allowed humanity to create slimmer, more portable technology than we’ve ever had#}
+{#                                access to before. From your wrist watch to your laptop, a lot of the on the go#}
+{#                                electronics that we tote from place to place are only possible because of their thin,#}
+{#                                light LCD display screens. Liquid crystal display.#}
+{#                            </p>#}
+{#                        </div>#}
+{#                    </div>#}
+{#                </div>#}
+{#                <div class="item">#}
+{#                    <div class="single-project" style="background: url('/static/img/p4.jpg');">#}
+{#                        <div class="overlay overlay-content">#}
+{#                            <h1>Alex Complex for <br> esidence</h1>#}
+{#                            <p>#}
+{#                                LCD screens are uniquely modern in style, and the liquid crystals that make them work#}
+{#                                have allowed humanity to create slimmer, more portable technology than we’ve ever had#}
+{#                                access to before. From your wrist watch to your laptop, a lot of the on the go#}
+{#                                electronics that we tote from place to place are only possible because of their thin,#}
+{#                                light LCD display screens. Liquid crystal display.#}
+{#                            </p>#}
+{#                        </div>#}
+{#                    </div>#}
+{#                </div>#}
+{##}
+{#            </div>#}
+{#        </div>#}
+{#    </div>#}
+{#</section>#}
+<!-- End projects Area -->
+
+<!-- Start fact Area -->
+{#<section class="facts-area section-gap">#}
+{#    <div class="container">#}
+{#        <div class="row">#}
+{#            <div class="col single-fact">#}
+{#                <h1 class="counter">2536</h1>#}
+{#                <p>Projects Completed</p>#}
+{#            </div>#}
+{#            <div class="col single-fact">#}
+{#                <h1 class="counter">6784</h1>#}
+{#                <p>Really Happy Clients</p>#}
+{#            </div>#}
+{#            <div class="col single-fact">#}
+{#                <h1 class="counter">1059</h1>#}
+{#                <p>Total Tasks Completed</p>#}
+{#            </div>#}
+{#            <div class="col single-fact">#}
+{#                <h1 class="counter">2239</h1>#}
+{#                <p>Cups of Coffee Taken</p>#}
+{#            </div>#}
+{#            <div class="col single-fact">#}
+{#                <h1 class="counter">435</h1>#}
+{#                <p>In House Professionals</p>#}
+{#            </div>#}
+{#        </div>#}
+{#    </div>#}
+{#</section>#}
+<!-- end fact Area -->
+
+
+<!-- Start service Area -->
+{#<section class="service-area section-gap" id="service">#}
+{#    <div class="container">#}
+{#        <div class="row d-flex justify-content-center">#}
+{#            <div class="col-md-8 pb-40 header-text">#}
+{#                <h1>美食知识</h1>#}
+{#                <p>#}
+{#                    Who are in extremely love with eco friendly system.#}
+{#                </p>#}
+{#            </div>#}
+{#        </div>#}
+{#        <div class="row">#}
+{#            <div class="col-lg-4 col-md-6 pb-30">#}
+{#                <div class="single-service">#}
+{#                    <h4><span class="lnr lnr-user"></span>Expert Technicians</h4>#}
+{#                    <p>#}
+{#                        Usage of the Internet is becoming more common due to rapid advancement of technology and power.#}
+{#                    </p>#}
+{#                </div>#}
+{#            </div>#}
+{#            <div class="col-lg-4 col-md-6 pb-30">#}
+{#                <div class="single-service">#}
+{#                    <h4><span class="lnr lnr-license"></span>Professional Service</h4>#}
+{#                    <p>#}
+{#                        Usage of the Internet is becoming more common due to rapid advancement of technology and power.#}
+{#                    </p>#}
+{#                </div>#}
+{#            </div>#}
+{#            <div class="col-lg-4 col-md-6 pb-30">#}
+{#                <div class="single-service">#}
+{#                    <h4><span class="lnr lnr-phone"></span>Great Support</h4>#}
+{#                    <p>#}
+{#                        Usage of the Internet is becoming more common due to rapid advancement of technology and power.#}
+{#                    </p>#}
+{#                </div>#}
+{#            </div>#}
+{#            <div class="col-lg-4 col-md-6">#}
+{#                <div class="single-service">#}
+{#                    <h4><span class="lnr lnr-rocket"></span>Technical Skills</h4>#}
+{#                    <p>#}
+{#                        Usage of the Internet is becoming more common due to rapid advancement of technology and power.#}
+{#                    </p>#}
+{#                </div>#}
+{#            </div>#}
+{#            <div class="col-lg-4 col-md-6">#}
+{#                <div class="single-service">#}
+{#                    <h4><span class="lnr lnr-diamond"></span>Highly Recomended</h4>#}
+{#                    <p>#}
+{#                        Usage of the Internet is becoming more common due to rapid advancement of technology and power.#}
+{#                    </p>#}
+{#                </div>#}
+{#            </div>#}
+{#            <div class="col-lg-4 col-md-6">#}
+{#                <div class="single-service">#}
+{#                    <h4><span class="lnr lnr-bubble"></span>Positive Reviews</h4>#}
+{#                    <p>#}
+{#                        Usage of the Internet is becoming more common due to rapid advancement of technology and power.#}
+{#                    </p>#}
+{#                </div>#}
+{#            </div>#}
+{#        </div>#}
+{#    </div>#}
+{#</section>#}
+<section class="projects-area pb-100" id="service">
     <div class="container-fluid">
         <div class="row d-flex justify-content-center">
             <div class="menu-content pb-60 col-lg-8">
                 <div class="title text-center">
-                    <h1 class="mb-10">Why Choose Us Your Fitness Builder</h1>
-                    <p>Who are in extremely love with eco friendly system.</p>
+                    <h1 class="mb-10">美食知识</h1>
+{#                    <p>Who are in extremely love with eco friendly system.</p>#}
                 </div>
             </div>
         </div>
         <div class="row">
             <div class="active-project-carusel col-lg-12">
                 <div class="item">
-                    <div class="single-project" style="background: url('/static/img/p1.jpg');">
+                    <div class="single-project" style="background: url('/static/img/p1.png');">
                         <div class="overlay overlay-content">
-                            <h1>Alex Complex for <br> esidence</h1>
+                            <h1>龙胆石斑鱼粥</h1>
                             <p>
-                                LCD screens are uniquely modern in style, and the liquid crystals that make them work
-                                have allowed humanity to create slimmer, more portable technology than we’ve ever had
-                                access to before. From your wrist watch to your laptop, a lot of the on the go
-                                electronics that we tote from place to place are only possible because of their thin,
-                                light LCD display screens. Liquid crystal display.
+                                主料：大米、龙胆鱼肉
+                                配料：食盐、淀粉、料酒、姜、白胡椒粉、葱
                             </p>
                         </div>
                     </div>
                 </div>
                 <div class="item">
-                    <div class="single-project" style="background: url('/static/img/p2.jpg');">
+                    <div class="single-project" style="background: url('/static/img/p2.png');">
                         <div class="overlay overlay-content">
-                            <h1>Alex Complex for <br> esidence</h1>
+                            <h1>龙胆石斑火锅宴</h1>
                             <p>
-                                LCD screens are uniquely modern in style, and the liquid crystals that make them work
-                                have allowed humanity to create slimmer, more portable technology than we’ve ever had
-                                access to before. From your wrist watch to your laptop, a lot of the on the go
-                                electronics that we tote from place to place are only possible because of their thin,
-                                light LCD display screens. Liquid crystal display.
+                                可用于火锅食用部位：鱼肉、鱼腩、鱼下巴、鱼骨、鱼皮、鱼头
                             </p>
                         </div>
                     </div>
                 </div>
                 <div class="item">
-                    <div class="single-project" style="background: url('/static/img/p3.jpg');">
+                    <div class="single-project" style="background: url('/static/img/p3.png');">
                         <div class="overlay overlay-content">
-                            <h1>Alex Complex for <br> esidence</h1>
+                            <h1>爆炒龙胆鱼肚</h1>
                             <p>
-                                LCD screens are uniquely modern in style, and the liquid crystals that make them work
-                                have allowed humanity to create slimmer, more portable technology than we’ve ever had
-                                access to before. From your wrist watch to your laptop, a lot of the on the go
-                                electronics that we tote from place to place are only possible because of their thin,
-                                light LCD display screens. Liquid crystal display.
+                               主料：龙胆石斑鱼肚
+                                配料：芹菜、青椒、红椒、辣椒、泡姜、酱油、
+                                    豆瓣酱、糖、葱、盐、香油、淀粉
                             </p>
                         </div>
                     </div>
                 </div>
                 <div class="item">
-                    <div class="single-project" style="background: url('/static/img/p4.jpg');">
+                    <div class="single-project" style="background: url('/static/img/p4.png');">
                         <div class="overlay overlay-content">
-                            <h1>Alex Complex for <br> esidence</h1>
+                            <h1>椒盐鱼翅骨</h1>
                             <p>
-                                LCD screens are uniquely modern in style, and the liquid crystals that make them work
-                                have allowed humanity to create slimmer, more portable technology than we’ve ever had
-                                access to before. From your wrist watch to your laptop, a lot of the on the go
-                                electronics that we tote from place to place are only possible because of their thin,
-                                light LCD display screens. Liquid crystal display.
+                                主料：龙胆鱼翅骨
+                                配料：鸡蛋、小麦面粉、盐、 椒盐、 红葱头、
+                                    小葱、 姜、 味精、花生油、猪油
                             </p>
                         </div>
                     </div>
                 </div>
                 <div class="item">
-                    <div class="single-project" style="background: url('/static/img/p1.jpg');">
+                    <div class="single-project" style="background: url('/static/img/p5.png');">
                         <div class="overlay overlay-content">
-                            <h1>Alex Complex for <br> esidence</h1>
+                            <h1>椒盐鱼翅骨</h1>
                             <p>
-                                LCD screens are uniquely modern in style, and the liquid crystals that make them work
-                                have allowed humanity to create slimmer, more portable technology than we’ve ever had
-                                access to before. From your wrist watch to your laptop, a lot of the on the go
-                                electronics that we tote from place to place are only possible because of their thin,
-                                light LCD display screens. Liquid crystal display.
+                                主料：龙胆鱼中骨、猪龙骨
+                                配料：食用油、食盐、鸡精、料酒、姜
                             </p>
                         </div>
                     </div>
                 </div>
                 <div class="item">
-                    <div class="single-project" style="background: url('/static/img/p2.jpg');">
+                    <div class="single-project" style="background: url('/static/img/p6.png');">
                         <div class="overlay overlay-content">
-                            <h1>Alex Complex for <br> esidence</h1>
+                            <h1>红烧石斑鱼尾</h1>
                             <p>
-                                LCD screens are uniquely modern in style, and the liquid crystals that make them work
-                                have allowed humanity to create slimmer, more portable technology than we’ve ever had
-                                access to before. From your wrist watch to your laptop, a lot of the on the go
-                                electronics that we tote from place to place are only possible because of their thin,
-                                light LCD display screens. Liquid crystal display.
+                                主料：龙胆石斑鱼尾
+                                配料：豆瓣酱、食用油、食盐、鸡精、面粉、
+                                    生抽、老抽、料酒、姜、蒜头、芹菜
                             </p>
                         </div>
                     </div>
                 </div>
                 <div class="item">
-                    <div class="single-project" style="background: url('/static/img/p3.jpg');">
+                    <div class="single-project" style="background: url('/static/img/p7.png');">
                         <div class="overlay overlay-content">
-                            <h1>Alex Complex for <br> esidence</h1>
+                            <h1>沸腾龙胆鱼肉</h1>
                             <p>
-                                LCD screens are uniquely modern in style, and the liquid crystals that make them work
-                                have allowed humanity to create slimmer, more portable technology than we’ve ever had
-                                access to before. From your wrist watch to your laptop, a lot of the on the go
-                                electronics that we tote from place to place are only possible because of their thin,
-                                light LCD display screens. Liquid crystal display.
+                                主料：龙胆石斑鱼肉
+                                配料：鸡蛋清、姜、蒜、郫县豆瓣酱、辣椒若
+                                    干、花椒适量、盐、淀粉、料酒
                             </p>
                         </div>
                     </div>
                 </div>
                 <div class="item">
-                    <div class="single-project" style="background: url('/static/img/p4.jpg');">
+                    <div class="single-project" style="background: url('/static/img/p8.png');">
                         <div class="overlay overlay-content">
-                            <h1>Alex Complex for <br> esidence</h1>
+                            <h1>豆瓣酱蒸鱼腩</h1>
                             <p>
-                                LCD screens are uniquely modern in style, and the liquid crystals that make them work
-                                have allowed humanity to create slimmer, more portable technology than we’ve ever had
-                                access to before. From your wrist watch to your laptop, a lot of the on the go
-                                electronics that we tote from place to place are only possible because of their thin,
-                                light LCD display screens. Liquid crystal display.
+                                主料：龙胆石斑鱼腩
+                                配料：豆瓣酱、蒜、葱、姜、鱼粉、鸡蛋
                             </p>
                         </div>
                     </div>
                 </div>
 
-            </div>
-        </div>
-    </div>
-</section>
-<!-- End projects Area -->
-
-<!-- Start fact Area -->
-<section class="facts-area section-gap">
-    <div class="container">
-        <div class="row">
-            <div class="col single-fact">
-                <h1 class="counter">2536</h1>
-                <p>Projects Completed</p>
-            </div>
-            <div class="col single-fact">
-                <h1 class="counter">6784</h1>
-                <p>Really Happy Clients</p>
-            </div>
-            <div class="col single-fact">
-                <h1 class="counter">1059</h1>
-                <p>Total Tasks Completed</p>
-            </div>
-            <div class="col single-fact">
-                <h1 class="counter">2239</h1>
-                <p>Cups of Coffee Taken</p>
-            </div>
-            <div class="col single-fact">
-                <h1 class="counter">435</h1>
-                <p>In House Professionals</p>
-            </div>
-        </div>
-    </div>
-</section>
-<!-- end fact Area -->
-
-
-<!-- Start service Area -->
-<section class="service-area section-gap" id="service">
-    <div class="container">
-        <div class="row d-flex justify-content-center">
-            <div class="col-md-8 pb-40 header-text">
-                <h1>Why we are the best</h1>
-                <p>
-                    Who are in extremely love with eco friendly system.
-                </p>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-lg-4 col-md-6 pb-30">
-                <div class="single-service">
-                    <h4><span class="lnr lnr-user"></span>Expert Technicians</h4>
-                    <p>
-                        Usage of the Internet is becoming more common due to rapid advancement of technology and power.
-                    </p>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-6 pb-30">
-                <div class="single-service">
-                    <h4><span class="lnr lnr-license"></span>Professional Service</h4>
-                    <p>
-                        Usage of the Internet is becoming more common due to rapid advancement of technology and power.
-                    </p>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-6 pb-30">
-                <div class="single-service">
-                    <h4><span class="lnr lnr-phone"></span>Great Support</h4>
-                    <p>
-                        Usage of the Internet is becoming more common due to rapid advancement of technology and power.
-                    </p>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-6">
-                <div class="single-service">
-                    <h4><span class="lnr lnr-rocket"></span>Technical Skills</h4>
-                    <p>
-                        Usage of the Internet is becoming more common due to rapid advancement of technology and power.
-                    </p>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-6">
-                <div class="single-service">
-                    <h4><span class="lnr lnr-diamond"></span>Highly Recomended</h4>
-                    <p>
-                        Usage of the Internet is becoming more common due to rapid advancement of technology and power.
-                    </p>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-6">
-                <div class="single-service">
-                    <h4><span class="lnr lnr-bubble"></span>Positive Reviews</h4>
-                    <p>
-                        Usage of the Internet is becoming more common due to rapid advancement of technology and power.
-                    </p>
-                </div>
             </div>
         </div>
     </div>
@@ -407,41 +510,41 @@
 
 
 <!-- Start testimonial Area -->
-<section class="testimonial-area relative section-gap">
-    <div class="overlay overlay-bg"></div>
-    <div class="container">
-        <div class="row">
-            <div class="active-testimonial">
-                <div class="single-testimonial item d-flex flex-row">
-                    <div class="thumb">
-                        <img class="img-fluid" src="/static/img/user1.png" alt="">
-                    </div>
-                    <div class="desc">
-                        <p>
-                            Accessories Here you can find the best computer accessory for your laptop, monitor, printer,
-                            scanner, speaker, projector, hardware.
-                        </p>
-                        <h4 mt-30>Mark Alviro Wiens</h4>
-                        <p>CEO at Google</p>
-                    </div>
-                </div>
-                <div class="single-testimonial item d-flex flex-row">
-                    <div class="thumb">
-                        <img class="img-fluid" src="/static/img/user2.png" alt="">
-                    </div>
-                    <div class="desc">
-                        <p>
-                            Accessories Here you can find the best computer accessory for your laptop, monitor, printer,
-                            scanner, speaker, projector, hardware.
-                        </p>
-                        <h4 mt-30>Mark Alviro Wiens</h4>
-                        <p>CEO at Google</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
+{#<section class="testimonial-area relative section-gap">#}
+{#    <div class="overlay overlay-bg"></div>#}
+{#    <div class="container">#}
+{#        <div class="row">#}
+{#            <div class="active-testimonial">#}
+{#                <div class="single-testimonial item d-flex flex-row">#}
+{#                    <div class="thumb">#}
+{#                        <img class="img-fluid" src="/static/img/user1.png" alt="">#}
+{#                    </div>#}
+{#                    <div class="desc">#}
+{#                        <p>#}
+{#                            Accessories Here you can find the best computer accessory for your laptop, monitor, printer,#}
+{#                            scanner, speaker, projector, hardware.#}
+{#                        </p>#}
+{#                        <h4 mt-30>Mark Alviro Wiens</h4>#}
+{#                        <p>CEO at Google</p>#}
+{#                    </div>#}
+{#                </div>#}
+{#                <div class="single-testimonial item d-flex flex-row">#}
+{#                    <div class="thumb">#}
+{#                        <img class="img-fluid" src="/static/img/user2.png" alt="">#}
+{#                    </div>#}
+{#                    <div class="desc">#}
+{#                        <p>#}
+{#                            Accessories Here you can find the best computer accessory for your laptop, monitor, printer,#}
+{#                            scanner, speaker, projector, hardware.#}
+{#                        </p>#}
+{#                        <h4 mt-30>Mark Alviro Wiens</h4>#}
+{#                        <p>CEO at Google</p>#}
+{#                    </div>#}
+{#                </div>#}
+{#            </div>#}
+{#        </div>#}
+{#    </div>#}
+{#</section>#}
 <!-- End testimonial Area -->
 
 <!-- Start latest-blog Area -->
@@ -450,73 +553,71 @@
         <div class="row d-flex justify-content-center">
             <div class="menu-content pb-60 col-lg-8">
                 <div class="title text-center">
-                    <h1 class="mb-10">Latest From Blog</h1>
-                    <p>Who are in extremely love with eco friendly system.</p>
+                    <h1 class="mb-10">关于我们</h1>
+                    <p>让每个中国人都能吃上石斑鱼.</p>
                 </div>
             </div>
         </div>
         <div class="row">
             <div class="blog-left col-lg-4 col-md-6">
                 <div class="single-blog">
-                    <img class="mx-auto d-block img-fluid" src="/static/img/b1.jpg" alt="">
+                    <img class="mx-auto d-block img-fluid" src="/static/img/b1.png" alt="">
                     <div class="desc">
-                        <a href="#"><h5>We do Believe in Quality</h5></a>
+                        <a href="http://xiaodengfish.com/About/index/id/1.html" target="_blank"><h5>公司简介</h5></a>
                         <p>
-                            inappropriate behavior is often laughed off as “boys will be boys,” women face higher
-                            conduct standards.
+                            厦门小嶝水产科技有限公司成立于2008年5月，公司致力于石斑鱼、海马、牡蛎及观赏鱼等名贵海洋生物的苗种培育、养殖技....
                         </p>
-                        <a class="read-more text-uppercase" href="#">Read More</a>
+                        <a class="read-more text-uppercase" href="http://xiaodengfish.com/About/index/id/1.html" target="_blank">更多</a>
                     </div>
                 </div>
             </div>
             <div class="blog-left col-lg-4 col-md-6">
                 <div class="single-blog">
-                    <img class="mx-auto d-block img-fluid" src="/static/img/b2.jpg" alt="">
+                    <img class="mx-auto d-block img-fluid" src="/static/img/b1.png" alt="">
                     <div class="desc">
-                        <a href="#"><h5>We do Believe in Quality</h5></a>
+                        <a href="http://xiaodengfish.com/About/index/id/1.html" target="_blank"><h5>公司资质</h5></a>
                         <p>
-                            inappropriate behavior is often laughed off as “boys will be boys,” women face higher
-                            conduct standards.
+                            公司优势就是有研究所做技术支撑，养殖技术较成熟，水源严格经过电解消毒才能进入池子使用，水质稳定....
                         </p>
-                        <a class="read-more text-uppercase" href="#">Read More</a>
+                        <a class="read-more text-uppercase" href="http://xiaodengfish.com/About/index/id/1.html" target="_blank">更多</a>
                     </div>
                 </div>
             </div>
             <div class="blog-right col-lg-4 col-md-6">
                 <div class="single-list justify-content-start d-flex">
                     <div class="thumb">
-                        <img src="/static/img/b3.jpg" alt="">
+                        <img src="/static/img/b2.png" alt="">
                     </div>
                     <div class="details">
-                        <a href="#"><h6>We Believe in Quality</h6></a>
-                        <p>21st Dec 04 Comments</p>
+                        <a href="#"><h6>石斑鱼1</h6></a>
+                        <p>评论............</p>
                     </div>
                 </div>
                 <div class="single-list justify-content-start d-flex">
                     <div class="thumb">
-                        <img src="/static/img/b4.jpg" alt="">
+                        <img src="/static/img/b2.png" alt="">
                     </div>
                     <div class="details">
-                        <a href="#"><h6>We Believe in Quality</h6></a>
-                        <p>21st Dec 04 Comments</p>
+                        <a href="#"><h6>石斑鱼2</h6></a>
+                        <p>评论............</p>
                     </div>
                 </div>
                 <div class="single-list justify-content-start d-flex">
                     <div class="thumb">
-                        <img src="/static/img/b5.jpg" alt="">
+                        <img src="/static/img/b2.png" alt="">
                     </div>
                     <div class="details">
-                        <a href="#"><h6>We Believe in Quality</h6></a>
-                        <p>21st Dec 04 Comments</p>
+                        <a href="#"><h6>石斑鱼3</h6></a>
+                        <p>评论............</p>
                     </div>
                 </div>
                 <div class="single-list justify-content-start d-flex">
                     <div class="thumb">
-                        <img src="/static/img/b6.jpg" alt="">
+                        <img src="/static/img/b2.png" alt="">
                     </div>
                     <div class="details">
-                        <a href="#"><h6>We Believe in Quality</h6></a>
-                        <p>21st Dec 04 Comments</p>
+                        <a href="#"><h6>石斑鱼4</h6></a>
+                        <p>评论............</p>
                     </div>
                 </div>
             </div>
@@ -526,27 +627,27 @@
 <!-- End latest-blog Area -->
 
 <!-- Start brand Area -->
-<section class="brand-area">
-    <div class="container">
-        <div class="row logo-wrap">
-            <a class="col single-img" href="#">
-                <img class="d-block mx-auto" src="/static/img/l1.png" alt="">
-            </a>
-            <a class="col single-img" href="#">
-                <img class="d-block mx-auto" src="/static/img/l2.png" alt="">
-            </a>
-            <a class="col single-img" href="#">
-                <img class="d-block mx-auto" src="/static/img/l3.png" alt="">
-            </a>
-            <a class="col single-img" href="#">
-                <img class="d-block mx-auto" src="/static/img/l4.png" alt="">
-            </a>
-            <a class="col single-img" href="#">
-                <img class="d-block mx-auto" src="/static/img/l5.png" alt="">
-            </a>
-        </div>
-    </div>
-</section>
+{#<section class="brand-area">#}
+{#    <div class="container">#}
+{#        <div class="row logo-wrap">#}
+{#            <a class="col single-img" href="#">#}
+{#                <img class="d-block mx-auto" src="/static/img/l1.png" alt="">#}
+{#            </a>#}
+{#            <a class="col single-img" href="#">#}
+{#                <img class="d-block mx-auto" src="/static/img/l2.png" alt="">#}
+{#            </a>#}
+{#            <a class="col single-img" href="#">#}
+{#                <img class="d-block mx-auto" src="/static/img/l3.png" alt="">#}
+{#            </a>#}
+{#            <a class="col single-img" href="#">#}
+{#                <img class="d-block mx-auto" src="/static/img/l4.png" alt="">#}
+{#            </a>#}
+{#            <a class="col single-img" href="#">#}
+{#                <img class="d-block mx-auto" src="/static/img/l5.png" alt="">#}
+{#            </a>#}
+{#        </div>#}
+{#    </div>#}
+{#</section>#}
 <!-- End brand Area -->
 
 <!-- start contact Area -->
@@ -555,32 +656,32 @@
         <div class="row d-flex justify-content-center">
             <div class="menu-content pb-30 col-lg-8">
                 <div class="title text-center">
-                    <h1 class="mb-10">If you need, Just drop us a line</h1>
-                    <p>Who are in extremely love with eco friendly system.</p>
+                    <h1 class="mb-10">联系我们</h1>
+                    <p>欢迎您对我们的产品提出意见和建议</p>
                 </div>
             </div>
         </div>
         <form class="form-area mt-60" id="myForm" action="mail.php" method="post" class="contact-form text-right">
             <div class="row">
                 <div class="col-lg-6 form-group">
-                    <input name="name" placeholder="Enter your name" onfocus="this.placeholder = ''"
-                           onblur="this.placeholder = 'Enter your name'" class="common-input mb-20 form-control"
+                    <input name="name" placeholder="请输入您的名字" onfocus="this.placeholder = ''"
+                           onblur="this.placeholder = '请输入您的名字'" class="common-input mb-20 form-control"
                            required="" type="text">
 
-                    <input name="email" placeholder="Enter email address"
+                    <input name="email" placeholder="请输入您的邮箱"
                            pattern="[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{1,63}$" onfocus="this.placeholder = ''"
-                           onblur="this.placeholder = 'Enter email address'" class="common-input mb-20 form-control"
+                           onblur="this.placeholder = '请输入您的邮箱'" class="common-input mb-20 form-control"
                            required="" type="email">
 
-                    <input name="subject" placeholder="Enter your subject" onfocus="this.placeholder = ''"
-                           onblur="this.placeholder = 'Enter your subject'" class="common-input mb-20 form-control"
+                    <input name="subject" placeholder="请输入您的电话" onfocus="this.placeholder = ''"
+                           onblur="this.placeholder = '请输入您的电话'" class="common-input mb-20 form-control"
                            required="" type="text">
                 </div>
                 <div class="col-lg-6 form-group">
-                    <textarea class="common-textarea mt-10 form-control" name="message" placeholder="Messege"
-                              onfocus="this.placeholder = ''" onblur="this.placeholder = 'Messege'"
+                    <textarea class="common-textarea mt-10 form-control" name="message" placeholder="请输入内容"
+                              onfocus="this.placeholder = ''" onblur="this.placeholder = '请输入内容'"
                               required=""></textarea>
-                    <button class="primary-btn mt-20">Send Message<span class="lnr lnr-arrow-right"></span></button>
+                    <button class="primary-btn mt-20">提交反馈<span class="lnr lnr-arrow-right"></span></button>
                     <div class="mt-10 alert-msg">
                     </div>
                 </div>
@@ -597,74 +698,43 @@
         <div class="row">
             <div class="col-lg-3  col-md-6 col-sm-6">
                 <div class="single-footer-widget">
-                    <h4 class="text-white">About Us</h4>
-                    <p>
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut
-                        labore dolore magna aliqua.
-                    </p>
+                    <ul>
+                        <li><a href="#feature">产品中心</a></li>
+                        <li><a href="#project">品牌中心</a></li>
+                        <li><a href="#service">美食知识</a></li>
+                        <li><a href="#blog">关于我们</a></li>
+                        <li><a href="#contact">联系我们</a></li>
+                    </ul>
                 </div>
             </div>
+            <hr/>
             <div class="col-lg-4  col-md-6 col-sm-6">
                 <div class="single-footer-widget">
-                    <h4 class="text-white">Contact Us</h4>
-                    <p>
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut
-                        labore dolore magna aliqua.
-                    </p>
-                    <p class="number">
-                        012-6532-568-9746 <br>
-                        012-6532-569-9748
-                    </p>
+
+                    <p>电话：0592-2625228</p>
+                    <p>邮箱：limin@xmgbd.com</p>
+                    <p>地址：厦门小嶝水产科技有限公司</p>
                 </div>
             </div>
             <div class="col-lg-5  col-md-6 col-sm-6">
                 <div class="single-footer-widget">
-                    <h4 class="text-white">Newsletter</h4>
-                    <p>You can trust us. we only send offers, not a single spam.</p>
-                    <div class="d-flex flex-row" id="mc_embed_signup">
-
-
-                        <form class="navbar-form" novalidate="true"
-                              action="https://spondonit.us12.list-manage.com/subscribe/post?u=1462626880ade1ac87bd9c93a&amp;id=92a4423d01"
-                              method="get">
-                            <div class="input-group add-on">
-                                <input class="form-control" name="EMAIL" placeholder="Email address"
-                                       onfocus="this.placeholder = ''" onblur="this.placeholder = 'Email address'"
-                                       required="" type="email">
-                                <div style="position: absolute; left: -5000px;">
-                                    <input name="b_36c4fd991d266f23781ded980_aefe40901a" tabindex="-1" value=""
-                                           type="text">
-                                </div>
-                                <div class="input-group-btn">
-                                    <button class="genric-btn primary circle arrow"><span
-                                            class="lnr lnr-arrow-right"></span></button>
-                                </div>
-                            </div>
-                            <div class="info mt-20"></div>
-                        </form>
-
-                    </div>
+                    <h4 class="text-white">友情链接</h4>
+                    <a href="http://xiaodengfish.com">厦门小嶝水产科技有限公司</a>
                 </div>
             </div>
         </div>
         <div class="footer-bottom d-flex justify-content-between align-items-center flex-wrap">
             <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
             <p class="footer-text m-0">Copyright &copy;<script>document.write(new Date().getFullYear());</script>
-                All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a
-                        href="https://colorlib.com" target="_blank">Colorlib</a></p>
-            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-            <div class="footer-social d-flex align-items-center">
-                <a href="#"><i class="fa fa-facebook"></i></a>
-                <a href="#"><i class="fa fa-twitter"></i></a>
-                <a href="#"><i class="fa fa-dribbble"></i></a>
-                <a href="#"><i class="fa fa-behance"></i></a>
-            </div>
+                厦门小嶝水产科技有限公司</p>
         </div>
     </div>
 </footer>
 <!-- End footer Area -->
 
 <script src="/static/js/vendor/jquery-2.2.4.min.js"></script>
+<script src="/static/js/mobiscroll_date.js" charset="gb2312"></script>
+<script src="/static/js/mobiscroll.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
         integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
         crossorigin="anonymous"></script>
@@ -693,6 +763,26 @@
                document.getElementById("home").scrollIntoView({behavior:"smooth"});
           });
       });
+
+    $(function () {
+        var currYear = (new Date()).getFullYear();
+        var opt = {};
+        opt.date = {preset: 'date'};
+        opt.datetime = {preset: 'datetime'};
+        opt.time = {preset: 'time'};
+        opt.default = {
+            theme: 'android-ics light', //皮肤样式
+            display: 'modal', //显示方式
+            mode: 'scroller', //日期选择模式
+            dateFormat: 'yyyy-mm-dd',
+            lang: 'zh',
+            showNow: true,
+            nowText: "今天",
+            startYear: currYear - 20, //开始年份
+            endYear: currYear + 50 //结束年份
+        };
+        $("#product_date").mobiscroll($.extend(opt['date'], opt['default']));
+    });
 </script>
 
 </body>

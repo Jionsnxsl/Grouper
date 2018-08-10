@@ -33,9 +33,9 @@ class LoginRequiredMiddleware(MiddlewareMixin):
             result = pattern.match(url_full)
             args = ""
             if result:
-                print("match:", )
+                # print("match:", )
                 args = result.group(1)
             path = request.path_info.lstrip('/') + args
-            print(path)
+            # print(path)
             if not any(m.match(path) for m in EXEMPT_URLS):
                 return HttpResponseRedirect(settings.LOGIN_URL+"?next=/"+path)
