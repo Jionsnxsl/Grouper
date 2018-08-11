@@ -134,8 +134,9 @@
                                             <label class="col-lg-4 col-form-label" for="val-typename">品种</label>
                                             <div class="col-lg-6">
                                                 <select class="form-control" id="val-typename" name="val-typename">
-                                                    <option value="1">石斑鱼类1</option>
-                                                    <option value="2">石斑鱼类2</option>
+                                                    {% for variety in varieties %}
+                                                        <option value="{{ variety.id }}">{{ variety.name }}</option>
+                                                    {% endfor %}
                                                 </select>
                                             </div>
                                         </div>

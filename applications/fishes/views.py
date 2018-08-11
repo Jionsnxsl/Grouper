@@ -33,7 +33,6 @@ def SearchView(request):
             data = {
                 "status": True
             }
-            print("空")
             return render(request, "search_result.html", data)
 
         fish_info_obj = product_info_obj.fish_info
@@ -82,7 +81,6 @@ def SearchView(request):
         data = {
             "status": True
         }
-        print("空2")
         return render(request, "search_result.html", data)
 
 
@@ -261,8 +259,6 @@ class FishPoolView(View):
         result = {'status': False, 'message': '请扫描鱼池上的二维码进行操作！'}
         path = request.path_info.lstrip('/')
         url = request.build_absolute_uri()
-        print(url)
-        print(path)
         pid = request.GET.get('pid', None)
         try:
             pool_id = int(pid)
@@ -278,7 +274,8 @@ class FishPoolView(View):
             now = datetime.datetime.now()
             ran_num = random.randint(1000, 10000)
             fish_batch_num = str(now.year)+str(now.month)+str(now.day)+str(ran_num)
-            return render(request, 'fishes/add_product_mobile.html', {'pool_id': pool_id, "fish_batch_num": fish_batch_num})
+            varieties = Variety.objects.all().values("id", "name")
+            return render(request, 'fishes/add_product_mobile.html', {'pool_id': pool_id, "fish_batch_num": fish_batch_num, "varieties": varieties})
 
     def post(self, request):
         operation = request.POST.get('operation')
@@ -300,6 +297,7 @@ def AddProductView(request):
         "pool_num_id": fish_pool.id,
         "fish_batch": request.POST.get("val-batchNum"),
         "name": request.POST.get("val-typename"),
+        "variety": request.POST.get("val-typename"),
         "specification": request.POST.get("val-specification"),
         "number": int(request.POST.get("val-fishnum")),
         "total_mass": float(request.POST.get("val-totalmass")),
