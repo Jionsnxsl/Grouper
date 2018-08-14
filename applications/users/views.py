@@ -17,11 +17,20 @@ class LoginView(View):
 class FindPasswordView(View):
 
     def get(self, request):
-        # from .models import GrouperUser
+        from .models import GrouperUser
         # for i in range(1,250):
-        #     GrouperUser.objects.create_user(username='user'+str(i), password='admin'+str(i), employeeID=i)
+        GrouperUser.objects.create_user(username='admin', password='admin', employeeID=0)
         return render(request, "users/forget_password.html")
 
     def post(self, request):
         return HttpResponse("change your password successfully!")
+
+
+class Register(View):
+
+    def get(self, request):
+        return render(request, 'users/register.html')
+
+    def post(self, request):
+        pass
 

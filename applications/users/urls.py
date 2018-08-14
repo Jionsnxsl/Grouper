@@ -8,4 +8,5 @@ urlpatterns = [
     # 没有测试！！！！！
     url(r'^logout/', logout, {'template_name': 'users/login.html'}, name="logout"),
     url(r'^findpwd/', views.FindPasswordView.as_view(), name="find_password"),
+    url(r'^register/', views.FindPasswordView.as_view(), name="register"),
 ]

@@ -838,8 +838,14 @@ def GetProcessNumView(request):
     start_date = today - timedelta(days=14)
     end_date = today + timedelta(days=14)
 
-    result['start'] = start_date.strftime('%Y-%m-%d')
-    result['end'] = end_date.strftime('%Y-%m-%d')
+    if len(date_list) == 0:
+        result['start'] = start_date.strftime('%Y-%m-%d')
+    else:
+        if len(date_list) < 30:
+            result['start'] = date_list[0]
+        else:
+            result['start'] = date_list[len(date_list) - 30]
+    result['end'] = date_list[-1] if date_list else end_date.strftime('%Y-%m-%d')
 
     return HttpResponse(json.dumps(result))
 

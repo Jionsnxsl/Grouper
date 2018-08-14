@@ -105,7 +105,8 @@
         </div>
         <div class="clearfix">
             <label class="pull-left checkbox-inline"><input type="checkbox"> 记住我</label>
-            <a href="{% url 'users:find_password' %}" class="pull-right">忘记密码？</a>
+            <a href="{% url 'users:find_password' %}" class="pull-right">忘记密码？</a><span>&nbsp;|&nbsp;</span>
+            <a href="{% url 'users:register' %}" class="pull-right" target="_blank">注册</a>
         </div>
         <!--
         <div class="or-seperator"><i>or</i></div>
