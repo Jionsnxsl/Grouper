@@ -12,8 +12,8 @@ from django.views.decorators.csrf import csrf_exempt
 from django.utils.decorators import method_decorator
 from datetime import timedelta
 from django.utils.six import BytesIO
-import ast
-from .utils import delete_image
+import os
+from .utils import delete_image, create_qrcode
 from django.contrib.auth.decorators import login_required
 # Create your views here.
 
@@ -86,7 +86,8 @@ def SearchView(request):
 
 def AdminView(request):
     """后台管理首页"""
-    return render(request, "fishes/fish_admin.html")
+    qrcode_file = "/media/image/" + "generate_product_qrcode" + ".png"
+    return render(request, "fishes/fish_admin.html", {"qrcode": qrcode_file})
 
 
 def ProductInfoView(request):
@@ -641,16 +642,16 @@ def DeleteFishPool(request):
 
 def GenerateProductQRCodeView(request):
     """生成产品二维码"""
-    url = request.GET.get("input-link")
-    if url == '':   # 没有输入新的链接，则使用默认的链接
-        url = "http://" + request.get_host() + reverse("fishes:homepage")
-    file_name = "通用产品二维码" + ".png"
+    url = "http://" + request.get_host() + reverse("fishes:homepage")
+    file_name = "generate_product_qrcode"  # 保存到系统中的文件名
 
-    img = qrcode.make(url)
+    img = create_qrcode(url, file_name)
     buf = BytesIO()
-    img.save(buf)
+    img.save(buf, format='png')
     image_stream = buf.getvalue()
     response = HttpResponse(image_stream)
+
+    file_name = "通用产品二维码" + ".png"  # 下载的文件名
     response['Content-Type'] = 'application/image'
     response['Content-Disposition'] = "attachment; filename*=utf-8''{0}".format(escape_uri_path(file_name))
     # response['Content-Disposition'] = 'attachment;filename="{0}"'.format(file)

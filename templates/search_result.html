@@ -47,6 +47,11 @@
 <!---->
 <body style="margin-top: -15px;">
 
+{#    <div class="preloader-content" style="display: none;">#}
+{#            <svg class="circular" viewBox="25 25 50 50">#}
+{#			    <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10" /> </svg>#}
+{#    </div>#}
+
     {% if status %}
         <!-- add variety Modal (START)-->
         <div class="modal bd-example-modal-lg show" id="addVarietyModal" tabindex="-1" role="dialog"
@@ -321,12 +326,14 @@
     <script src="/static/fishadmin/js/lib/bootstrap/js/bootstrap.min.js"></script>
     <script src="/static/js/moment.js"></script>
     <script>
+        //$(".preloader-content").show();
         function select_date(e) {
             /*
             * 选中某个时间，并取消之前的选中
             * */
             $("#date_container .active").removeClass("active").removeClass("btn-info").addClass("btn-default");
             $("#"+e.target.id).addClass("active").addClass("btn-info");
+            alert(e.target.innerText);
         }
 
         function date_selector_init() {
@@ -373,6 +380,7 @@
 
         $(function () {
             date_selector_init();
+            //$(".preloader-content").hide();
         });
     </script>
 </body>

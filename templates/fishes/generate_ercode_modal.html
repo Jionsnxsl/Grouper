@@ -11,11 +11,13 @@
             </div>
             <form action="/fishes/admin/generateercode/" method="get">
             <div class="modal-body">
-                    <div class="row">
-                        <input type="text" class="col-lg-8 form-control" id='input-link' name="input-link" style="margin-left: 5%" placeholder="请输入链接"/>
-                        <button type="button" id='btn-generateqrcode' class="btn btn-primary" style="margin-left: 2%">生成二维码</button>
-                    </div><hr/>
-                    <div id="qrcode" style="margin-left: 30%"></div>
+{#                    <div class="row">#}
+{#                        <input type="text" class="col-lg-8 form-control" id='input-link' name="input-link" style="margin-left: 5%" placeholder="请输入链接"/>#}
+{#                        <button type="button" id='btn-generateqrcode' class="btn btn-primary" style="margin-left: 2%">生成二维码</button>#}
+{#                    </div><hr/>#}
+                    <div id="qrcode" style="margin-left: 30%">
+                        <img src="{{ qrcode }}" style="display: block;">
+                    </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>

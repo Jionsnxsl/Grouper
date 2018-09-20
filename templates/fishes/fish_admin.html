@@ -530,20 +530,22 @@
     {% endblock %}
     <!-- my script(END) -->
     <script>
-        $(document).ready(function () {
-            var curWwwPath = window.document.location.href;
-            var pathname= window.document.location.pathname;
-            var pos = curWwwPath.indexOf(pathname);
-            var default_url = curWwwPath .substring(0,pos+8);
-            var qrcode = new QRCode(document.getElementById("qrcode"), default_url);
-            var link = $("#input-link").val();
-            $("#btn-generateqrcode").click(function () {
-                if(link != ''){
-                    qrcode.clear();
-                    qrcode.makeCode(link);
-                }
-            });
-        });
+{#        $(document).ready(function () {#}
+{#            var curWwwPath = window.document.location.href;#}
+{#            var pathname= window.document.location.pathname;#}
+{#            var pos = curWwwPath.indexOf(pathname);#}
+{#            var default_url = curWwwPath .substring(0,pos+8);#}
+{#            var qrcode = new QRCode(document.getElementById("qrcode"), default_url);#}
+{#            var link = $("#input-link").val();#}
+{#            $("#btn-generateqrcode").click(function () {#}
+{#                if(link != ''){#}
+{#                    qrcode.clear();#}
+{#                    qrcode.makeCode(link);#}
+{#                }#}
+{#            });#}
+{#        });#}
+
+
     </script>
 
 </body>

@@ -1,4 +1,7 @@
 from django.utils.crypto import get_random_string
+import qrcode
+from PIL import Image
+import os
 
 def image_rename(instance, filename):
     """
@@ -39,3 +42,49 @@ def delete_image(product_info_obj, attr_name):
     except Exception:
         return False
     return True
+
+
+def create_qrcode(url, filename):
+    """
+    :param url: 二维码中包含的路径
+    :param filename: 二维码保存的文件名
+    :return: 二维码图片
+    """
+    qr = qrcode.QRCode(
+        version=1,
+        # 设置容错率为最高
+        error_correction=qrcode.ERROR_CORRECT_H,
+        box_size=10,  # 二维码大小
+        border=2,  # 边框大小
+    )
+    qr.add_data(url)
+    qr.make(fit=True)
+
+    img = qr.make_image()
+    # 设置二维码为彩色
+    img = img.convert("RGBA")
+    icon = Image.open(os.getcwd() + "/media/image/" + 'logo.png')
+    w, h = img.size
+    factor = 4
+    size_w = int(w / factor)
+    size_h = int(h / factor)
+    icon_w, icon_h = icon.size
+    if icon_w > size_w:
+        icon_w = size_w
+    if icon_h > size_h:
+        icon_h = size_h
+    icon = icon.resize((icon_w, icon_h), Image.ANTIALIAS)
+    w = int((w - icon_w) / 2)
+    h = int((h - icon_h) / 2)
+    icon = icon.convert("RGBA")
+    newimg = Image.new("RGBA", (icon_w + 8, icon_h + 8), (255, 255, 255))
+    img.paste(newimg, (w - 4, h - 4), newimg)
+
+    img.paste(icon, (w, h), icon)
+    img.save(os.getcwd() + "/media/image/" + filename + '.png', quality=100)
+
+    return img
+
+
+# if __name__ == '__main__':
+#     create_qrcode("http//:baidu.com", "qrcode")
