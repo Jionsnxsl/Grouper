@@ -51,7 +51,6 @@
 {#            <svg class="circular" viewBox="25 25 50 50">#}
 {#			    <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10" /> </svg>#}
 {#    </div>#}
-
     {% if status %}
         <!-- add variety Modal (START)-->
         <div class="modal bd-example-modal-lg show" id="addVarietyModal" tabindex="-1" role="dialog"
@@ -331,56 +330,57 @@
             /*
             * 选中某个时间，并取消之前的选中
             * */
-            $("#date_container .active").removeClass("active").removeClass("btn-info").addClass("btn-default");
-            $("#"+e.target.id).addClass("active").addClass("btn-info");
-            alert(e.target.innerText);
+            var url = '{% url 'fishes:search_view' %}' + '?product_date=' + e.target.innerText;
+            window.location.href = url;
         }
 
         function date_selector_init() {
             /*
-            * 初始化时间选择
-            * */
+             * 初始化时间选择
+             * */
 
-            day_list = new Array(); // 保存最近30天的时间
+            recent_product_date = '{{ product_info_data.product_date_simple }}';
 
-            var today = moment(); //获取当前时间
+            day_list = new Array();   // 保存最近30天的时间
+            var today = moment();     //获取当前时间
             day_list[14] = today.format("YYYY-MM-DD");
-            for(var left=0; left<=13; left++){
+            for (var left = 0; left <= 13; left++) {
                 var today = moment();
-                day_list[left] = today.subtract(14-left, "days").format("YYYY-MM-DD");
+                day_list[left] = today.subtract(14 - left, "days").format("YYYY-MM-DD");
             }
 
-            for(var right=15; right<=29;right++){
+            for (var right = 15; right <= 29; right++) {
                 var today = moment();
-                day_list[right] = today.add(right-14, "days").format("YYYY-MM-DD");
+                day_list[right] = today.add(right - 14, "days").format("YYYY-MM-DD");
             }
 
-            var index=0;
-            while (index<30){
-                if(index == 14){
+            var index = 0, current_index = -1;
+            while (index < 30) {
+                if (day_list[index] == recent_product_date) {
+                    current_index = index;
                     date_list = day_list[index].split("-");
-                    $("#date_container").append("<button id='"+day_list[index]+"' class='item active btn btn-info btn-sm m-b-10 m-l-5'>"+ date_list[0]+"<br>"+date_list[1] + "-" +date_list[2] + "</button>");
+                    $("#date_container").append("<button id='" + day_list[index] + "' class='item active btn btn-info btn-sm m-b-10 m-l-5'>" + date_list[0] + "<br>" + date_list[1] + "-" + date_list[2] + "</button>");
 
-                }else{
+                } else {
                     $("#date_container").append(generate_item(index));
                 }
-                $("#"+day_list[index]).on('click', select_date);
+                $("#" + day_list[index]).on('click', select_date);
                 index++;
             }
 
             function generate_item(index) {
                 /*
-                * 生成时间按钮
-                * */
+                 * 生成时间按钮
+                 * */
                 date_list = day_list[index].split("-");
-                return "<button id='"+ day_list[index]+ "' class='item btn btn-default btn-sm m-b-10 m-l-5'>"+date_list[0]+"<br>"+date_list[1] + "-" +date_list[2]+ "</button>"
+                return "<button id='" + day_list[index] + "' class='item btn btn-default btn-sm m-b-10 m-l-5'>" + date_list[0] + "<br>" + date_list[1] + "-" + date_list[2] + "</button>"
             }
-            $("#date_container").scrollLeft($("#"+day_list[14]).offset().left - $("#"+day_list[14]).width());
+
+            $("#date_container").scrollLeft($("#" + day_list[current_index]).offset().left - $("#" + day_list[current_index]).width());
         }
 
         $(function () {
             date_selector_init();
-            //$(".preloader-content").hide();
         });
     </script>
 </body>

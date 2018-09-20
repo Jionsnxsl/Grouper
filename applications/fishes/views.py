@@ -13,7 +13,7 @@ from django.utils.decorators import method_decorator
 from datetime import timedelta
 from django.utils.six import BytesIO
 import os
-from .utils import delete_image, create_qrcode
+from .utils import delete_image, create_qrcode, get_product_info
 from django.contrib.auth.decorators import login_required
 # Create your views here.
 
@@ -26,55 +26,22 @@ def Homepage(request):
 def SearchView(request):
     """搜索结果"""
     if request.GET.get("product_date"):
-        product_date = request.GET.get("product_date")
-        product_info_obj = ProductInfo.objects.filter(product_date__contains=product_date).first()
+        product_date = list(request.GET.get("product_date"))
+        product_date.insert(4, '-')
+        product_date = "".join(product_date)
+        data = get_product_info(product_date, ProductInfo)
+        data["has_date"] = "true"
+        return render(request, "search_result.html", data)
 
-        if product_info_obj is None:
+    elif request.GET.get("recent"):
+        result = ProductInfo.objects.all().order_by("-product_date").values('product_date').first()
+        if result is None:
             data = {
                 "status": True
             }
-            return render(request, "search_result.html", data)
-
-        fish_info_obj = product_info_obj.fish_info
-        process_info_obj = product_info_obj.process_info
-
-        product_info_data = {
-            "product_id": product_info_obj.id,
-            "product_batch": product_info_obj.product_batch,
-            "product_date": product_info_obj.product_date,
-        }
-
-        fish_info_data = {
-            "fish_batch": fish_info_obj.fish_batch,
-            "stock_date": fish_info_obj.stock_date,
-            "number": fish_info_obj.number,
-            "total_mass": fish_info_obj.total_mass,
-            "name": fish_info_obj.name,
-            "specification": fish_info_obj.specification,
-            "test_report_stock": fish_info_obj.test_report_stock,
-            "test_report_third": fish_info_obj.test_report_third,
-            "stock_scene": fish_info_obj.stock_scene
-        }
-
-        trans_infos = fish_info_obj.transinfo.all()
-
-        process_info_data = {
-            "process_date": process_info_obj.process_date,
-            "pack_environment": process_info_obj.pack_environment,
-            "process_environment": process_info_obj.process_environment,
-            "get_scene": process_info_obj.get_scene,
-            "test_report_process": process_info_obj.test_report_process
-        }
-
-        data = {
-            "status": False,
-            "product_info_data": product_info_data,
-            "fish_info_data": fish_info_data,
-            "trans_infos": trans_infos,
-            "process_info_data": process_info_data,
-            "is_product_detail": True,
-        }
-
+        else:
+            recent_product_date = result.get("product_date").strftime("%Y-%m-%d")
+            data = get_product_info(recent_product_date, ProductInfo)
         return render(request, "search_result.html", data)
 
     else:  # 用户输入为空
@@ -298,7 +265,7 @@ def AddProductView(request):
         "pool_num_id": fish_pool.id,
         "fish_batch": request.POST.get("val-batchNum"),
         "name": request.POST.get("val-typename"),
-        "variety": request.POST.get("val-typename"),
+        "variety_id": request.POST.get("val-typename"),
         "specification": request.POST.get("val-specification"),
         "number": int(request.POST.get("val-fishnum")),
         "total_mass": float(request.POST.get("val-totalmass")),
@@ -416,7 +383,8 @@ class ProcessProductView(View):
                 product_info_data = {
                     "product_batch": product_num,
                     "fish_info_id": fish_info.id,
-                    "process_info_id": process_info.id
+                    "process_info_id": process_info.id,
+                    # "product_date": now - timedelta(days=random.randint(0, 10))
                 }
                 ProductInfo.objects.create(**product_info_data)
 
@@ -642,7 +610,7 @@ def DeleteFishPool(request):
 
 def GenerateProductQRCodeView(request):
     """生成产品二维码"""
-    url = "http://" + request.get_host() + reverse("fishes:homepage")
+    url = "http://" + request.get_host() + reverse("fishes:search_view") + "?recent=1"
     file_name = "generate_product_qrcode"  # 保存到系统中的文件名
 
     img = create_qrcode(url, file_name)
