@@ -72,22 +72,24 @@
 
 <!-- start banner Area
 data-parallax="scroll" data-image-src="/static/img/header-bg.jpg"-->
-<section class="banner-area relative" id="home" data-parallax="scroll" data-image-src="/static/img/header-bg.jpg">
+<section class="banner-area relative" id="home">
+    <img src="/static/img/header-bg_md.jpg" style="width: 100%;">
+{#    data-parallax="scroll" data-image-src="/static/img/header-bg_sm.jpg"#}
 {#    <img src="/static/img/header-bg.jpg" style="width: 100%;height:100%;background-size: cover;-webkit-background-size:cover;-moz-background-size: cover;#}
 {#                    -o-background-size: cover;">#}
-    <div class="overlay-bg overlay"></div>
-    <div class="container">
-        <div class="row fullscreen d-flex align-items-center justify-content-center">
-            <div class="banner-content col-lg-6 col-md-12" style="width: 75%;top:-65px">
-                <form action="{% url 'fishes:search_view' %}" method="get">
-                    <div class="form-group">
-                        <input type="text" name="product_date" id="product_date" class="form-control" readonly placeholder="请选择生产日期" required/>
-                        <button type="submit" class="btn btn-primary" style="margin-top: 5px;padding-left: 25px;padding-right: 25px">查&nbsp;询</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
+{#    <div class="overlay-bg overlay"></div>#}
+{#    <div class="container">#}
+{#        <div class="row fullscreen d-flex align-items-center justify-content-center">#}
+{#            <div class="banner-content col-lg-6 col-md-12" style="width: 75%;top:-65px">#}
+{#                <form action="{% url 'fishes:search_view' %}" method="get">#}
+{#                    <div class="form-group">#}
+{#                        <input type="text" name="product_date" id="product_date" class="form-control" readonly placeholder="请选择生产日期" required/>#}
+{#                        <button type="submit" class="btn btn-primary" style="margin-top: 5px;padding-left: 25px;padding-right: 25px">查&nbsp;询</button>#}
+{#                    </div>#}
+{#                </form>#}
+{#            </div>#}
+{#        </div>#}
+{#    </div>#}
 
 </section>
 <!-- End banner Area -->
