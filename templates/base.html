@@ -3,12 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <title>{% block title %}主页{% endblock title %}</title>
-
-
     {% block css %}    {% endblock %}
 </head>
 <body>
-    {% include "navigator.html" %}
     {% block content %}    {% endblock %}
 
     {% block footer %}    {% endblock %}

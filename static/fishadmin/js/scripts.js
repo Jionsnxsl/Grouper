@@ -503,13 +503,13 @@ $.extend({
 /* 领料提交事件(START) */
 $.extend({
     processProduct: function () {
-        $("#process-product").click(function () {
-            //if ($(".form-transproduct").valid())  //这个表单不在进行验证，都是系统提供选择
+        $("#process-fish-submit").click(function () {
+           // if ($(".form-process-product").valid()) {  //这个表单不在进行验证，都是系统提供选择
                 $(".preloader-submit-data").show();
                 $.ajax({
                     url: "/fishes/admin/m/processproduct/"/*"{% url 'fishes:adduser' %}"*/,
                     type: "POST",
-                    data: $("#form-process-product").serialize(),
+                    data: $(".form-process-product").serialize(),
                     dataType: "JSON",
                     success: function (data) {
                         $(".preloader-submit-data").hide();
@@ -521,8 +521,14 @@ $.extend({
                             alert(data.message);
                             location.reload();
                         }
+                    },
+                    error: function (data) {
+                        $(".preloader-submit-data").hide();
+                        alert("网络异常，请重试！");
+                        location.reload();
                     }
                 });
+            //}
         });
     }
 });

@@ -2,6 +2,7 @@ from django.utils.crypto import get_random_string
 import qrcode
 from PIL import Image
 import os
+from config.settings import BASE_DIR
 
 
 def image_rename(instance, filename):
@@ -65,7 +66,7 @@ def create_qrcode(url, filename):
     img = qr.make_image()
     # 设置二维码为彩色
     img = img.convert("RGBA")
-    icon = Image.open(os.getcwd() + "/media/image/" + 'logo.png')
+    icon = Image.open(BASE_DIR + "/media/image/" + 'logo.png')
     w, h = img.size
     factor = 4
     size_w = int(w / factor)
@@ -83,7 +84,7 @@ def create_qrcode(url, filename):
     img.paste(newimg, (w - 4, h - 4), newimg)
 
     img.paste(icon, (w, h), icon)
-    img.save(os.getcwd() + "/media/image/" + filename + '.png', quality=100)
+    img.save(BASE_DIR + "/media/image/" + filename + '.png', quality=100)
 
     return img
 

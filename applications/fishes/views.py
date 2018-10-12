@@ -53,6 +53,11 @@ def SearchView(request):
 
 def AdminView(request):
     """后台管理首页"""
+
+    url = "http://" + request.get_host() + reverse("fishes:search_view") + "?recent=1"
+    file_name = "generate_product_qrcode"  # 保存到系统中的文件名
+    img = create_qrcode(url, file_name)
+
     qrcode_file = "/media/image/" + "generate_product_qrcode" + ".png"
     return render(request, "fishes/fish_admin.html", {"qrcode": qrcode_file})
 
@@ -336,6 +341,7 @@ class TranProductView(View):
         return HttpResponse(json.dumps(result))
 
 
+@method_decorator(csrf_exempt, name='dispatch')
 class ProcessProductView(View):
     """领料加工"""
 
@@ -359,6 +365,8 @@ class ProcessProductView(View):
         # 向加工表写入一条数据
         pool_num = int(reqeust.POST.get("pool_num"))
         fish_batch = int(reqeust.POST.get("fish_batch"))
+        # fish_num = int(reqeust.POST.get("val-fishnum"))
+        # # print(fish_num, pool_num, fish_batch)
 
         fish_pool = FishPool.objects.get(num=pool_num)
         fish_info = FishInfo.objects.get(fish_batch=fish_batch)
@@ -395,6 +403,7 @@ class ProcessProductView(View):
         result['message'] = '领料成功，请及时处理！'
 
         return HttpResponse(json.dumps(result))
+
 
 def UserInfoView(request):
     """用户信息查看"""

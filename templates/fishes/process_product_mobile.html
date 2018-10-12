@@ -109,29 +109,67 @@
             <!-- Container fluid  -->
             <div class="container-fluid">
                 <!-- Start Page Content -->
-
                 <div class="row justify-content-center">
                     <div class="col-lg-6">
                         <div class="card">
-                               <form id="form-process-product">
+                            <form id="form-process-product">
                                 {% csrf_token %}
                                 <div>
                                     <h3>注意：</h3>
-                                </div><hr/>
+                                </div>
+                                <hr/>
                                 <div>
-                                    <p>您正在领取<strong>{{ pool_num }}</strong>号鱼池中<strong>{{ fish_batch }}</strong>批次号的鱼进行加工</p>
+                                    <p>您正在领取<strong>{{ pool_num }}</strong>号鱼池中<strong>{{ fish_batch }}</strong>批次号的鱼进行加工
+                                    </p>
                                     <input type="text" name="pool_num" value="{{ pool_num }}" hidden="hidden"/>
                                     <input type="text" name="fish_batch" value="{{ fish_batch }}" hidden="hidden"/>
-                                </div><hr/>
+                                </div>
+                                <hr/>
                                 <div>
                                     <button type="button" id="process-product" class="btn btn-primary">确&nbsp;认</button>
                                 </div>
                             </form>
-                            </div>
                         </div>
                     </div>
                 </div>
 
+{#                <div class="row justify-content-center">#}
+{#                    <div class="col-lg-8">#}
+{#                        <div class="card">#}
+{#                            <div class="card-body">#}
+{#                                <h3 class="card-title m-t-15">#}
+{#                                    <p>领取<strong>{{ pool_num }}</strong>号鱼池的鱼</p>#}
+{#                                </h3>#}
+{#                                <hr>#}
+{#                                <div class="form-validation">#}
+{#                                    <form class="form-process-product" novalidate="novalidate">#}
+{#                                        {% csrf_token %}#}
+{#                                        <div class="form-group row">#}
+{#                                            <label class="col-lg-4 col-form-label" for="val-radius">领取数量 <span#}
+{#                                                    class="text-danger">*</span></label>#}
+{#                                            <div class="col-lg-6">#}
+{#                                                <input type="text" class="form-control" id="val-fishnum"#}
+{#                                                       name="val-fishnum" min="0"#}
+{#                                                       onkeypress='return( /[\d\\.]/.test(String.fromCharCode(event.keyCode) ) )'#}
+{#                                                       placeholder="领取数量">#}
+{#                                                <input type="text" name="pool_num" value="{{ pool_num }}" hidden="hidden"/>#}
+{#                                                <input type="text" name="fish_batch" value="{{ fish_batch }}" hidden="hidden"/>#}
+{#                                            </div>#}
+{#                                        </div>#}
+{#                                        <div class="form-group row">#}
+{#                                            <div class="col-lg-8 ml-auto">#}
+{#                                                <button id="process-fish-submit" type="button" class="btn btn-primary">#}
+{#                                                    领&nbsp;取#}
+{#                                                </button>#}
+{#                                            </div>#}
+{#                                        </div>#}
+{#                                    </form>#}
+{#                                </div>#}
+{#                            </div>#}
+{#                        </div>#}
+{#                    </div>#}
+{#                </div>#}
+            </div>
                 <!-- End PAge Content -->
             </div>
             <!-- End Container fluid  -->
